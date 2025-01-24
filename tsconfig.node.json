@@ -11,7 +11,7 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "moduleDetection": "force",
+    // "moduleDetection": "force",
     "noEmit": true,
 
     /* Linting */
@@ -20,5 +20,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.*.config.ts", "forge.config.ts"]
+  "include": [
+    "vite.*.config.ts",
+    "forge.config.ts",
+    "vite.renderer.config.mts",
+    "vite.main.config.mts",
+    "vite.preload.config.mts"
+  ]
 }

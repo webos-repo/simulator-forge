@@ -1,56 +1,78 @@
-import { app, BrowserWindow } from "electron";
-import path from "path";
-import started from "electron-squirrel-startup";
+/* eslint-disable global-require */
+// import 'core-js/stable';
+// import 'regenerator-runtime/runtime';
+import "@service/Service";
+import { dbInit } from "@controller/dbController";
+import analytics from "@main/module/analytics";
+import { setSimulInfoToDB } from "./lib/simulatorInfo";
+import { checkVersion } from "./lib/versionChecker";
+import { removeWebOSServiceFile } from "./lib/oldFileRemover";
+import { app, session } from "electron";
+import menuBuilder from "@main/menu";
+import jsServiceController from "@controller/JSServiceController";
+import windowController from "@controller/WindowController";
+import overlayController from "@controller/OverlayController";
+import { getUserAgents } from "./lib/userAgents";
+import { turnOnDevMode } from "@settings/devMode";
+import { tvLocation, tvNetwork } from "@tvSettings/index";
+import "@controller/StateController";
+import "@controller/touchController";
+import "@controller/appController";
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (started) {
-  app.quit();
-}
+// if (isProdBuild) {
+//   const sourceMapSupport = require("source-map-support");
+//   sourceMapSupport.install();
+// } else if (isDevBuild) {
+//   if (process.env.DEBUG_PROD === "true") {
+//     require("electron-debug")();
+//   }
+// }
 
-const createWindow = () => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
+// for iframe access
+app.commandLine.appendSwitch("disable-site-isolation-trials");
+
+dbInit();
+removeWebOSServiceFile();
+
+app.on("window-all-closed", () => {
+  app.exit();
+});
+
+app.on("ready", () => {
+  startSimulator();
+  app.on("activate", () => {
+    if (!windowController.isMainWindowExist()) startSimulator();
   });
+});
 
-  // and load the index.html of the app.
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-  } else {
-    mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
-    );
+const startSimulator = async () => {
+  try {
+    appGlobalSetting();
+    await Promise.allSettled([
+      tvLocation.updateLocationData(),
+      tvNetwork.updateNetworkInfo(),
+    ]);
+
+    if (process.env.NODE_ENV === "development") {
+      turnOnDevMode();
+    }
+    checkVersion();
+    setSimulInfoToDB();
+
+    await windowController.initialize();
+    overlayController.initialize();
+    jsServiceController.initialize();
+
+    menuBuilder.setEventListener();
+    menuBuilder.buildMenu();
+    analytics.init();
+  } catch (e) {
+    console.error("[Failure] The simulator launch is failed.");
+    return;
   }
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  console.info("[Success] The simulator launch is successful.");
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-app.on("activate", () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+const appGlobalSetting = () => {
+  session.defaultSession.setUserAgent(getUserAgents());
+};

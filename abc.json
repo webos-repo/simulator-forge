@@ -1,0 +1,226 @@
+{
+  "name": "webos-tv-24-simulator",
+  "productName": "webOS TV 24 Simulator",
+  "webOSTVVersion": "24",
+  "version": "0.0.1",
+  "branch": "develop",
+  "description": "This is webOS TV simulator.",
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "typescript",
+    "ts",
+    "sass",
+    "webpack",
+    "hot",
+    "reload"
+  ],
+  "homepage": "https://webostv.developer.lge.com",
+  "license": "MIT",
+  "author": {
+    "name": "LG Electronics"
+  },
+  "main": "./src/main/main.ts",
+  "scripts": {
+    "build": "concurrently \"npm run build:main\" \"npm run build:renderer\" \"npm run build:modules\"",
+    "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
+    "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
+    "build:modules": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.modules.prod.ts",
+    "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
+    "lint": "cross-env NODE_ENV=development eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "package": "ts-node ./.erb/scripts/clean.js dist build extra && npm run build && electron-builder build --publish never && ts-node ./.erb/scripts/rename.ts && ts-node ./.erb/scripts/makeToZip.ts",
+    "package:nozip": "ts-node ./.erb/scripts/clean.js dist build extra && npm run build && electron-builder build --publish never",
+    "package:only": "rm -rf ./release/build/* && electron-builder build --publish never && ts-node ./.erb/scripts/rename.ts && ts-node ./.erb/scripts/makeToZip.ts",
+    "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
+    "start:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only .",
+    "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
+    "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
+    "test": "npm run test:main && npm run test:renderer",
+    "test-u": "npm run test:main-u && npm run test:renderer-u",
+    "test:main": "cross-env TEST_TARGET=main jest",
+    "test:main-u": "cross-env TEST_TARGET=main jest -u",
+    "test:renderer": "cross-env TEST_TARGET=renderer jest",
+    "test:renderer-u": "cross-env TEST_TARGET=renderer jest -u",
+    "test:preload": "cross-env TEST_TARGET=preload jest"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["cross-env NODE_ENV=development eslint --cache"],
+    "*.json,.{eslintrc,prettierrc}": [
+      "prettier --ignore-path .eslintignore --parser json --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ],
+    "*.{html,md,yml}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [".prettierrc", ".eslintrc"],
+        "options": {
+          "parser": "json"
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "axios": "^0.28.0",
+    "i18n-iso-countries": "^7.4.0",
+    "lodash": "^4.17.21",
+    "moment-timezone": "^0.5.34",
+    "network": "^0.6.1",
+    "node-machine-id": "^1.1.12",
+    "node-navigator": "^1.0.1",
+    "ramda": "^0.28.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-ga4": "^2.1.0",
+    "react-loader-spinner": "^5.1.5",
+    "react-router-dom": "^6.3.0",
+    "react-select": "^5.3.2",
+    "react-simple-keyboard": "3.4.247",
+    "react-toastify": "^9.0.4",
+    "semver": "^7.3.7",
+    "simple-keyboard-key-navigation": "^2.4.167",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "tz-lookup": "^6.1.25",
+    "uuid": "^9.0.1",
+    "which-country": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron/notarize": "^1.2.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.6",
+    "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@types/archiver": "^5.3.1",
+    "@types/jest": "^27.5.1",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "17.0.33",
+    "@types/ramda": "^0.28.15",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/react-test-renderer": "^18.0.0",
+    "@types/rimraf": "^3.0.2",
+    "@types/terser-webpack-plugin": "^5.0.4",
+    "@types/tz-lookup": "^6.1.0",
+    "@types/uuid": "^9.0.8",
+    "@types/webpack-bundle-analyzer": "^4.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "archiver": "^5.3.1",
+    "chalk": "^4.1.2",
+    "concurrently": "^7.1.0",
+    "core-js": "^3.22.5",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
+    "detect-port": "^1.3.0",
+    "dotenv": "^16.4.4",
+    "electron": "22.3.10",
+    "electron-builder": "^23.0.3",
+    "electron-devtools-installer": "^3.2.0",
+    "electronmon": "^2.0.2",
+    "eslint": "^7",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-erb": "4.0.3",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-import-resolver-webpack": "^0.13.2",
+    "eslint-plugin-compat": "^4.0.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.2.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "lint-staged": "^12.4.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "prettier": "^2.6.2",
+    "react-refresh": "^0.13.0",
+    "react-test-renderer": "^18.1.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "ts-jest": "^28.0.2",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.9.3",
+    "url-loader": "^4.1.1",
+    "wait-for-expect": "^3.0.2",
+    "webpack": "^5.72.1",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-obfuscator": "^3.5.1"
+  },
+  "build": {
+    "productName": "webOS_TV_24_Simulator",
+    "appId": "com.electron.webostv24simulator",
+    "asar": true,
+    "asarUnpack": "**\\*.{node,dll}",
+    "files": ["dist", "node_modules", "package.json"],
+    "afterSign": ".erb/scripts/notarize.js",
+    "mac": {
+      "target": {
+        "target": "dir",
+        "arch": ["arm64", "x64"]
+      },
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": ["portable"]
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Development"
+    },
+    "directories": {
+      "app": "release/app",
+      "buildResources": "assets",
+      "output": "release/build"
+    },
+    "extraResources": ["./assets/**", "./release/extra/**/*"]
+  },
+  "devEngines": {
+    "node": ">=18.x",
+    "npm": ">=8.x"
+  },
+  "electronmon": {
+    "patterns": ["!**/**", "src/main/**/*"],
+    "logLevel": "quiet"
+  }
+}

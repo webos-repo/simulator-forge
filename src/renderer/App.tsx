@@ -1,43 +1,38 @@
-import { useState } from "react";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import GlobalStyles from "./styles/GlobalStyles";
+import AppExitScreen from "./screen/AppExitScreen";
+import AppListScreen from "./screen/AppListScreen";
+import JSServiceScreen from "./screen/JSServiceScreen";
+import MainScreen from "./screen/MainScreen";
+import RCUScreen from "./screen/RCUScreen";
+import TouchRemoteScreen from "./screen/TouchRemoteScreen";
+import TouchScreen from "./screen/TouchScreen";
+import TvSettingScreen from "./screen/TvSettingScreen";
+import VKBScreen from "./screen/VKBScreen";
+import ScreenSaverScreen from "./screen/ScreenSaverScreen";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
-      <div className="flex justify-center space-x-4 mb-8">
-        <a
-          href="https://vite.dev"
-          target="_blank"
-          className="text-blue-600 hover:text-blue-800"
-        >
-          aaa
-        </a>
-        <a
-          href="https://react.dev"
-          target="_blank"
-          className="text-blue-600 hover:text-blue-800"
-        >
-          bbb
-        </a>
-      </div>
-      <h1 className="text-3xl font-bold text-center mb-8">Vite + React</h1>
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-6">
-        <button
-          onClick={() => setCount((count) => count + 1)}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mb-4"
-        >
-          count is {count}
-        </button>
-        <p className="text-gray-600 text-center">
-          Edit <code className="bg-gray-100 px-1 rounded">src/App.tsx</code> and
-          save to test HMR
-        </p>
-      </div>
-      <p className="text-center text-gray-500 mt-8">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <GlobalStyles />
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainScreen />} />
+          <Route path="/rcu" element={<RCUScreen />} />
+          <Route path="/app_list" element={<AppListScreen />} />
+          <Route path="/app_exit" element={<AppExitScreen />} />
+          <Route path="/js_service" element={<JSServiceScreen />} />
+          <Route path="/tv_setting" element={<TvSettingScreen />} />
+          <Route path="/touch" element={<TouchScreen />} />
+          <Route path="/touch_remote" element={<TouchRemoteScreen />} />
+          <Route path="/screen_saver" element={<ScreenSaverScreen />} />
+          <Route
+            path="/keyboard/:inputType/:initOrn"
+            element={<VKBScreen />}
+          />{" "}
+        </Routes>
+      </Router>
+    </>
   );
 }
 

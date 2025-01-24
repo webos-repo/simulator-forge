@@ -21,7 +21,18 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@share/*": ["src/share/*"],
+      "@main/*": ["src/main/*"],
+      "@controller/*": ["src/main/controller/*"],
+      "@window/*": ["src/main/window/*"],
+      "@view/*": ["src/main/view/*"],
+      "@service/*": ["src/main/service/*"],
+      "@settings/*": ["src/main/settings/*"],
+      "@tvSettings/*": ["src/main/tvSettings/*"],
+      "@renderer/*": ["src/renderer/*"],
+      "@testLib/*": ["src/__tests__/lib/*"],
+      "@mocks/*": ["src/__tests__/__mocks__/*"]
     }
   },
   "include": ["src", "forge.env.d.ts"]

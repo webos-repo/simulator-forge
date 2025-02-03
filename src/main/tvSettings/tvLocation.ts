@@ -1,21 +1,19 @@
-/* eslint-disable prefer-const */
+import countryCodeLookup from "country-code-lookup";
+import moment from "moment-timezone";
+import { Navigator } from "node-navigator";
+import tzlookup from "tz-lookup";
+import wc from "which-country";
 
-import countries from 'i18n-iso-countries';
-import moment from 'moment-timezone';
-import { Navigator } from 'node-navigator';
-import tzlookup from 'tz-lookup';
-import wc from 'which-country';
-
-const locale = 'en-US'; // TODO
-const localeRegion = 'US'; // TODO
-let country = 'USA'; // ex) 'KOR', 'USA'
-let timeZone = 'America/New_York'; // ex) 'Asia/Seoul', 'America/New_York'
-let zoneAbbr = 'EST'; // ex) 'KST', 'EST'
+const locale = "en-US"; // TODO
+const localeRegion = "US"; // TODO
+let country = "USA"; // ex) 'KOR', 'USA'
+let timeZone = "America/New_York"; // ex) 'Asia/Seoul', 'America/New_York'
+let zoneAbbr = "EST"; // ex) 'KST', 'EST'
 
 const setDefaultLocation = () => {
-  country = 'USA';
-  timeZone = 'America/New_York';
-  zoneAbbr = 'EST';
+  country = "USA";
+  timeZone = "America/New_York";
+  zoneAbbr = "EST";
 };
 
 class TVLocation {
@@ -29,7 +27,7 @@ class TVLocation {
     return country;
   }
   get countryAlpha2() {
-    return countries.alpha3ToAlpha2(this.country); // 'KR', 'US'
+    return countryCodeLookup.byIso(this.country)?.iso2; // 'KR', 'US'
   }
   get timeZone() {
     return timeZone;

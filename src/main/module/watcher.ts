@@ -1,8 +1,8 @@
-import chokidar from 'chokidar';
-import { emtApp, emtSetting } from './eventEmitters';
-import { IsAutoReloadOn } from '@settings/autoReload';
+import chokidar from "chokidar";
+import { emtApp, emtSetting } from "./eventEmitters";
+import { IsAutoReloadOn } from "@settings/autoReload";
 
-const WatchingEvents = ['add', 'change', 'unlink'];
+const WatchingEvents = ["add", "change", "unlink"];
 let isDuplication = false;
 let isAutoReloadCache = false;
 
@@ -16,13 +16,13 @@ const preventDuplication = () => {
 };
 
 const setWatcherEventHandler = (watcher: chokidar.FSWatcher, appId: string) => {
-  watcher.on('all', (event: string, filePath: string) => {
+  watcher.on("all", (event: string, filePath: string) => {
     if (isAutoReloadCache && WatchingEvents.indexOf(event)) {
       if (preventDuplication()) {
-        if (filePath.endsWith('appinfo.json')) {
-          emtApp.emit('watcher-app-modified-appinfo', appId);
+        if (filePath.endsWith("appinfo.json")) {
+          emtApp.emit("watcher-app-modified-appinfo", appId);
         } else {
-          emtApp.emit('watcher-app-modified', appId);
+          emtApp.emit("watcher-app-modified", appId);
         }
       }
     }
@@ -32,7 +32,7 @@ const setWatcherEventHandler = (watcher: chokidar.FSWatcher, appId: string) => {
 class WatcherManger {
   constructor() {
     isAutoReloadCache = IsAutoReloadOn();
-    emtSetting.on('auto-reload-toggled', (isAutoReload) => {
+    emtSetting.on("auto-reload-toggled", (isAutoReload) => {
       isAutoReloadCache = isAutoReload;
     });
   }

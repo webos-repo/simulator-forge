@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
-import styled from '@emotion/styled';
+import { css } from "@emotion/react";
+import type { SerializedStyles } from "@emotion/react";
+import styled from "@emotion/styled";
 
 type IconRCUProps = {
   iconImage?: any;
@@ -30,7 +30,7 @@ const Icon = styled.div<IconRCUProps>(
       filter: none;
       opacity: 1;
     `}
-  `
+  `,
 );
 
 export default IconRCU;

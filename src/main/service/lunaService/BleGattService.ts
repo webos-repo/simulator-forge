@@ -1,17 +1,17 @@
 /* eslint-disable no-fallthrough */
 
-import { isWebOSVersionGte } from '@main/lib/simulInfo';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import type { LunaAdditionalData } from './index';
-import type { EventEmitter } from 'events';
+import { isWebOSVersionGte } from "@main/lib/simulInfo";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import type { LunaAdditionalData } from "./index";
+import type { EventEmitter } from "events";
 
 const subscriptions: Map<string, { emitter: EventEmitter; keys: string[] }> =
   new Map();
 
 const cancelSubscription = (token: string) => {
   if (subscriptions.has(token)) {
-    subscriptions.get(token)!.emitter.emit('subscribe-return', {
+    subscriptions.get(token)!.emitter.emit("subscribe-return", {
       ret: {},
       isSubscription: false,
     });
@@ -27,10 +27,10 @@ class BleGattService {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('101', 'Invalid JSON format.');
+      return methodError("101", "Invalid JSON format.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -40,46 +40,46 @@ class BleGattService {
     }
 
     switch (category) {
-      case '':
+      case "":
         switch (method) {
-          case 'isEnabled':
+          case "isEnabled":
           // return await this.isEnabled();
-          case 'startScan':
+          case "startScan":
           // return await this.startScan();
-          case 'stopScan':
+          case "stopScan":
           // return await this.stopScan();
-          case 'getState':
+          case "getState":
           // return await this.getState();
-          case 'pair':
+          case "pair":
           // return await this.pair();
-          case 'unpair':
+          case "unpair":
             // return await this.unpair();
-            if (!isWebOSVersionGte('24')) break;
+            if (!isWebOSVersionGte("24")) break;
             return this.retNotSupport();
           default:
         }
         break;
-      case 'client':
+      case "client":
         switch (method) {
-          case 'connect':
+          case "connect":
           // return await this.client_connect();
-          case 'disconnect':
+          case "disconnect":
           // return await this.client_disconnect();
-          case 'getServices':
+          case "getServices":
           // return await this.client_getServices();
-          case 'discoverServices':
+          case "discoverServices":
           // return await this.client_discoverServices();
-          case 'setCharacteristicNotification':
+          case "setCharacteristicNotification":
           // return await this.client_setCharacteristicNotification();
-          case 'readCharacteristic':
+          case "readCharacteristic":
           // return await this.client_readCharacteristic();
-          case 'readDescriptor':
+          case "readDescriptor":
           // return await this.client_readDescriptor();
-          case 'writeCharacteristic':
+          case "writeCharacteristic":
           // return await this.client_writeCharacteristic();
-          case 'writeDescriptor':
+          case "writeDescriptor":
             // return await this.client_writeDescriptor();
-            if (!isWebOSVersionGte('24')) break;
+            if (!isWebOSVersionGte("24")) break;
             return this.retNotSupport();
           default:
         }
@@ -90,7 +90,7 @@ class BleGattService {
   };
 
   retNotSupport = () => {
-    return methodError(-1, 'Not supported API in simulator');
+    return methodError(-1, "Not supported API in simulator");
   };
 
   // isEnabled = async () => {};

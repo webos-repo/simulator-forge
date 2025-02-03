@@ -1,12 +1,12 @@
-import { isWebOSVersionGte } from '@main/lib/simulInfo';
-import { ipcMain } from 'electron';
-import { extractIdFromToken } from '../../lib/pathResolver';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import { emtApp } from '../../module/eventEmitters';
-import type { LunaAdditionalData } from './index';
+import { isWebOSVersionGte } from "@main/lib/simulInfo";
+import { ipcMain } from "electron";
+import { extractIdFromToken } from "../../lib/pathResolver";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import { emtApp } from "../../module/eventEmitters";
+import type { LunaAdditionalData } from "./index";
 
-import type { EventEmitter } from 'events';
+import type { EventEmitter } from "events";
 
 const subscriptions: Map<string, EventEmitter> = new Map();
 const timers: Map<string, NodeJS.Timeout> = new Map();
@@ -50,14 +50,14 @@ const handleMouseMoveData = (_: any, x: number, y: number) => {
 
 const cancelSubscription = (token: string) => {
   if (subscriptions.has(token)) {
-    subscriptions.get(token)!.emit('subscribe-return', {
+    subscriptions.get(token)!.emit("subscribe-return", {
       ret: {},
       isSubscription: false,
     });
     subscriptions.delete(token);
-    emtApp.emit('send-to-app-by-id', {
+    emtApp.emit("send-to-app-by-id", {
       appId: extractIdFromToken(token),
-      channel: 'get-mouse-move-fast-off',
+      channel: "get-mouse-move-fast-off",
     });
   }
   if (timers.has(token)) {
@@ -78,10 +78,10 @@ class MrcuService {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('101', 'Invalid JSON format.');
+      return methodError("101", "Invalid JSON format.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -91,44 +91,44 @@ class MrcuService {
     }
 
     switch (category) {
-      case '':
+      case "":
         switch (method) {
-          case 'enableDualPairing':
+          case "enableDualPairing":
             return await this.enableDualPairing(params);
-          case 'getAPIVersion':
-            if (!isWebOSVersionGte('24')) break;
+          case "getAPIVersion":
+            if (!isWebOSVersionGte("24")) break;
             return await this.getAPIVersion();
           default:
         }
         break;
-      case 'sensor':
+      case "sensor":
         switch (method) {
-          case 'getSensorData':
+          case "getSensorData":
             return await this.sensor_getSensorData(params, emitter, token);
-          case 'resetQuaternion':
+          case "resetQuaternion":
             return await this.sensor_resetQuaternion();
           default:
         }
         break;
-      case 'sensor2':
+      case "sensor2":
         switch (method) {
-          case 'getSensorEventData':
-            if (!isWebOSVersionGte('24')) break;
+          case "getSensorEventData":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_getSensorEventData(params);
-          case 'cancelSensorDataSubscribe':
-            if (!isWebOSVersionGte('24')) break;
+          case "cancelSensorDataSubscribe":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_cancelSensorDataSubscribe();
-          case 'getSensorState':
-            if (!isWebOSVersionGte('24')) break;
+          case "getSensorState":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_getSensorState();
-          case 'getSensorInterval':
-            if (!isWebOSVersionGte('24')) break;
+          case "getSensorInterval":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_getSensorInterval();
-          case 'setSensorInterval':
-            if (!isWebOSVersionGte('24')) break;
+          case "setSensorInterval":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_setSensorInterval(params);
-          case 'resetQuaternion':
-            if (!isWebOSVersionGte('24')) break;
+          case "resetQuaternion":
+            if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_resetQuaternion();
           default:
         }
@@ -142,7 +142,7 @@ class MrcuService {
     const { enable }: { enable: boolean } = JSON.parse(params);
 
     if (!enable) {
-      return methodError(1101, 'Invalid Parameter');
+      return methodError(1101, "Invalid Parameter");
     }
     return {
       returnValue: true,
@@ -152,7 +152,7 @@ class MrcuService {
   sensor_getSensorData = async (
     params: string,
     emitter: EventEmitter,
-    token: string
+    token: string,
   ) => {
     const {
       callbackInterval,
@@ -160,25 +160,25 @@ class MrcuService {
     }: { callbackInterval: number; subscribe: boolean } = JSON.parse(params);
 
     if (!subscribe) {
-      return methodError(1201, 'Not Subscription Message', {
+      return methodError(1201, "Not Subscription Message", {
         subscribed: false,
       });
     }
 
-    ipcMain.removeListener('assistant-mousemove', handleMouseMoveData);
-    ipcMain.on('assistant-mousemove', handleMouseMoveData);
+    ipcMain.removeListener("assistant-mousemove", handleMouseMoveData);
+    ipcMain.on("assistant-mousemove", handleMouseMoveData);
 
     if (!subscriptions.has(token)) {
-      emtApp.emit('send-to-app-by-id', {
+      emtApp.emit("send-to-app-by-id", {
         appId: extractIdFromToken(token),
-        channel: 'get-mouse-move-fast-on',
+        channel: "get-mouse-move-fast-on",
       });
       updateCntMap.set(token, updateCnt);
       const timer = setInterval(() => {
         if (updateCntMap.get(token)! >= updateCnt) return;
 
         updateCntMap.set(token, updateCnt);
-        emitter.emit('subscribe-return', {
+        emitter.emit("subscribe-return", {
           ret: makeSensorData(clientX, clientY),
           isSubscription: true,
         });
@@ -202,13 +202,13 @@ class MrcuService {
   getAPIVersion = async () => {
     return {
       returnValue: true,
-      version: '1.0',
+      version: "1.0",
     };
   };
 
   sensor2_getSensorEventData = async (_params: string) => {
     // const { sensorType, subscribe } = JSON.parse(params);
-    return methodError(1003, 'Magic Remote is not Ready', {
+    return methodError(1003, "Magic Remote is not Ready", {
       subscribed: false,
     });
   };
@@ -241,7 +241,7 @@ class MrcuService {
       interval < this.SENSOR2_SENSOR_MIN_INTERVAL ||
       interval > this.SENSOR2_SENSOR_MAX_INTERVAL
     ) {
-      return methodError(1006, 'Wrong Callback Interval');
+      return methodError(1006, "Wrong Callback Interval");
     }
     this.sensor2_sensorInterval = interval;
     return {
@@ -250,7 +250,7 @@ class MrcuService {
   };
 
   sensor2_resetQuaternion = async () => {
-    return methodError(1003, 'Magic Remote is not Ready');
+    return methodError(1003, "Magic Remote is not Ready");
   };
 }
 

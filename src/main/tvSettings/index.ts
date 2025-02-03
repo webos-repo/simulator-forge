@@ -1,6 +1,6 @@
-import TVInfo from './tvInfo';
-import TVLocation from './tvLocation';
-import TVNetwork from './tvNetwork';
+import TVInfo from "./tvInfo";
+import TVLocation from "./tvLocation";
+import TVNetwork from "./tvNetwork";
 
 const tvInfo = new TVInfo();
 const tvNetwork = new TVNetwork();

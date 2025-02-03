@@ -1,37 +1,37 @@
-import { runningApps } from '@controller/appController/appMemory';
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { constStore } from '@share/store/constStore';
-import type { MouseEventType, TouchEventType } from '@share/structure/events';
-import type { Direction, Orientation2Way } from '@share/structure/orientations';
-import type { Pos } from '@share/structure/positions';
-import { BrowserView, ipcMain } from 'electron';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
+import { runningApps } from "@controller/appController/appMemory";
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { constStore } from "@share/store/constStore";
+import type { MouseEventType, TouchEventType } from "@share/structure/events";
+import type { Direction, Orientation2Way } from "@share/structure/orientations";
+import type { Pos } from "@share/structure/positions";
+import { BrowserView, ipcMain } from "electron";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
 import {
   emtApp,
   emtDev,
   emtSetting,
   emtView,
   emtWindow,
-} from '../module/eventEmitters';
-import overlayController from '@controller/OverlayController';
-import { ipcHandler } from '@share/lib/utils';
-import type { AppInfoJson } from '@share/structure/appInfo';
+} from "../module/eventEmitters";
+import overlayController from "@controller/OverlayController";
+import { ipcHandler } from "@share/lib/utils";
+import type { AppInfoJson } from "@share/structure/appInfo";
 
 type MatchedMouseType = Extract<
-  MouseEventType['type'],
-  'mousedown' | 'mouseup' | 'mousemove'
+  MouseEventType["type"],
+  "mousedown" | "mouseup" | "mousemove"
 >;
 
-type VirtualTouch = NonNullable<AppInfoJson['virtualTouch']>;
-type SupportTouchMode = NonNullable<AppInfoJson['supportTouchMode']>;
+type VirtualTouch = NonNullable<AppInfoJson["virtualTouch"]>;
+type SupportTouchMode = NonNullable<AppInfoJson["supportTouchMode"]>;
 
 const MouseToTouch: {
-  [key in MatchedMouseType]: TouchEventType['type'];
+  [key in MatchedMouseType]: TouchEventType["type"];
 } = {
-  mousedown: 'touchstart',
-  mouseup: 'touchend',
-  mousemove: 'touchmove',
+  mousedown: "touchstart",
+  mouseup: "touchend",
+  mousemove: "touchmove",
 };
 const DefaultVirtualTouch: Required<VirtualTouch> = {
   verticalThreshold: 40,
@@ -45,7 +45,7 @@ const FullWheelThreshold = 30;
 
 const calcMouseEventWithZoomFactor = (
   mouseEvent: MouseEventType,
-  zoomFactor: number
+  zoomFactor: number,
 ): MouseEventType => {
   const { x, y, movementX, movementY } = mouseEvent;
   return {
@@ -71,7 +71,7 @@ const reqInvokeMouseEvent = (mouseEvent: MouseEventType | MouseEventType[]) => {
 };
 
 const convertMouseToTouch = (
-  mouseEvent: MouseEventType
+  mouseEvent: MouseEventType,
 ): TouchEventType | undefined => {
   if (!Object.keys(MouseToTouch).includes(mouseEvent.type)) return undefined;
   return {
@@ -86,7 +86,7 @@ const convertWithinRange = (cur: number, min: number, max: number) =>
 const checkOverThreshold = (
   p1: MouseEventType,
   p2: MouseEventType,
-  threshold: number
+  threshold: number,
 ) => calcPointerDist(p1.x, p1.y, p2.x, p2.y) > threshold ** 2;
 
 const calcPointerDist = (x1: number, y1: number, x2: number, y2: number) =>
@@ -103,14 +103,14 @@ const checkWhichOverThreshold = ({
   thresholdX: number;
   thresholdY: number;
 }) => {
-  if (Math.abs(p1.x - p2.x) > thresholdX) return 'x';
-  if (Math.abs(p1.y - p2.y) > thresholdY) return 'y';
+  if (Math.abs(p1.x - p2.x) > thresholdX) return "x";
+  if (Math.abs(p1.y - p2.y) > thresholdY) return "y";
   return null;
 };
 
 class TouchView extends BrowserView {
-  name = 'TouchView';
-  private supportTouchMode: SupportTouchMode = 'none';
+  name = "TouchView";
+  private supportTouchMode: SupportTouchMode = "none";
   private virtualTouch: Required<VirtualTouch> = DefaultVirtualTouch;
   private fullDownTime = 0;
   private isPseudoSwiping = false;
@@ -142,7 +142,7 @@ class TouchView extends BrowserView {
         nodeIntegration: true,
       },
     });
-    this.webContents.loadURL(resolveHtmlPath('index.html', 'touch'));
+    this.webContents.loadURL(resolveHtmlPath("index.html", "touch"));
     this.calcXYByOrn(windowSetting.orn2Way);
     this.preventWhiteScreen();
     this.setEventHandler();
@@ -150,22 +150,22 @@ class TouchView extends BrowserView {
 
   private setEventHandler = () => {
     ipcMain
-      .on('touch-screen-mouse-event', ipcHandler(this.handleTouchScreenEvent))
-      .on('touch-screen-mouse-leave-event', () => {
+      .on("touch-screen-mouse-event", ipcHandler(this.handleTouchScreenEvent))
+      .on("touch-screen-mouse-leave-event", () => {
         this.isByLeave = true;
       })
-      .on('req-edge-data', this.sendEdgeData);
+      .on("req-edge-data", this.sendEdgeData);
 
-    emtApp.on('fg-app-changed', () => {});
+    emtApp.on("fg-app-changed", () => {});
 
-    emtWindow.on('main-window-orientation-changed', this.changeOrientation);
+    emtWindow.on("main-window-orientation-changed", this.changeOrientation);
 
-    emtSetting.on('change-zoomFactor', () => {
+    emtSetting.on("change-zoomFactor", () => {
       this.webContents.zoomFactor = windowSetting.zoom;
     });
 
-    emtDev.on('open-devtools-touch', () =>
-      this.webContents.openDevTools({ mode: 'detach' })
+    emtDev.on("open-devtools-touch", () =>
+      this.webContents.openDevTools({ mode: "detach" }),
     );
   };
 
@@ -173,14 +173,14 @@ class TouchView extends BrowserView {
     const callback = (view: any) => {
       if (view !== this) return;
       this.removeCallbackHandler = setTimeout(() => {
-        emtWindow.emit('remove-view', this);
+        emtWindow.emit("remove-view", this);
         this.removeCallbackHandler = undefined;
       }, 1000);
-      emtView.removeListener('view-added', callback);
+      emtView.removeListener("view-added", callback);
     };
-    emtView.on('view-added', callback);
+    emtView.on("view-added", callback);
     setTimeout(() => {
-      emtWindow.emit('add-view', this);
+      emtWindow.emit("add-view", this);
       this.resetSize(2, 1);
     }, 500);
   };
@@ -195,7 +195,7 @@ class TouchView extends BrowserView {
 
   private resetSize = (
     width = windowSetting.size.width,
-    height = windowSetting.size.height
+    height = windowSetting.size.height,
   ) => {
     this.setAutoResize({ width: true, height: true });
     this.setBounds({
@@ -214,9 +214,9 @@ class TouchView extends BrowserView {
 
   private calcXYByOrn = (orn: Orientation2Way) => {
     const { width, height } = windowSetting.baseSize;
-    this.edgeMinX = orn === 'landscape' ? 30 : 20;
+    this.edgeMinX = orn === "landscape" ? 30 : 20;
     this.edgeMaxX = width - this.edgeMinX;
-    this.edgeMinY = orn === 'landscape' ? 20 : 30;
+    this.edgeMinY = orn === "landscape" ? 20 : 30;
     this.edgeMaxY = height - this.edgeMinY;
     this.halfX = width / 2;
     this.halfY = height / 2;
@@ -225,7 +225,7 @@ class TouchView extends BrowserView {
   private readTouchOption = () => {
     if (!runningApps.fgApp) return;
     const { supportTouchMode, virtualTouch } = runningApps.fgApp.appInfo;
-    this.supportTouchMode = supportTouchMode || 'none';
+    this.supportTouchMode = supportTouchMode || "none";
     this.setVirtualTouch(virtualTouch);
   };
 
@@ -250,11 +250,11 @@ class TouchView extends BrowserView {
   private handleTouchScreenEvent = (
     mouseEvent: MouseEventType,
     timeStamp: number,
-    passEdge = false
+    passEdge = false,
   ) => {
     if (!runningApps.fgApp) return;
     if (this.preventEvent) {
-      if (mouseEvent.type === 'mouseup') {
+      if (mouseEvent.type === "mouseup") {
         this.preventEvent = false;
         if (!this.isByLeave) {
           overlayController.hideTopOverlay();
@@ -268,12 +268,12 @@ class TouchView extends BrowserView {
       return;
     }
 
-    if (mouseEvent.type === 'mousedown' && overlayController.isAnyShowing()) {
+    if (mouseEvent.type === "mousedown" && overlayController.isAnyShowing()) {
       this.preventEvent = true;
       return;
     }
 
-    if (mouseEvent.type === 'mouseup') {
+    if (mouseEvent.type === "mouseup") {
       this.isByLeave = false;
     }
 
@@ -286,21 +286,21 @@ class TouchView extends BrowserView {
 
   private checkEdgeSwipe = (
     mouseEvent: MouseEventType,
-    timeStamp: number
+    timeStamp: number,
   ): boolean => {
     const { type } = mouseEvent;
-    if (type === 'mousedown') return this.edgeSwipeDown(mouseEvent);
-    if (type === 'mousemove') return this.edgeSwipeMove(mouseEvent);
-    if (type === 'mouseup') return this.edgeSwipeUp(mouseEvent, timeStamp);
+    if (type === "mousedown") return this.edgeSwipeDown(mouseEvent);
+    if (type === "mousemove") return this.edgeSwipeMove(mouseEvent);
+    if (type === "mouseup") return this.edgeSwipeUp(mouseEvent, timeStamp);
     throw new Error(`Can not handle ${type} type event`);
   };
 
   private edgeSwipeDown = (mouseEvent: MouseEventType) => {
     const { x, y } = mouseEvent;
-    if (x <= this.edgeMinX) this.edgeDirection.push('Left');
-    else if (x >= this.edgeMaxX) this.edgeDirection.push('Right');
-    if (y <= this.edgeMinY) this.edgeDirection.push('Up');
-    else if (y >= this.edgeMaxY) this.edgeDirection.push('Down');
+    if (x <= this.edgeMinX) this.edgeDirection.push("Left");
+    else if (x >= this.edgeMaxX) this.edgeDirection.push("Right");
+    if (y <= this.edgeMinY) this.edgeDirection.push("Up");
+    else if (y >= this.edgeMaxY) this.edgeDirection.push("Down");
 
     if (this.edgeDirection.length) {
       this.edgeDownBackup = mouseEvent;
@@ -319,12 +319,12 @@ class TouchView extends BrowserView {
     let direction: Direction | undefined;
 
     this.edgeDirection.some((dir: Direction) => {
-      if (dir === 'Left') isEdgeSwipe = bx < x && x - bx > EdgeSwipeThreshold;
-      else if (dir === 'Right')
+      if (dir === "Left") isEdgeSwipe = bx < x && x - bx > EdgeSwipeThreshold;
+      else if (dir === "Right")
         isEdgeSwipe = x < bx && bx - x > EdgeSwipeThreshold;
-      else if (dir === 'Up')
+      else if (dir === "Up")
         isEdgeSwipe = by < y && y - by > EdgeSwipeThreshold;
-      else if (dir === 'Down')
+      else if (dir === "Down")
         isEdgeSwipe = y < by && by - y > EdgeSwipeThreshold;
 
       if (isEdgeSwipe) {
@@ -362,20 +362,20 @@ class TouchView extends BrowserView {
 
   private invokeEdgeSwipe = (
     direction: Direction,
-    position: { x: number; y: number }
+    position: { x: number; y: number },
   ) => {
     switch (direction) {
-      case 'Left':
-        emtApp.emit('rcu-back');
+      case "Left":
+        emtApp.emit("rcu-back");
         break;
-      case 'Right':
+      case "Right":
         overlayController.showTouchRemote(position);
         break;
-      case 'Up':
+      case "Up":
         // show volume control panel
         break;
-      case 'Down':
-        emtApp.emit('call-home');
+      case "Down":
+        emtApp.emit("call-home");
         break;
       default:
     }
@@ -383,11 +383,11 @@ class TouchView extends BrowserView {
 
   private getTouchHandler = (supportTouchMode: SupportTouchMode) => {
     switch (supportTouchMode) {
-      case 'full':
+      case "full":
         return this.fullTouch;
-      case 'virtual':
+      case "virtual":
         return this.pseudoTouch;
-      case 'none':
+      case "none":
         return this.noneTouch;
       default:
         return undefined;
@@ -399,19 +399,19 @@ class TouchView extends BrowserView {
 
     const mouseEventCalc = calcMouseEventWithZoomFactor(
       mouseEvent,
-      runningApps.fgApp.webContents.zoomFactor / this.webContents.zoomFactor
+      runningApps.fgApp.webContents.zoomFactor / this.webContents.zoomFactor,
     );
 
     const { type: mouseType } = mouseEventCalc;
     let isShortHold = false;
 
     switch (mouseType) {
-      case 'mousedown':
+      case "mousedown":
         this.fullDownTime = timeStamp;
         this.fullDownPos = { x: mouseEvent.x, y: mouseEvent.y };
         this.fullWheelDirFactor = undefined;
         break;
-      case 'mouseup':
+      case "mouseup":
         this.fullDownPos = undefined;
         this.isFullWheeling = false;
         if (checkPressHoldThreshold(this.fullDownTime, timeStamp)) {
@@ -419,10 +419,10 @@ class TouchView extends BrowserView {
           isShortHold = true;
         }
         break;
-      case 'mousemove':
+      case "mousemove":
         this.invokeWheel(mouseEvent);
         break;
-      case 'click':
+      case "click":
         return;
       default:
     }
@@ -430,7 +430,7 @@ class TouchView extends BrowserView {
     runningApps.fgApp.hideCursor();
     runningApps.fgApp.invokeEventsByTouch(
       convertMouseToTouch(mouseEventCalc)!,
-      isShortHold
+      isShortHold,
     );
   };
 
@@ -447,11 +447,11 @@ class TouchView extends BrowserView {
 
       this.isFullWheeling = true;
       this.fullWheelDirFactor = {
-        x: whichOver === 'x',
-        y: whichOver === 'y',
+        x: whichOver === "x",
+        y: whichOver === "y",
       };
     }
-    emtApp.emit('invoke-wheel', {
+    emtApp.emit("invoke-wheel", {
       ...this.fullDownPos,
       movementX: this.fullWheelDirFactor?.x ? mouseMoveEvent.movementX : 0,
       movementY: this.fullWheelDirFactor?.y ? mouseMoveEvent.movementY : 0,
@@ -464,15 +464,15 @@ class TouchView extends BrowserView {
     const { type: mouseType } = mouseEvent;
 
     switch (mouseType) {
-      case 'mousedown':
+      case "mousedown":
         this.pseudoTouchStart(mouseEvent);
         break;
 
-      case 'mouseup':
+      case "mouseup":
         this.pseudoTouchEnd(mouseEvent);
         break;
 
-      case 'mousemove':
+      case "mousemove":
         this.pseudoTouchMove(mouseEvent);
         break;
 
@@ -501,8 +501,8 @@ class TouchView extends BrowserView {
 
     if (!runningApps.fgApp) return;
     const mouseClickEvent = calcMouseEventWithZoomFactor(
-      { ...mouseEvent, type: 'click' },
-      runningApps.fgApp.webContents.zoomFactor
+      { ...mouseEvent, type: "click" },
+      runningApps.fgApp.webContents.zoomFactor,
     );
 
     if (!this.pseudoHoldTimer || !this.pseudoDownBackup) {
@@ -515,7 +515,7 @@ class TouchView extends BrowserView {
       checkOverThreshold(
         this.pseudoDownBackup,
         mouseEvent,
-        this.virtualTouch.shortTouchThreshold
+        this.virtualTouch.shortTouchThreshold,
       )
     ) {
       return;
@@ -570,7 +570,7 @@ class TouchView extends BrowserView {
     const direction = this.findSwipeDirection(bx, by, dx, dy);
     if (!direction) return;
 
-    if (direction === 'Left' || direction === 'Right') this.swipeBeforeX = x;
+    if (direction === "Left" || direction === "Right") this.swipeBeforeX = x;
     else this.swipeBeforeY = y;
 
     runningApps.fgApp?.sendSwipeEvent(direction);
@@ -580,17 +580,17 @@ class TouchView extends BrowserView {
     bx: number,
     by: number,
     dx: number,
-    dy: number
+    dy: number,
   ): Direction | undefined => {
     const [absX, absY] = [Math.abs(dx), Math.abs(dy)];
     const { horizontalThreshold, verticalThreshold } = this.virtualTouch;
 
     if (bx > by) {
-      if (absX > horizontalThreshold) return dx > 0 ? 'Left' : 'Right';
-      if (absY > verticalThreshold) return dy > 0 ? 'Up' : 'Down';
+      if (absX > horizontalThreshold) return dx > 0 ? "Left" : "Right";
+      if (absY > verticalThreshold) return dy > 0 ? "Up" : "Down";
     } else {
-      if (absY > verticalThreshold) return dy > 0 ? 'Up' : 'Down';
-      if (absX > horizontalThreshold) return dx > 0 ? 'Left' : 'Right';
+      if (absY > verticalThreshold) return dy > 0 ? "Up" : "Down";
+      if (absX > horizontalThreshold) return dx > 0 ? "Left" : "Right";
     }
     return undefined;
   };
@@ -602,13 +602,13 @@ class TouchView extends BrowserView {
   };
 
   private noneTouch = (mouseEvent: MouseEventType, _timeStamp: number) => {
-    if (!runningApps.fgApp || mouseEvent.type !== 'mouseup') return;
+    if (!runningApps.fgApp || mouseEvent.type !== "mouseup") return;
     const { x, y } = mouseEvent;
     overlayController.showTouchRemote({ x, y });
   };
 
   private sendEdgeData = () => {
-    this.webContents.send('edge-data', {
+    this.webContents.send("edge-data", {
       minX: this.edgeMinX,
       maxX: this.edgeMaxX,
       minY: this.edgeMinY,

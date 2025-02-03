@@ -1,9 +1,9 @@
-import type { WebOSSystemConf } from '@main/lib/WebOSSystemConfigs';
-import type { AppInfo } from './appInfo';
-import type { Orientation } from './orientations';
+import type { WebOSSystemConf } from "@main/lib/WebOSSystemConfigs";
+import type { AppInfo } from "./appInfo";
+import type { Orientation } from "./orientations";
 
 type WebOSEnv = {
-  appInfo: Required<Pick<AppInfo, 'id' | 'resolution' | 'appPath'>>;
+  appInfo: Required<Pick<AppInfo, "id" | "resolution" | "appPath">>;
   webOSSystemConf: WebOSSystemConf;
   settingsConf: SettingsConf;
   launchEnv: LaunchEnv;

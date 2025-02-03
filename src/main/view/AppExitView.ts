@@ -1,11 +1,11 @@
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { constStore } from '@share/store/constStore';
-import type { Orientation2Way } from '@share/structure/orientations';
-import _ from 'lodash';
-import OverlayView from '@view/OverlayView';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import { emtSetting, emtWindow } from '../module/eventEmitters';
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { constStore } from "@share/store/constStore";
+import type { Orientation2Way } from "@share/structure/orientations";
+import _ from "lodash";
+import OverlayView from "@view/OverlayView";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import { emtSetting, emtWindow } from "../module/eventEmitters";
 
 const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
   landscape: { x: 280, y: 480, width: 700, height: 128 },
@@ -13,7 +13,7 @@ const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
 };
 
 class AppExitView extends OverlayView {
-  name = 'AppExitView';
+  name = "AppExitView";
   isShowing = false;
 
   constructor() {
@@ -24,11 +24,11 @@ class AppExitView extends OverlayView {
         nodeIntegration: true,
       },
     });
-    this.webContents.loadURL(resolveHtmlPath('index.html', 'app_exit'));
+    this.webContents.loadURL(resolveHtmlPath("index.html", "app_exit"));
 
-    emtWindow.on('main-window-orientation-changed', this.changeOrientation);
+    emtWindow.on("main-window-orientation-changed", this.changeOrientation);
 
-    emtSetting.on('change-zoomFactor', this.handleChangeZoom);
+    emtSetting.on("change-zoomFactor", this.handleChangeZoom);
   }
 
   show = () => {
@@ -41,14 +41,14 @@ class AppExitView extends OverlayView {
 
   hide = () => {
     this.isShowing = false;
-    this.webContents.send('be-hidden');
+    this.webContents.send("be-hidden");
   };
 
   changeOrientation = (orn: Orientation2Way) => {
     if (this.isShowing) {
       this.show();
     }
-    this.webContents.send('window-orientation-changed', orn);
+    this.webContents.send("window-orientation-changed", orn);
   };
 
   private handleChangeZoom = () => {
@@ -68,7 +68,7 @@ class AppExitView extends OverlayView {
   private calcBounds = () => {
     return _.mapValues(
       this.getAppExitBounds(windowSetting.orn2Way),
-      (v) => v * windowSetting.zoom
+      (v) => v * windowSetting.zoom,
     );
   };
 }

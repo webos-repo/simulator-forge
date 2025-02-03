@@ -1,6 +1,6 @@
-import { BrowserWindow } from 'electron';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
+import { BrowserWindow } from "electron";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
 
 class TvSettingWindow extends BrowserWindow {
   constructor() {
@@ -10,7 +10,7 @@ class TvSettingWindow extends BrowserWindow {
       width: 800, // TODO: set a proper width
       height: 600, // TODO: set a proper height
       useContentSize: true,
-      title: 'TV Settings',
+      title: "TV Settings",
       modal: true,
       show: false,
       resizable: false,
@@ -21,7 +21,7 @@ class TvSettingWindow extends BrowserWindow {
         contextIsolation: false,
       },
     });
-    this.initialize(resolveHtmlPath('index.html', 'tv_setting'));
+    this.initialize(resolveHtmlPath("index.html", "tv_setting"));
     this.setEventHandler();
     this.setMenuBarVisibility(false);
   }
@@ -32,11 +32,11 @@ class TvSettingWindow extends BrowserWindow {
 
   setEventHandler = () => {
     // file deepcode ignore AttrAccessOnNull: <please specify a reason of ignoring this>
-    this.on('close', this.justHide);
+    this.on("close", this.justHide);
   };
 
   terminate = () => {
-    this.removeListener('close', this.justHide);
+    this.removeListener("close", this.justHide);
     this.close();
   };
 

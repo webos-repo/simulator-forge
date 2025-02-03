@@ -1,11 +1,11 @@
-import styled from '@emotion/styled';
-import type { AppInfoWithState } from '@share/structure/appInfo';
-import { ipcRenderer } from 'electron';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ipcHandler } from '@share/lib/utils';
-import { arrangeCenterByFlex } from '../../styles/partials';
-import AppIcon from './AppIcon';
-import ArrowBox from './ArrowBox';
+import styled from "@emotion/styled";
+import type { AppInfoWithState } from "@share/structure/appInfo";
+import { ipcRenderer } from "electron";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ipcHandler } from "@share/lib/utils";
+import { arrangeCenterByFlex } from "../../styles/partials";
+import AppIcon from "./AppIcon";
+import ArrowBox from "./ArrowBox";
 
 function AppBar() {
   const [appInfos, setAppInfos] = useState<AppInfoWithState[]>([]);
@@ -19,14 +19,14 @@ function AppBar() {
     setShowLeft(appBarRef.current.scrollLeft > 0);
     setShowRight(
       appBarRef.current.scrollWidth >
-        appBarRef.current.clientWidth + appBarRef.current.scrollLeft
+        appBarRef.current.clientWidth + appBarRef.current.scrollLeft,
     );
   }, [setShowLeft, setShowRight]);
 
   const scrollHorizontal = (
     deltaX: number,
     deltaY: number,
-    fromButton = false
+    fromButton = false,
   ) => {
     if (!appBarRef || !appBarRef.current) return;
 
@@ -36,20 +36,20 @@ function AppBar() {
     appBarRef.current.scrollLeft += fromButton
       ? delta
       : delta < -movementX
-      ? -movementX
-      : delta > movementX
-      ? movementX
-      : delta;
+        ? -movementX
+        : delta > movementX
+          ? movementX
+          : delta;
     checkShow();
   };
 
   useEffect(() => {
     ipcRenderer.on(
-      'app-list-updated',
+      "app-list-updated",
       ipcHandler((data: string) => {
         setAppInfos(JSON.parse(data));
         checkShow();
-      })
+      }),
     );
   }, [checkShow]);
 

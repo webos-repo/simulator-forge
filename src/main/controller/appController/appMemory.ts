@@ -1,11 +1,11 @@
 /* 앱에 대한 여러 데이터 관리 */
-import type { AppInfo, AppInfoWithState } from '@share/structure/appInfo';
-import type AppView from '@view/AppView';
-import { emtApp } from '../../module/eventEmitters';
-import { makeDB } from '../dbController';
+import type { AppInfo, AppInfoWithState } from "@share/structure/appInfo";
+import type AppView from "@view/AppView";
+import { emtApp } from "../../module/eventEmitters";
+import { makeDB } from "../dbController";
 
-const dbAppEntriesKey = 'appEntries';
-const db = makeDB('internal');
+const dbAppEntriesKey = "appEntries";
+const db = makeDB("internal");
 
 class RunningApps {
   private appViews: AppView[] = [];
@@ -75,7 +75,7 @@ class AppInfos {
   removeByPath = (appPath: string, update = true) => {
     if (!appInfos.findByPath(appPath)) return;
     this.appInfos = this.appInfos.filter(
-      (appinfo) => appinfo.appPath !== appPath
+      (appinfo) => appinfo.appPath !== appPath,
     );
     if (update) this.update();
   };
@@ -102,7 +102,7 @@ class AppInfos {
   saveToDB = () => {
     db.set(
       dbAppEntriesKey,
-      this.appInfos.map((appInfo) => appInfo.appPath)
+      this.appInfos.map((appInfo) => appInfo.appPath),
     );
   };
 
@@ -112,11 +112,11 @@ class AppInfos {
         const target = runningApps.findByPath(appInfo.appPath);
         return {
           ...appInfo,
-          appState: target ? target.state : 'notLaunched',
+          appState: target ? target.state : "notLaunched",
         };
-      }
+      },
     );
-    emtApp.emit('app-list-updated', JSON.stringify(appInfoWithStateList));
+    emtApp.emit("app-list-updated", JSON.stringify(appInfoWithStateList));
   };
 }
 

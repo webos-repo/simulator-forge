@@ -1,55 +1,55 @@
-import { ipcRenderer, webFrame } from 'electron';
-import { ipcHandler } from '@share/lib/utils';
-import _ from 'lodash';
-import { webOSEnv } from '../lib/appEnv';
+import { ipcRenderer, webFrame } from "electron";
+import { ipcHandler } from "@share/lib/utils";
+import _ from "lodash";
+import { webOSEnv } from "../lib/appEnv";
 import {
   checkElementNeedVKB,
   convertInputToKeyboardType,
   NotPreventKeys,
-} from '../lib/keyHelper';
-import appState from './appState';
+} from "../lib/keyHelper";
+import appState from "./appState";
 import {
   handlePauseEvent,
   handlePlayEvent,
   pauseMediaWhenBg,
   resumeMediaWhenFg,
-} from './mediaController';
+} from "./mediaController";
 
 const insertedCSS: { [key: string]: string } = {};
 let mouseMoveHandler: any;
 
 export function setIpcListener() {
   ipcRenderer
-    .on('go-foreground', handleGoFg)
-    .on('go-background', handleGoBg)
-    .on('vkb-state-changed', ipcHandler(handleKbdStateChanged))
-    .on('touch-mode-toggled', ipcHandler(handleTouchModeChanged))
-    .on('get-mouse-move-fast-on', turnOnGetSensorData)
-    .on('get-mouse-move-fast-off', turnOffGetSensorData)
-    .on('overlay-appear', checkAppClick)
-    .on('clear-input', clearInput)
-    .on('insert-css', ipcHandler(handleInsertCSS))
-    .on('remove-css', ipcHandler(handleRemoveCSS))
-    .on('find-video-rect', findVideoRect);
+    .on("go-foreground", handleGoFg)
+    .on("go-background", handleGoBg)
+    .on("vkb-state-changed", ipcHandler(handleKbdStateChanged))
+    .on("touch-mode-toggled", ipcHandler(handleTouchModeChanged))
+    .on("get-mouse-move-fast-on", turnOnGetSensorData)
+    .on("get-mouse-move-fast-off", turnOffGetSensorData)
+    .on("overlay-appear", checkAppClick)
+    .on("clear-input", clearInput)
+    .on("insert-css", ipcHandler(handleInsertCSS))
+    .on("remove-css", ipcHandler(handleRemoveCSS))
+    .on("find-video-rect", findVideoRect);
 
   setMouseMoveListener();
 }
 
 export function setWindowListener() {
   const listenerArgs: [string, any, any?][] = [
-    ['focus', handleFocus, true],
-    ['blur', handleBlur, true],
-    ['mouseenter', handleMouseEnter, true],
-    ['mouseleave', handleMouseLeave, true],
-    ['mousedown', handleMouse, true],
-    ['mouseup', handleMouse, true],
-    ['mousemove', handleMouse, true],
-    ['wheel', handleTouchEvent],
-    ['keydown', handleKeyEvent, true],
-    ['keyup', handleKeyEvent, true],
-    ['keypress', handleKeyEvent, true],
-    ['play', handlePlayEvent, true],
-    ['pause', handlePauseEvent, true],
+    ["focus", handleFocus, true],
+    ["blur", handleBlur, true],
+    ["mouseenter", handleMouseEnter, true],
+    ["mouseleave", handleMouseLeave, true],
+    ["mousedown", handleMouse, true],
+    ["mouseup", handleMouse, true],
+    ["mousemove", handleMouse, true],
+    ["wheel", handleTouchEvent],
+    ["keydown", handleKeyEvent, true],
+    ["keyup", handleKeyEvent, true],
+    ["keypress", handleKeyEvent, true],
+    ["play", handlePlayEvent, true],
+    ["pause", handlePauseEvent, true],
   ];
   listenerArgs.forEach((data) => {
     window.addEventListener(...data);
@@ -60,8 +60,8 @@ export function getExposeApi() {
   return {
     windowOpen: (...args: any[]) => {
       const [url, target] = args;
-      if (url === 'about:blank' && target === '_self') {
-        ipcRenderer.send('blank-opened');
+      if (url === "about:blank" && target === "_self") {
+        ipcRenderer.send("blank-opened");
         return true;
       }
       return false;
@@ -80,11 +80,11 @@ function handleGoBg() {
 }
 
 function handleMouseEnter() {
-  ipcRenderer.send('main-window-mouseenter');
+  ipcRenderer.send("main-window-mouseenter");
 }
 
 function handleMouseLeave() {
-  ipcRenderer.send('assistant-mouseleave');
+  ipcRenderer.send("assistant-mouseleave");
 }
 
 function handleKeyboardHidden() {
@@ -121,13 +121,13 @@ function handleKeyEvent(e: any) {
 }
 
 function preventCursorHide() {
-  ipcRenderer.send('prevent-cursor-hide', {
+  ipcRenderer.send("prevent-cursor-hide", {
     appPath: webOSEnv.appInfo.appPath,
   });
 }
 
 function preventScreenSaver() {
-  ipcRenderer.send('prevent-screen-saver-from-assistant', {
+  ipcRenderer.send("prevent-screen-saver-from-assistant", {
     appPath: webOSEnv.appInfo.appPath,
   });
 }
@@ -145,7 +145,7 @@ async function handleFocus(e: FocusEvent) {
     appState.preInputElms.push(appState.curInputElm);
   }
   appState.curInputElm = target;
-  ipcRenderer.send('input-focused', target.type);
+  ipcRenderer.send("input-focused", target.type);
 }
 
 async function handleBlur(e: FocusEvent) {
@@ -153,15 +153,15 @@ async function handleBlur(e: FocusEvent) {
     return;
   }
   const target = e.target as HTMLInputElement;
-  const isAppFocused = await ipcRenderer.invoke('is-app-focused');
+  const isAppFocused = await ipcRenderer.invoke("is-app-focused");
   if (isAppFocused) {
     if (appState.curInputElm === target) {
-      ipcRenderer.send('input-blurred', target.type);
+      ipcRenderer.send("input-blurred", target.type);
       appState.curInputElm = null;
       appState.preInputElms = [];
     } else if (appState.preInputElms.includes(target)) {
       appState.preInputElms = appState.preInputElms.filter(
-        (elm) => elm !== target
+        (elm) => elm !== target,
       );
     }
   }
@@ -180,21 +180,21 @@ function handleRemoveCSS(css: string) {
 
 function setMouseMoveListener() {
   if (mouseMoveHandler) {
-    window.removeEventListener('mousemove', mouseMoveHandler, true);
+    window.removeEventListener("mousemove", mouseMoveHandler, true);
   }
   mouseMoveHandler = _.throttle(
     (e: MouseEvent) => {
-      ipcRenderer.send('assistant-mousemove', e.clientX, e.clientY);
+      ipcRenderer.send("assistant-mousemove", e.clientX, e.clientY);
     },
-    appState.getMouseMoveDataFast ? 50 : 500
+    appState.getMouseMoveDataFast ? 50 : 500,
   );
-  window.addEventListener('mousemove', mouseMoveHandler, true);
+  window.addEventListener("mousemove", mouseMoveHandler, true);
 }
 
 function clearInput() {
   if (appState.curInputElm) {
-    appState.curInputElm.value = '';
-    appState.curInputElm.dispatchEvent(new Event('input'));
+    appState.curInputElm.value = "";
+    appState.curInputElm.dispatchEvent(new Event("input"));
   }
 }
 
@@ -217,7 +217,7 @@ function turnOffGetSensorData() {
 
 function checkAppClick() {
   window.addEventListener(
-    'mousedown',
+    "mousedown",
     (e) => {
       if (
         e.target &&
@@ -228,9 +228,9 @@ function checkAppClick() {
       ) {
         return;
       }
-      ipcRenderer.send('app-view-clicked');
+      ipcRenderer.send("app-view-clicked");
     },
-    { once: true, capture: true }
+    { once: true, capture: true },
   );
 }
 
@@ -241,12 +241,12 @@ function preventKeyEvent(e: any) {
 }
 
 function findVideoRect() {
-  const videoTags = document.getElementsByTagName('video');
+  const videoTags = document.getElementsByTagName("video");
 
   Array.from(videoTags).some((video) => {
     if (video.paused) return false;
     const { left, top, width, height } = video.getBoundingClientRect();
-    ipcRenderer.send('find-video-rect-res', webOSEnv.appInfo.appPath, {
+    ipcRenderer.send("find-video-rect-res", webOSEnv.appInfo.appPath, {
       x: left,
       y: top,
       width,

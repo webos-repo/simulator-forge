@@ -1,4 +1,4 @@
-import { tvInfo, tvLocation } from '@tvSettings/index';
+import { tvInfo, tvLocation } from "@tvSettings/index";
 
 type WebOSSystemConf = {
   deviceInfo: string;
@@ -16,7 +16,7 @@ class WebOSSystemConfigs {
       screenHeight,
     } = tvInfo.deviceInfo;
     const [platformVersionMajor, platformVersionMinor, platformVersionDot] =
-      firmwareVersion.split('.').map((n) => +n);
+      firmwareVersion.split(".").map((n) => +n);
 
     return {
       modelName,

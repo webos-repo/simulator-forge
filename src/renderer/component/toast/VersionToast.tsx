@@ -1,9 +1,9 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import type { VersionToastProps } from '../../lib/toastManager';
-import GeneralToast from './GeneralToast';
-import { InstallationURL } from '@share/constant/urls';
-import { shell, ipcRenderer } from 'electron';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { VersionToastProps } from "../../lib/toastManager";
+import GeneralToast from "./GeneralToast";
+import { InstallationURL } from "@share/constant/urls";
+import { shell, ipcRenderer } from "electron";
 
 function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
   return (
@@ -11,7 +11,7 @@ function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
       <Wrapper>
         <p>
           Version : <CurrentVerText>{`[${currentVersion}]`}</CurrentVerText>
-          {' -> '}
+          {" -> "}
           <LatestVerText>{`[${latestVersion}]`}</LatestVerText>
         </p>
         <LinkBox>
@@ -29,7 +29,7 @@ function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
           </LinkBtn>
           <LinkBtn
             onClick={() =>
-              ipcRenderer.send('clicked-skip-this-version', latestVersion)
+              ipcRenderer.send("clicked-skip-this-version", latestVersion)
             }
             css={css`
               color: white;

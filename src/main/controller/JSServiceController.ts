@@ -1,22 +1,22 @@
-import _ from 'lodash';
-import LogMessage, { showErrorBox } from '../lib/logMessage';
-import { ipcMain } from 'electron';
-import { emtService, emtSetting, emtWindow } from '../module/eventEmitters';
-import { readServiceEntry, readServiceJson } from '../lib/metaFileReader';
-import JSService from '@service/JSService';
-import { ipcHandler } from '@share/lib/utils';
-import { makeDB } from './dbController';
+import _ from "lodash";
+import LogMessage, { showErrorBox } from "../lib/logMessage";
+import { ipcMain } from "electron";
+import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";
+import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
+import JSService from "@service/JSService";
+import { ipcHandler } from "@share/lib/utils";
+import { makeDB } from "./dbController";
 
 type JSServiceInfos = {
   dirPath: string;
   isActive: boolean;
 };
 
-const JSServiceDBPath = 'jsServices';
+const JSServiceDBPath = "jsServices";
 
 class JSServiceController {
   jsServices: JSService[] = [];
-  db = makeDB('internal');
+  db = makeDB("internal");
 
   constructor() {
     this.setEventListener();
@@ -28,23 +28,23 @@ class JSServiceController {
 
   private setEventListener = () => {
     ipcMain
-      .on('js-service-toggle', ipcHandler(this.toggleActivate))
-      .on('js-service-screen-loaded', this.sendInitialData);
+      .on("js-service-toggle", ipcHandler(this.toggleActivate))
+      .on("js-service-screen-loaded", this.sendInitialData);
 
     emtService
-      .on('remove-js-service-from-list', this.removeJSServicesById)
-      .on('add-js-service', this.addJSServices);
+      .on("remove-js-service-from-list", this.removeJSServicesById)
+      .on("add-js-service", this.addJSServices);
 
-    emtSetting.on('database-is-reset', this.loadJSServicesFromDB);
+    emtSetting.on("database-is-reset", this.loadJSServicesFromDB);
   };
 
   private sendInitialData = () => {
     const jsServiceDataList = this.jsServices.map((js) => {
       return { id: js.id, isActive: js.isActive, dirPath: js.dirPath };
     });
-    emtWindow.emit('send', {
-      windowName: 'jsService',
-      channel: 'update-js-service-list',
+    emtWindow.emit("send", {
+      windowName: "jsService",
+      channel: "update-js-service-list",
       data: JSON.stringify(jsServiceDataList),
     });
   };
@@ -67,16 +67,16 @@ class JSServiceController {
   private updateJSServices = (newJSServices?: JSService[]) => {
     if (newJSServices) this.jsServices = newJSServices;
 
-    emtWindow.emit('send', {
-      windowName: 'jsService',
-      channel: 'update-js-service-list',
+    emtWindow.emit("send", {
+      windowName: "jsService",
+      channel: "update-js-service-list",
       data: JSON.stringify(this.jsServices),
     });
     this.db.set(
       JSServiceDBPath,
       this.jsServices.map(({ dirPath, isActive }) => {
         return { dirPath, isActive };
-      })
+      }),
     );
   };
 
@@ -94,9 +94,9 @@ class JSServiceController {
     const serviceJson = readServiceJson(dirPath) as any;
     if (!_.has(serviceJson, prop)) {
       throw new LogMessage(
-        'error',
-        'Service add error',
-        `Can not found 'services.json' in ${dirPath}`
+        "error",
+        "Service add error",
+        `Can not found 'services.json' in ${dirPath}`,
       );
     }
     return serviceJson[prop];
@@ -104,17 +104,17 @@ class JSServiceController {
 
   private addJSServices = (
     serviceInfos: JSServiceInfos[],
-    option: { isFromUser: boolean }
+    option: { isFromUser: boolean },
   ) => {
     const newJSServices: JSService[] = [];
     serviceInfos.forEach(({ dirPath, isActive }) => {
       try {
-        const id = this.getPropFromServiceJson(dirPath, 'id');
+        const id = this.getPropFromServiceJson(dirPath, "id");
         if (this.isAdded(id)) {
           throw new LogMessage(
-            'info',
-            'Service add error',
-            'Service is already added'
+            "info",
+            "Service add error",
+            "Service is already added",
           );
         }
         const entry = readServiceEntry(dirPath);

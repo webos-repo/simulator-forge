@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export default css`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -61,7 +61,7 @@ export default css`
   blockquote:after,
   q:before,
   q:after {
-    content: '';
+    content: "";
     content: none;
   }
 

@@ -1,26 +1,26 @@
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import { emtWindow } from '../../module/eventEmitters';
-import type { LunaAdditionalData } from './index';
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import { emtWindow } from "../../module/eventEmitters";
+import type { LunaAdditionalData } from "./index";
 
 class AudioService {
   call = async (
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (params) {
-        case 'setMuted':
+        case "setMuted":
           return await this.setMuted(params);
-        case 'volumeUp':
+        case "volumeUp":
           return await this.volumeUp();
-        case 'volumeDown':
+        case "volumeDown":
           return await this.volumeDown();
         default:
       }
@@ -31,7 +31,7 @@ class AudioService {
   setMuted = async (params: string) => {
     const { muted } = JSON.parse(params);
 
-    emtWindow.emit('toggle-mute', muted);
+    emtWindow.emit("toggle-mute", muted);
     return {
       returnValue: true,
     };

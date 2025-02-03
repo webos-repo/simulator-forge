@@ -1,5 +1,5 @@
-import { css } from '@emotion/react';
-import ButtonRCU from './ButtonRCU';
+import { css } from "@emotion/react";
+import ButtonRCU from "./ButtonRCU";
 
 type Props = {
   value: string;

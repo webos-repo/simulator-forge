@@ -1,16 +1,16 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 import {
   buttonBlue,
   buttonGreen,
   buttonRed,
   buttonYellow,
-} from '../../styles/colors';
-import { buttonReaction } from '../../styles/effects';
-import ButtonRCU from './ButtonRCU';
-import type { RCUButtonCommonProps } from './ButtonRCU';
+} from "../../styles/colors";
+import { buttonReaction } from "../../styles/effects";
+import ButtonRCU from "./ButtonRCU";
+import type { RCUButtonCommonProps } from "./ButtonRCU";
 
 type Props = RCUButtonCommonProps & {
-  color: 'Red' | 'Green' | 'Blue' | 'Yellow';
+  color: "Red" | "Green" | "Blue" | "Yellow";
 };
 
 function ButtonRCUColor(props: Props) {
@@ -24,7 +24,7 @@ function ButtonRCUColor(props: Props) {
   );
 }
 
-const colorButtonCSS = (color: Props['color']) => css`
+const colorButtonCSS = (color: Props["color"]) => css`
   ${buttonReaction};
   width: 80%;
   height: 70%;
@@ -36,7 +36,7 @@ const colorButtonCSS = (color: Props['color']) => css`
   background-color: ${buttonColor[color]};
 `;
 
-const buttonColor: { [key in Props['color']]: string } = {
+const buttonColor: { [key in Props["color"]]: string } = {
   Red: buttonRed,
   Green: buttonGreen,
   Yellow: buttonYellow,

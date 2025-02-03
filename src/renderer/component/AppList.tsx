@@ -1,10 +1,10 @@
-import { css } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
-import styled from '@emotion/styled';
-import { ipcRenderer } from 'electron';
-import { useState, useRef, useEffect } from 'react';
-import type { AppInfoWithState } from '@share/structure/appInfo';
-import { fadeIn } from '../styles/effects';
+import { css } from "@emotion/react";
+import type { SerializedStyles } from "@emotion/react";
+import styled from "@emotion/styled";
+import { ipcRenderer } from "electron";
+import { useState, useRef, useEffect } from "react";
+import type { AppInfoWithState } from "@share/structure/appInfo";
+import { fadeIn } from "../styles/effects";
 
 type Props = {
   appInfo: AppInfoWithState;
@@ -24,7 +24,7 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
     ) {
       setIsTitleLong(true);
       setWidthDif(
-        refAppButtonText.current.clientWidth - refAppButton.current.clientWidth
+        refAppButtonText.current.clientWidth - refAppButton.current.clientWidth,
       );
     } else {
       setIsTitleLong(false);
@@ -32,7 +32,7 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
   };
 
   useEffect(() => {
-    ipcRenderer.on('resized', checkIsLong);
+    ipcRenderer.on("resized", checkIsLong);
   }, []);
 
   useEffect(() => {
@@ -43,9 +43,9 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
     <AppListBox
       appState={appState}
       ref={refAppButton}
-      onClick={() => ipcRenderer.send('launch-app', { appPath })}
+      onClick={() => ipcRenderer.send("launch-app", { appPath })}
       onContextMenu={() =>
-        ipcRenderer.send('app-list-right-click', appPath, id)
+        ipcRenderer.send("app-list-right-click", appPath, id)
       }
       onMouseEnter={() => setEntered(true)}
       onMouseLeave={() => setEntered(false)}
@@ -62,7 +62,7 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
 }
 
 const appStateCSSMap: {
-  [key in AppInfoWithState['appState']]: SerializedStyles;
+  [key in AppInfoWithState["appState"]]: SerializedStyles;
 } = {
   foreground: css`
     border-bottom-color: #24dba6;
@@ -81,7 +81,7 @@ const appStateCSSMap: {
 };
 
 const AppListBox = styled.div<{
-  appState: AppInfoWithState['appState'];
+  appState: AppInfoWithState["appState"];
 }>`
   display: flex;
   align-items: center;

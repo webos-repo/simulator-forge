@@ -1,25 +1,25 @@
-import { ipcMain } from 'electron';
-import _ from 'lodash';
+import { ipcMain } from "electron";
+import _ from "lodash";
 import {
   emtApp,
   emtSetting,
   emtView,
   emtWindow,
-} from '../module/eventEmitters';
-import { ipcHandler } from '@share/lib/utils';
-import VKBController from './VKBController';
-import AppExitView from '@view/AppExitView';
-import TouchRemoteView from '@view/TouchRemoteView';
-import ScreenSaverView from '@view/ScreenSaverView';
-import type OverlayView from '@view/OverlayView';
-import type KeyboardView from '@view/KeyboardView';
+} from "../module/eventEmitters";
+import { ipcHandler } from "@share/lib/utils";
+import VKBController from "./VKBController";
+import AppExitView from "@view/AppExitView";
+import TouchRemoteView from "@view/TouchRemoteView";
+import ScreenSaverView from "@view/ScreenSaverView";
+import type OverlayView from "@view/OverlayView";
+import type KeyboardView from "@view/KeyboardView";
 
 export type OverlayViewNames =
-  | 'touchRemote'
-  | 'appExit'
-  | 'vkbDefault'
-  | 'vkbNumber'
-  | 'screenSaver';
+  | "touchRemote"
+  | "appExit"
+  | "vkbDefault"
+  | "vkbNumber"
+  | "screenSaver";
 
 let canVBKShow = true;
 
@@ -53,29 +53,29 @@ class OverlayController {
     this.allOverlays = [
       this.touchRemoteView,
       this.appExitView,
-      this.vkbController.getVKB('default')!,
-      this.vkbController.getVKB('number')!,
+      this.vkbController.getVKB("default")!,
+      this.vkbController.getVKB("number")!,
       this.screenSaverView,
     ];
     this.overlayViewMap = {
       touchRemote: this.touchRemoteView,
       appExit: this.appExitView,
-      vkbDefault: this.vkbController.getVKB('default')!,
-      vkbNumber: this.vkbController.getVKB('number')!,
+      vkbDefault: this.vkbController.getVKB("default")!,
+      vkbNumber: this.vkbController.getVKB("number")!,
       screenSaver: this.screenSaverView,
     };
   };
 
   private setEventHandler = () => {
     ipcMain
-      .once('main-screen-loaded', this.handleMainScreenLoaded)
-      .on('app-view-clicked', this.hideTopOverlay)
-      .on('app-exit-cancel', this.hideExit)
-      .on('input-focused', ipcHandler(this.showVKB))
-      .on('input-blurred', ipcHandler(this.handleInputBlurred))
-      .on('req-vkb-hide', () => this.hideVKB(this.getShowingVKB()));
+      .once("main-screen-loaded", this.handleMainScreenLoaded)
+      .on("app-view-clicked", this.hideTopOverlay)
+      .on("app-exit-cancel", this.hideExit)
+      .on("input-focused", ipcHandler(this.showVKB))
+      .on("input-blurred", ipcHandler(this.handleInputBlurred))
+      .on("req-vkb-hide", () => this.hideVKB(this.getShowingVKB()));
 
-    emtView.on('view-added', this.handleViewAdded);
+    emtView.on("view-added", this.handleViewAdded);
   };
 
   private handleMainScreenLoaded = () => {
@@ -97,15 +97,15 @@ class OverlayController {
     const callback = (view: any) => {
       if (view === overlayView) {
         overlayView.removeCallbackHandler = setTimeout(() => {
-          emtWindow.emit('remove-view', overlayView);
+          emtWindow.emit("remove-view", overlayView);
           overlayView.removeCallbackHandler = undefined;
         }, 1000);
-        emtView.removeListener('view-added', callback);
+        emtView.removeListener("view-added", callback);
       }
     };
-    emtView.on('view-added', callback);
+    emtView.on("view-added", callback);
     setTimeout(() => {
-      emtWindow.emit('add-view', overlayView);
+      emtWindow.emit("add-view", overlayView);
       overlayView.setAutoResize({ width: true, height: true });
       overlayView.setBounds({ x: 0, y: 0, width: 1, height: 1 });
     }, 500);
@@ -126,7 +126,7 @@ class OverlayController {
 
   getShowingVKB = () => {
     return this.showingOverlays.find(
-      (view) => view.isShowing && view.name === 'KeyboardView'
+      (view) => view.isShowing && view.name === "KeyboardView",
     ) as KeyboardView | undefined;
   };
 
@@ -135,7 +135,7 @@ class OverlayController {
       clearTimeout(view.removeCallbackHandler);
       view.removeCallbackHandler = undefined;
     } else {
-      emtWindow.emit('add-view', view, true);
+      emtWindow.emit("add-view", view, true);
     }
     view.show(data);
     if (!this.showingOverlays.includes(view)) this.showingOverlays.push(view);
@@ -167,18 +167,18 @@ class OverlayController {
     });
     setVKBShowThrottle();
     this.show(vkb);
-    emtApp.emit('vkb-state-changed', true);
+    emtApp.emit("vkb-state-changed", true);
     return true;
   };
 
   showScreenSaver = () => {
     this.show(this.screenSaverView);
-    emtSetting.emit('screen-saver-state-changed', true);
+    emtSetting.emit("screen-saver-state-changed", true);
   };
 
   private hide = (view: OverlayView) => {
     if (!this.checkShowing(view)) return false;
-    emtWindow.emit('remove-view', view);
+    emtWindow.emit("remove-view", view);
     view.hide();
     _.remove(this.showingOverlays, view);
     return true;
@@ -195,13 +195,13 @@ class OverlayController {
   hideVKB = (vkb: KeyboardView | undefined) => {
     if (!vkb || !this.checkShowing(vkb)) return false;
     this.hide(vkb);
-    emtApp.emit('vkb-state-changed', false);
+    emtApp.emit("vkb-state-changed", false);
     return true;
   };
 
   hideScreenSaver = () => {
     this.hide(this.screenSaverView);
-    emtSetting.emit('screen-saver-state-changed', false);
+    emtSetting.emit("screen-saver-state-changed", false);
   };
 
   hideAnyVKB = () => {

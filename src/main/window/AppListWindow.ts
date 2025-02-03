@@ -1,8 +1,8 @@
-import { BrowserWindow, ipcMain, Menu } from 'electron';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import { emtApp, emtWindow } from '../module/eventEmitters';
-import { ipcHandler } from '@share/lib/utils';
+import { BrowserWindow, ipcMain, Menu } from "electron";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import { emtApp, emtWindow } from "../module/eventEmitters";
+import { ipcHandler } from "@share/lib/utils";
 
 class AppListWindow extends BrowserWindow {
   private backupAppList?: string;
@@ -14,7 +14,7 @@ class AppListWindow extends BrowserWindow {
       minWidth: 220,
       minHeight: 100,
       useContentSize: true,
-      title: 'App List',
+      title: "App List",
       acceptFirstMouse: true,
       show: false,
       resizable: true,
@@ -25,24 +25,24 @@ class AppListWindow extends BrowserWindow {
         contextIsolation: false,
       },
     });
-    this.loadURL(resolveHtmlPath('index.html', 'app_list'));
+    this.loadURL(resolveHtmlPath("index.html", "app_list"));
     this.setMenuBarVisibility(false);
     this.setEventHandler();
   }
 
   private setEventHandler = () => {
-    this.on('close', this.justHide)
-      .on('show', () => emtWindow.emit('app-list-window-show'))
-      .on('hide', () => emtWindow.emit('app-list-window-hide'))
-      .on('resize', () => {
-        this.webContents.send('resized');
+    this.on("close", this.justHide)
+      .on("show", () => emtWindow.emit("app-list-window-show"))
+      .on("hide", () => emtWindow.emit("app-list-window-hide"))
+      .on("resize", () => {
+        this.webContents.send("resized");
       });
 
     ipcMain
-      .once('app-list-screen-loaded', this.afterFinishLoad)
-      .on('app-list-right-click', ipcHandler(this.openAppListContextMenu));
+      .once("app-list-screen-loaded", this.afterFinishLoad)
+      .on("app-list-right-click", ipcHandler(this.openAppListContextMenu));
 
-    emtApp.on('app-list-updated', this.sendUpdatedAppList);
+    emtApp.on("app-list-updated", this.sendUpdatedAppList);
   };
 
   private afterFinishLoad = () => {
@@ -50,7 +50,7 @@ class AppListWindow extends BrowserWindow {
   };
 
   terminate = () => {
-    this.removeListener('close', this.justHide);
+    this.removeListener("close", this.justHide);
     this.close();
   };
 
@@ -61,28 +61,28 @@ class AppListWindow extends BrowserWindow {
 
   private sendUpdatedAppList = (appListDataStr: string) => {
     if (!appListDataStr) return;
-    this.webContents?.send('app-list-updated', appListDataStr);
+    this.webContents?.send("app-list-updated", appListDataStr);
     this.backupAppList = appListDataStr;
   };
 
   private openAppListContextMenu = (appPath: string, appId: string) => {
     Menu.buildFromTemplate([
       {
-        label: 'Launch',
+        label: "Launch",
         click: () => {
-          emtApp.emit('launch-app', { appPath });
+          emtApp.emit("launch-app", { appPath });
         },
       },
       {
-        label: 'Close',
+        label: "Close",
         click: () => {
-          emtApp.emit('close-app-by-path', appPath);
+          emtApp.emit("close-app-by-path", appPath);
         },
       },
       {
-        label: 'Remove',
+        label: "Remove",
         click: () => {
-          emtApp.emit('remove-app-from-list', appId);
+          emtApp.emit("remove-app-from-list", appId);
         },
       },
     ]).popup({ window: this });

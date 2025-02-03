@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import type { EventEmitter } from 'events';
-import { generateHash } from '../../../lib/hash';
-import { isJsonStrValid } from '../../../lib/jsonChecker';
-import { extractIdFromToken } from '../../../lib/pathResolver';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import DBServiceController from './controller';
-import type { LunaAdditionalData } from '@service/lunaService';
-import type * as DBServiceTypes from './types';
+import type { EventEmitter } from "events";
+import { generateHash } from "../../../lib/hash";
+import { isJsonStrValid } from "../../../lib/jsonChecker";
+import { extractIdFromToken } from "../../../lib/pathResolver";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import DBServiceController from "./controller";
+import type { LunaAdditionalData } from "@service/lunaService";
+import type * as DBServiceTypes from "./types";
 
-const existPermissions = ['read', 'create', 'update', 'delete'];
+const existPermissions = ["read", "create", "update", "delete"];
 const errorKindNotRegistered = (kind?: string) =>
-  `kind not registered${kind ? `: '${kind}'` : ''}`;
-const errorPermissionDenied = 'db: permission denied';
+  `kind not registered${kind ? `: '${kind}'` : ""}`;
+const errorPermissionDenied = "db: permission denied";
 
 const cancelSubscription = (token: string) => {
   return {
@@ -33,10 +33,10 @@ class DatabaseService {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -44,31 +44,31 @@ class DatabaseService {
       return cancelSubscription(token);
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (method) {
-        case 'batch':
+        case "batch":
           return await this.batch(params, token);
-        case 'del':
+        case "del":
           return await this.del(params, token);
-        case 'delKind':
+        case "delKind":
           return await this.delKind(params, token);
-        case 'find':
+        case "find":
           return await this.find(params, token);
-        case 'get':
+        case "get":
           return await this.get(params, token);
-        case 'merge':
+        case "merge":
           return await this.merge(params, token);
-        case 'put':
+        case "put":
           return await this.put(params, token);
-        case 'putKind':
+        case "putKind":
           return await this.putKind(params, token);
-        case 'putPermissions':
+        case "putPermissions":
           return await this.putPermissions(params, token);
-        case 'reserveIds':
+        case "reserveIds":
           return await this.reserveIds(params);
-        case 'search':
+        case "search":
           return await this.search(params, token);
-        case 'watch':
+        case "watch":
           return await this.watch(params, additionalData);
         default:
       }
@@ -88,7 +88,7 @@ class DatabaseService {
         res.push(methodError(-3984, 'No required key: "params"'));
       }
       res.push(
-        this.call('', method, JSON.stringify(subParams), { token } as any)
+        this.call("", method, JSON.stringify(subParams), { token } as any),
       );
     });
     const responses = await Promise.all(res);
@@ -126,7 +126,7 @@ class DatabaseService {
       const count = this.dbController.deleteDataByQuery(appId, query);
       // TODO: Check TV's real return value
       if (count <= 0) {
-        return methodError(-3965, 'db: no index for query');
+        return methodError(-3965, "db: no index for query");
       }
       return {
         returnValue: true,
@@ -135,7 +135,7 @@ class DatabaseService {
     }
 
     // FIXME
-    return methodError(-999, 'ids, query is empty');
+    return methodError(-999, "ids, query is empty");
   };
 
   delKind = async (params: string, token: string) => {
@@ -149,7 +149,7 @@ class DatabaseService {
       return methodError(-3970, errorKindNotRegistered(kind));
     }
     if (ret === -2) {
-      return methodError(-3999, 'db: access denied');
+      return methodError(-3999, "db: access denied");
     }
 
     return {
@@ -165,7 +165,7 @@ class DatabaseService {
     const { filteredData, code } = this.dbController.getDataByQuery(
       appId,
       query,
-      isSearch
+      isSearch,
     );
 
     // '%%' operation
@@ -173,12 +173,12 @@ class DatabaseService {
       if (code === -1) {
         return methodError(
           22,
-          `invalid parameters: caller='${appId}' error='invalid enum value for property 'op' for property 'where' for property 'query''`
+          `invalid parameters: caller='${appId}' error='invalid enum value for property 'op' for property 'where' for property 'query''`,
         );
       }
       // '?' operation
       if (code === -2 || !filteredData) {
-        return methodError(-3978, 'db: search operator not allowed in find');
+        return methodError(-3978, "db: search operator not allowed in find");
       }
       if (code === -3970) {
         return methodError(code, errorKindNotRegistered(query.from));
@@ -198,7 +198,7 @@ class DatabaseService {
   get = async (params: string, token: string) => {
     const { ids }: DBServiceTypes.GetParams = JSON.parse(params);
     if (!ids) {
-      return methodError(-999, ''); // FIXME
+      return methodError(-999, ""); // FIXME
     }
     const results: Array<{ [key: string]: any }> = [];
     const appId = extractIdFromToken(token);
@@ -220,13 +220,13 @@ class DatabaseService {
     if (objects && query) {
       return methodError(
         22,
-        'db: cannot have both an objects param and a query param'
+        "db: cannot have both an objects param and a query param",
       );
     }
     if (!objects && !query) {
       return methodError(
         22,
-        'db: either objects or query param required for merge'
+        "db: either objects or query param required for merge",
       );
     }
 
@@ -238,7 +238,7 @@ class DatabaseService {
         const { _id } = obj;
         if (
           !_id ||
-          !(typeof _id === 'string') ||
+          !(typeof _id === "string") ||
           !this.dbController.getDataById(appId, _id)
         ) {
           isAllIdExist = false;
@@ -247,7 +247,7 @@ class DatabaseService {
         return false;
       });
       if (!isAllIdExist) {
-        return methodError(-3969, 'db: kind not specified');
+        return methodError(-3969, "db: kind not specified");
       }
 
       let isAllUpdated = true;
@@ -264,7 +264,7 @@ class DatabaseService {
         return false;
       });
       if (!isAllUpdated) {
-        return methodError(3978, 'db: search operator not allowed in find');
+        return methodError(3978, "db: search operator not allowed in find");
       }
       return {
         returnValue: true,
@@ -281,7 +281,7 @@ class DatabaseService {
       const [count, code] = this.dbController.updateByQuery(
         appId,
         query,
-        props
+        props,
       );
 
       // Error
@@ -289,11 +289,11 @@ class DatabaseService {
         if (code === -1) {
           return methodError(
             22,
-            `invalid parameters: caller='${appId}' error='invalid enum value for property 'method' for property 'operations''`
+            `invalid parameters: caller='${appId}' error='invalid enum value for property 'method' for property 'operations''`,
           );
         }
         if (code === -2) {
-          return methodError(-3978, 'db: search operator not allowed in find');
+          return methodError(-3978, "db: search operator not allowed in find");
         }
         if (code === -3963) {
           return methodError(-3963, errorPermissionDenied); // TODO: check
@@ -304,7 +304,7 @@ class DatabaseService {
         count,
       };
     }
-    return methodError(-9999, 'unknown error');
+    return methodError(-9999, "unknown error");
   };
 
   put = async (params: string, token: string) => {
@@ -320,7 +320,7 @@ class DatabaseService {
     objects.some((obj: any) => {
       const { _kind: kind } = obj;
       if (!kind) {
-        error = methodError(-3969, 'db: kind not specified');
+        error = methodError(-3969, "db: kind not specified");
         return true;
       }
       if (!this.dbController.checkKind(kind)) {
@@ -378,21 +378,21 @@ class DatabaseService {
       }: DBServiceTypes.PutPermissionsParams) => {
         const appId = extractIdFromToken(token);
         const filteredOperations = Object.keys(operations).filter((op) =>
-          existPermissions.includes(op)
+          existPermissions.includes(op),
         );
         if (
           !this.dbController.putPermissions(
             appId,
             caller,
             object,
-            filteredOperations
+            filteredOperations,
           )
         ) {
-          error = methodError(-3999, 'db: access denied');
+          error = methodError(-3999, "db: access denied");
           return true;
         }
         return false;
-      }
+      },
     );
 
     if (error) return error;
@@ -419,7 +419,7 @@ class DatabaseService {
 
   watch = async (
     params: string,
-    { token, isCalledFromApp, frameId, callback, emitter }: LunaAdditionalData
+    { token, isCalledFromApp, frameId, callback, emitter }: LunaAdditionalData,
   ) => {
     const { subscribe }: { subscribe: boolean } = JSON.parse(params);
     const { query }: DBServiceTypes.WatchParams = JSON.parse(params);
@@ -427,7 +427,7 @@ class DatabaseService {
     const { filteredData, code } = this.dbController.getDataByQuery(
       appId,
       query,
-      false
+      false,
     );
 
     if (code === -3970) {
@@ -437,7 +437,7 @@ class DatabaseService {
       return methodError(code, errorPermissionDenied);
     }
     if (code < 0) {
-      return methodError(-999, ''); // FIXME
+      return methodError(-999, ""); // FIXME
     }
 
     if (filteredData.length) {
@@ -456,7 +456,7 @@ class DatabaseService {
 
     if (!watchSubscriptions.length) {
       onDidChangeUnsubscribe = this.dbController.setWatcher(
-        this.watchCallback(appId)
+        this.watchCallback(appId),
       );
     }
     watchSubscriptions = [...watchSubscriptions, [query, emitter]];
@@ -473,7 +473,7 @@ class DatabaseService {
 
       if (!callbackFilteredData || callbackCode < 0) return true;
 
-      emt.emit('subscribe-return', {
+      emt.emit("subscribe-return", {
         ret: {
           returnValue: true,
           subscribe: true,

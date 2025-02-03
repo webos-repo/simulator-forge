@@ -1,19 +1,19 @@
-import bleGattService from '@service/lunaService/BleGattService';
-import { EventEmitter } from 'events';
-import { splitServiceURL } from '../../lib/pathResolver';
-import type { ServiceCallback } from '../Service';
-import activityManager from './ActivityManager';
-import applicationManager from './ApplicationManager';
-import audioService from './Audio';
-import configService from './Config';
-import connectionManager from './ConnectionManager';
-import databaseService from './DatabaseService';
-import deviceUniqueId from './DeviceUniqueId';
-import drmService from './DRMService';
-import mrcuService from './MrcuService';
-import settingsService from './SettingsService';
-import systemService from './SystemService';
-import tvDeviceInformation from './TVDeviceInformation';
+import bleGattService from "@service/lunaService/BleGattService";
+import { EventEmitter } from "events";
+import { splitServiceURL } from "../../lib/pathResolver";
+import type { ServiceCallback } from "../Service";
+import activityManager from "./ActivityManager";
+import applicationManager from "./ApplicationManager";
+import audioService from "./Audio";
+import configService from "./Config";
+import connectionManager from "./ConnectionManager";
+import databaseService from "./DatabaseService";
+import deviceUniqueId from "./DeviceUniqueId";
+import drmService from "./DRMService";
+import mrcuService from "./MrcuService";
+import settingsService from "./SettingsService";
+import systemService from "./SystemService";
+import tvDeviceInformation from "./TVDeviceInformation";
 
 type LunaAdditionalData = {
   emitter: EventEmitter;
@@ -27,34 +27,34 @@ type LunaAdditionalData = {
 const findMatchService = (serviceName: string) => {
   if (serviceName.length <= 60) {
     switch (serviceName) {
-      case 'com.palm.systemservice':
-      case 'com.webos.service.systemservice':
+      case "com.palm.systemservice":
+      case "com.webos.service.systemservice":
         return systemService;
-      case 'com.webos.service.config':
+      case "com.webos.service.config":
         return configService;
-      case 'com.webos.service.tv.systemproperty':
+      case "com.webos.service.tv.systemproperty":
         return tvDeviceInformation;
-      case 'com.webos.audio':
+      case "com.webos.audio":
         return audioService;
-      case 'com.webos.settingsservice':
+      case "com.webos.settingsservice":
         return settingsService;
-      case 'com.webos.service.sm':
+      case "com.webos.service.sm":
         return deviceUniqueId;
-      case 'com.palm.connectionmanager':
-      case 'com.webos.service.connectionmanager':
+      case "com.palm.connectionmanager":
+      case "com.webos.service.connectionmanager":
         return connectionManager;
-      case 'com.webos.applicationManager':
+      case "com.webos.applicationManager":
         return applicationManager;
-      case 'com.palm.activitymanager':
+      case "com.palm.activitymanager":
         return activityManager;
-      case 'com.webos.service.mrcu':
+      case "com.webos.service.mrcu":
         return mrcuService;
-      case 'com.webos.service.drm':
+      case "com.webos.service.drm":
         return drmService;
-      case 'com.palm.db':
-      case 'com.webos.mediadb':
+      case "com.palm.db":
+      case "com.webos.mediadb":
         return databaseService;
-      case 'com.webos.service.blegatt':
+      case "com.webos.service.blegatt":
         return bleGattService;
       default:
     }
@@ -69,7 +69,7 @@ const lunaService = async (
   token: string,
   callback: ServiceCallback,
   isCancel: boolean,
-  frameId: number
+  frameId: number,
 ) => {
   const { serviceName, categoryName, methodName } = splitServiceURL(url);
   const subscribe = !!JSON.parse(params).subscribe;
@@ -82,11 +82,11 @@ const lunaService = async (
     const subscribeHandler = (data: any) => {
       const { ret, isSubscription } = data;
       if (!isSubscription) {
-        emitter.removeListener('subscribe-return', subscribeHandler);
+        emitter.removeListener("subscribe-return", subscribeHandler);
       }
       callback(token, ret, subscribe, isCalledFromApp, frameId);
     };
-    emitter.on('subscribe-return', subscribeHandler);
+    emitter.on("subscribe-return", subscribeHandler);
   }
 
   const ret = await matchedService.call(categoryName, methodName, params, {

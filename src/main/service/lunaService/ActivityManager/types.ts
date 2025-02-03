@@ -1,11 +1,11 @@
 type StateName =
-  | 'created'
-  | 'unsatisfied'
-  | 'satisfied'
-  | 'expired'
-  | 'paused'
-  | 'failed'
-  | 'destroyed';
+  | "created"
+  | "unsatisfied"
+  | "satisfied"
+  | "expired"
+  | "paused"
+  | "failed"
+  | "destroyed";
 
 type Parent =
   | {

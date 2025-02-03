@@ -1,24 +1,24 @@
-import { css } from '@emotion/react';
-import type { Orientation2Way } from '@share/structure/orientations';
+import { css } from "@emotion/react";
+import type { Orientation2Way } from "@share/structure/orientations";
 
-const white = '#c0c0c0';
-const blackBlue = '#2d3236';
-const blue = '#353a40';
-const buttonBorderColor = 'rgba(180, 180, 180, 0.2)';
-const buttonBorderColorNotUsed = 'rgba(130, 130, 130, 0.2)';
+const white = "#c0c0c0";
+const blackBlue = "#2d3236";
+const blue = "#353a40";
+const buttonBorderColor = "rgba(180, 180, 180, 0.2)";
+const buttonBorderColorNotUsed = "rgba(130, 130, 130, 0.2)";
 const notUsedButtons = [
-  '.hg-button-eng',
-  '.hg-button-aa',
-  '.hg-button-blank',
+  ".hg-button-eng",
+  ".hg-button-aa",
+  ".hg-button-blank",
   ".hg-standardBtn[data-skbtn='']",
-  '.hg-button-voice',
+  ".hg-button-voice",
 ];
 
 const getReactSimpleKeyboardCustomCSS = (orn: Orientation2Way) => css`
   .simple-keyboard {
     background-color: transparent;
     padding: 0;
-    font-family: 'LG Smart 2.0 Regular', sans-serif;
+    font-family: "LG Smart 2.0 Regular", sans-serif;
     font-size: 1.3em;
     overflow: visible;
 
@@ -113,7 +113,7 @@ const getReactSimpleKeyboardCustomCSS = (orn: Orientation2Way) => css`
                 transform: none;
               }
             }
-          `
+          `,
         )}
       }
 
@@ -133,7 +133,7 @@ const getReactSimpleKeyboardCustomCSS = (orn: Orientation2Way) => css`
     }
   }
 
-  ${orn === 'portrait' &&
+  ${orn === "portrait" &&
   css`
     .simple-keyboard {
       font-size: 1em;

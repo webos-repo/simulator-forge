@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unused-prop-types */
-import styled from '@emotion/styled';
-import type { ReactNode, MouseEvent } from 'react';
-import type { SerializedStyles } from '@emotion/react';
-import { css } from '@emotion/react';
-import useRCUHandler from '../../hook/useRCUHandler';
-import { buttonReaction } from '../../styles/effects';
-import { arrangeCenterByFlex } from '../../styles/partials';
-import IconRCU from './IconRCU';
-import type { IconRCUProps } from './IconRCU';
+import styled from "@emotion/styled";
+import type { ReactNode, MouseEvent } from "react";
+import type { SerializedStyles } from "@emotion/react";
+import { css } from "@emotion/react";
+import useRCUHandler from "../../hook/useRCUHandler";
+import { buttonReaction } from "../../styles/effects";
+import { arrangeCenterByFlex } from "../../styles/partials";
+import IconRCU from "./IconRCU";
+import type { IconRCUProps } from "./IconRCU";
 
 type RCUButtonCommonProps = IconRCUProps & {
   keyCode?: string;
@@ -51,7 +51,7 @@ function ButtonRCU({
       onMouseLeave={!unused ? leaveHandler : undefined}
       css={css(
         alternativeCSS || [defaultCSS, additionalCSS],
-        unused ? unusedCSS : null
+        unused ? unusedCSS : null,
       )}
     >
       {iconImage ? (

@@ -1,25 +1,25 @@
-import { appInfos } from '@controller/appController/appMemory';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import { emtApp } from '../../module/eventEmitters';
-import type { LunaAdditionalData } from './index';
+import { appInfos } from "@controller/appController/appMemory";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import { emtApp } from "../../module/eventEmitters";
+import type { LunaAdditionalData } from "./index";
 
 class ApplicationManager {
   call = async (
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (method) {
-        case 'launch':
+        case "launch":
           return await this.launch(params);
-        case 'getAppLoadStatus':
+        case "getAppLoadStatus":
           return await this.getAppLoadStatus(params);
         default:
       }
@@ -33,9 +33,9 @@ class ApplicationManager {
       params: launchParams,
     }: { id: string; params: { [key: string]: any } } = JSON.parse(params);
     if (!appInfos.findById(id)) {
-      return methodError(-101, 'The app was not found.');
+      return methodError(-101, "The app was not found.");
     }
-    emtApp.emit('launch-app-by-id', {
+    emtApp.emit("launch-app-by-id", {
       appId: id,
       launchParams,
     });
@@ -49,7 +49,7 @@ class ApplicationManager {
     if (!appInfos.findById(appId)) {
       return methodError(
         1,
-        'Invalid appId specified. This error is returned when the appId parameter is empty.'
+        "Invalid appId specified. This error is returned when the appId parameter is empty.",
       );
     }
     return {

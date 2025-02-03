@@ -1,12 +1,12 @@
-import { css } from '@emotion/react';
-import { focusRed } from '../../styles/colors';
-import { arrangeCenterByFlex } from '../../styles/partials';
-import ButtonRCU from './ButtonRCU';
-import type { RCUButtonCommonProps } from './ButtonRCU';
-import type { SerializedStyles } from '@emotion/react';
+import { css } from "@emotion/react";
+import { focusRed } from "../../styles/colors";
+import { arrangeCenterByFlex } from "../../styles/partials";
+import ButtonRCU from "./ButtonRCU";
+import type { RCUButtonCommonProps } from "./ButtonRCU";
+import type { SerializedStyles } from "@emotion/react";
 
 type Props = RCUButtonCommonProps & {
-  type: 'top' | 'bottom';
+  type: "top" | "bottom";
 };
 
 function ButtonRCULong(props: Props) {
@@ -14,7 +14,7 @@ function ButtonRCULong(props: Props) {
   return <ButtonRCU {...props} alternativeCSS={longButtonCSS(type)} />;
 }
 
-const longButtonCSS = (direction: Props['type']) => css`
+const longButtonCSS = (direction: Props["type"]) => css`
   ${arrangeCenterByFlex};
   background-color: #454545;
   width: 60%;
@@ -26,7 +26,7 @@ const longButtonCSS = (direction: Props['type']) => css`
   ${directionToCSSMap[direction]}
 `;
 
-const directionToCSSMap: { [key in Props['type']]: SerializedStyles } = {
+const directionToCSSMap: { [key in Props["type"]]: SerializedStyles } = {
   top: css`
     border-bottom: none;
     border-radius: 40% 40% 0 0;

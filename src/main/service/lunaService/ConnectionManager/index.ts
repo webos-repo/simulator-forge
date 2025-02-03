@@ -1,34 +1,34 @@
-import { emtSetting } from '@main/module/eventEmitters';
-import { tvNetwork } from '@tvSettings/index';
-import { isJsonStrValid } from '@main/lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import type { EventEmitter } from 'events';
-import type { LunaAdditionalData } from '../index';
-import type { ConnectionStatusType } from './types';
+import { emtSetting } from "@main/module/eventEmitters";
+import { tvNetwork } from "@tvSettings/index";
+import { isJsonStrValid } from "@main/lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import type { EventEmitter } from "events";
+import type { LunaAdditionalData } from "../index";
+import type { ConnectionStatusType } from "./types";
 
 const defaultConnectionStatus: ConnectionStatusType = {
   isInternetConnectionAvailable: false,
   wired: {
-    state: 'disconnected',
+    state: "disconnected",
     plugged: false,
   },
   wifi: {
-    state: 'disconnected',
+    state: "disconnected",
     tetheringEnabled: false,
   },
   wifiDirect: {
-    state: 'disconnected',
+    state: "disconnected",
   },
   wan: {
     connected: false,
     connectedContexts: [],
   },
-  offlineMode: 'disabled',
+  offlineMode: "disabled",
   cellular: {
     enabled: false,
   },
   bluetooth: {
-    state: 'disconnected',
+    state: "disconnected",
     tetheringEnabled: false,
   },
 };
@@ -37,7 +37,7 @@ const subscriptions: Map<string, EventEmitter> = new Map();
 
 const cancelSubscription = (token: string) => {
   if (subscriptions.has(token)) {
-    subscriptions.get(token)!.emit('subscribe-return', {
+    subscriptions.get(token)!.emit("subscribe-return", {
       ret: {},
       isSubscription: false,
     });
@@ -48,9 +48,9 @@ const cancelSubscription = (token: string) => {
   };
 };
 
-emtSetting.on('network-info-updated', () => {
+emtSetting.on("network-info-updated", () => {
   const { isWired, networkInfo } = tvNetwork.networkInfo;
-  const isConnected = networkInfo.state === 'connected';
+  const isConnected = networkInfo.state === "connected";
   const ret = {
     isInternetConnectionAvailable: isConnected,
     wired:
@@ -59,28 +59,28 @@ emtSetting.on('network-info-updated', () => {
             ...networkInfo,
             plugged: true,
             proxyInfo: {
-              method: 'direct',
+              method: "direct",
             },
             checkingInternet: false,
           }
         : {
-            state: 'disconnected',
+            state: "disconnected",
             plugged: false,
           },
     wifi:
       isConnected && !isWired
         ? { ...networkInfo, tetheringEnabled: false }
         : {
-            state: 'disconnected',
+            state: "disconnected",
             tetheringEnabled: false,
           },
     wifiDirect: {
-      state: 'disconnected',
+      state: "disconnected",
     },
   };
 
   subscriptions.forEach((emitter) => {
-    emitter.emit('subscribe-return', {
+    emitter.emit("subscribe-return", {
       ret,
       isSubscription: true,
     });
@@ -92,10 +92,10 @@ class ConnectionManager {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -104,9 +104,9 @@ class ConnectionManager {
       cancelSubscription(token);
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (method) {
-        case 'getStatus':
+        case "getStatus":
           return await this.getStatus(params, emitter, token);
         default:
       }
@@ -120,14 +120,14 @@ class ConnectionManager {
 
     const connectionStatus = defaultConnectionStatus;
 
-    if (networkInfo.state === 'connected') {
+    if (networkInfo.state === "connected") {
       connectionStatus.isInternetConnectionAvailable = true;
       if (isWired) {
         connectionStatus.wired = {
           ...networkInfo,
           plugged: true,
           proxyInfo: {
-            method: 'direct',
+            method: "direct",
           },
           checkingInternet: false,
         };

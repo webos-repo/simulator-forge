@@ -1,23 +1,23 @@
-import styled from '@emotion/styled';
-import React from 'react';
-import ButtonTouch from '../component/rcuButton/ButtonTouch';
-import ButtonTouchArrow from '../component/rcuButton/ButtonTouchArrow';
-import ButtonTouchColor from '../component/rcuButton/ButtonTouchColor';
+import styled from "@emotion/styled";
+import React from "react";
+import ButtonTouch from "../component/rcuButton/ButtonTouch";
+import ButtonTouchArrow from "../component/rcuButton/ButtonTouchArrow";
+import ButtonTouchColor from "../component/rcuButton/ButtonTouchColor";
 
-import homeImage from 'assets/ui_icons/home.png';
-import backImage from 'assets/ui_icons/back.png';
-import settingsImage from 'assets/ui_icons/settings.png';
-import dotImage from 'assets/ui_icons/dot.png';
-import upImage from 'assets/ui_icons/up.png';
-import downImage from 'assets/ui_icons/down.png';
-import rightImage from 'assets/ui_icons/right.png';
-import leftImage from 'assets/ui_icons/left.png';
-import { ipcSender } from '../lib/utils';
+import homeImage from "assets/ui_icons/home.png";
+import backImage from "assets/ui_icons/back.png";
+import settingsImage from "assets/ui_icons/settings.png";
+import dotImage from "assets/ui_icons/dot.png";
+import upImage from "assets/ui_icons/up.png";
+import downImage from "assets/ui_icons/down.png";
+import rightImage from "assets/ui_icons/right.png";
+import leftImage from "assets/ui_icons/left.png";
+import { ipcSender } from "../lib/utils";
 
 function TouchRemoteScreen() {
   return (
     <TouchRemoteScreenLayout
-      onFocusCapture={ipcSender('overlay-focused')}
+      onFocusCapture={ipcSender("overlay-focused")}
       data-testid="TouchRemoteScreenLayout"
     >
       <MainSection>

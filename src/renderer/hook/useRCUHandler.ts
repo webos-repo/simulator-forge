@@ -1,9 +1,9 @@
-import type { RCUButtonEventType } from '@share/structure/events';
-import type { RCU_Button } from '@share/structure/ipcParams';
-import { ipcRenderer } from 'electron';
-import _ from 'lodash';
-import { useState } from 'react';
-import type React from 'react';
+import type { RCUButtonEventType } from "@share/structure/events";
+import type { RCU_Button } from "@share/structure/ipcParams";
+import { ipcRenderer } from "electron";
+import _ from "lodash";
+import { useState } from "react";
+import type React from "react";
 
 type UseRCUHandlerProps = {
   keyCode?: string;
@@ -26,23 +26,23 @@ function useRCUHandler({ keyCode, isTouchRemote }: UseRCUHandlerProps) {
     const rcuEventType = preProcess(e, setIsDown);
     if (!rcuEventType) return;
 
-    if (keyCode !== 'Back') {
-      ipcRenderer.send('rcu-button', {
+    if (keyCode !== "Back") {
+      ipcRenderer.send("rcu-button", {
         keyCode: keyCode!,
         rcuEventType,
         isTouchRemote: !!isTouchRemote,
       } as RCU_Button);
     } else {
-      if (rcuEventType === 'down') {
+      if (rcuEventType === "down") {
         setBackLongPressTimer(
           setTimeout(() => {
-            ipcRenderer.send('close-fg-app');
-          }, 1000)
+            ipcRenderer.send("close-fg-app");
+          }, 1000),
         );
       } else if (backLongPressTimer) {
         clearTimeout(backLongPressTimer);
         setBackLongPressTimer(null);
-        ipcRenderer.send('rcu-back', !!isTouchRemote);
+        ipcRenderer.send("rcu-back", !!isTouchRemote);
       }
     }
   };
@@ -59,18 +59,18 @@ function useRCUHandler({ keyCode, isTouchRemote }: UseRCUHandlerProps) {
 }
 
 const mouseToRCUEventMapping: { [key: string]: RCUButtonEventType } = {
-  mousedown: 'down',
-  mouseup: 'up',
-  click: 'click',
+  mousedown: "down",
+  mouseup: "up",
+  click: "click",
 };
 
 const preProcess = (
   e: React.MouseEvent,
-  setIsDown: (action: boolean) => void
+  setIsDown: (action: boolean) => void,
 ) => {
   const rcuEventType = convertToRCUEventType(e);
   if (!rcuEventType || e.button !== 0) return null;
-  setIsDown(rcuEventType === 'down');
+  setIsDown(rcuEventType === "down");
   return rcuEventType;
 };
 

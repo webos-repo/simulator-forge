@@ -1,10 +1,10 @@
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { constStore } from '@share/store/constStore';
-import _ from 'lodash';
-import OverlayView from '@view/OverlayView';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import { emtSetting } from '../module/eventEmitters';
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { constStore } from "@share/store/constStore";
+import _ from "lodash";
+import OverlayView from "@view/OverlayView";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import { emtSetting } from "../module/eventEmitters";
 
 const TouchRemoteSize = {
   width: 236,
@@ -12,7 +12,7 @@ const TouchRemoteSize = {
 };
 
 class TouchRemoteView extends OverlayView {
-  name = 'TouchRemoteView';
+  name = "TouchRemoteView";
   isShowing = false;
   private backupPos?: { x?: number; y?: number };
 
@@ -24,12 +24,12 @@ class TouchRemoteView extends OverlayView {
         nodeIntegration: true,
       },
     });
-    this.webContents.loadURL(resolveHtmlPath('index.html', 'touch_remote'));
+    this.webContents.loadURL(resolveHtmlPath("index.html", "touch_remote"));
     this.setEventHandler();
   }
 
   private setEventHandler = () => {
-    emtSetting.on('change-zoomFactor', this.handleChangeZoom);
+    emtSetting.on("change-zoomFactor", this.handleChangeZoom);
   };
 
   show = ({ x, y }: { x?: number; y?: number }) => {
@@ -40,10 +40,10 @@ class TouchRemoteView extends OverlayView {
     const zoom = windowSetting.zoom;
 
     const positionX = Math.round(
-      (_.isUndefined(x) || x > baseWidth / 2 ? maxX : minX) * zoom
+      (_.isUndefined(x) || x > baseWidth / 2 ? maxX : minX) * zoom,
     );
     const positionY = Math.round(
-      (_.isUndefined(y) || y > baseHeight / 2 ? maxY : minY) * zoom
+      (_.isUndefined(y) || y > baseHeight / 2 ? maxY : minY) * zoom,
     );
     const width = Math.round(TouchRemoteSize.width * zoom);
     const height = Math.round(TouchRemoteSize.height * zoom);

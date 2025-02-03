@@ -1,11 +1,11 @@
 import type {
   Direction,
   DirectionKeyCode,
-} from '@share/structure/orientations';
-import ButtonRCU from './ButtonRCU';
-import type { RCUButtonCommonProps } from './ButtonRCU';
-import { css } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
+} from "@share/structure/orientations";
+import ButtonRCU from "./ButtonRCU";
+import type { RCUButtonCommonProps } from "./ButtonRCU";
+import { css } from "@emotion/react";
+import type { SerializedStyles } from "@emotion/react";
 
 type Props = RCUButtonCommonProps & {
   direction: DirectionKeyCode;
@@ -22,7 +22,7 @@ function ButtonRCUArrow(props: Props) {
   );
 }
 
-const directionCSSMap: { [key in Props['direction']]: SerializedStyles } = {
+const directionCSSMap: { [key in Props["direction"]]: SerializedStyles } = {
   ArrowUp: css`
     grid-area: 1/2/2/3;
   `,
@@ -41,7 +41,7 @@ const directionCSSMap: { [key in Props['direction']]: SerializedStyles } = {
   `,
 };
 
-const arrowButtonCSS = (direction: Props['direction']) => css`
+const arrowButtonCSS = (direction: Props["direction"]) => css`
   background: inherit;
   ${directionCSSMap[direction]}
 `;

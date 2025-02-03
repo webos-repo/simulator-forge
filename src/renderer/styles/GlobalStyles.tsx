@@ -1,6 +1,6 @@
-import { Global, css } from '@emotion/react';
-import normalize from './normalize';
-import reset from './reset';
+import { Global, css } from "@emotion/react";
+import normalize from "./normalize";
+import reset from "./reset";
 
 function GlobalStyles() {
   return (

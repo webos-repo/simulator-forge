@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // TODO: This is prototype. Do Implementation
-import React, { useState, useCallback, useMemo } from 'react';
-import Select from 'react-select';
-import { ipcRenderer } from 'electron';
-import { ipcSender } from '../lib/utils';
+import React, { useState, useCallback, useMemo } from "react";
+import Select from "react-select";
+import { ipcRenderer } from "electron";
+import { ipcSender } from "../lib/utils";
 
 const TvSettingScreen = () => {
   const models = useMemo(
     () => [
       // TODO: load model list from the local preset file
-      { value: 'o20n', label: 'O20N' },
-      { value: 'e60n', label: 'E60N' },
-      { value: 'k7lp', label: 'K7LP' },
-      { value: 'lm21an', label: 'LM21AN' },
+      { value: "o20n", label: "O20N" },
+      { value: "e60n", label: "E60N" },
+      { value: "k7lp", label: "K7LP" },
+      { value: "lm21an", label: "LM21AN" },
     ],
-    []
+    [],
   );
 
   const [model, setModel] = useState();
@@ -49,10 +49,10 @@ const TvSettingScreen = () => {
         <input className="optionCol" type="text" />
       </div>
       <div className="buttonDiv">
-        <button type="button" onClick={ipcSender('setting-cancel')}>
+        <button type="button" onClick={ipcSender("setting-cancel")}>
           Cancel
         </button>
-        <button type="button" onClick={ipcSender('setting-save')}>
+        <button type="button" onClick={ipcSender("setting-save")}>
           OK
         </button>
       </div>

@@ -1,7 +1,7 @@
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import { tvInfo } from '@tvSettings/index';
-import type { LunaAdditionalData } from './index';
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import { tvInfo } from "@tvSettings/index";
+import type { LunaAdditionalData } from "./index";
 
 type ErrorType = {
   errorCode: string;
@@ -17,15 +17,15 @@ class DeviceUniqueId {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
-    if (category === 'deviceid')
+    if (category === "deviceid")
       switch (method) {
-        case 'getIDs':
+        case "getIDs":
           return await this.getIDs(params);
         default:
       }
@@ -35,20 +35,20 @@ class DeviceUniqueId {
   getIDs = async (params: string) => {
     const { idType }: { idType?: string[] } = JSON.parse(params);
     if (!idType || idType.length === 0) {
-      return methodError('ERR.001', 'Invalid Parameters');
+      return methodError("ERR.001", "Invalid Parameters");
     }
 
     const idList: (IdListType | ErrorType)[] = [];
     idType.forEach((id) => {
-      if (id === 'LGUDID') {
+      if (id === "LGUDID") {
         idList.push({
           idType: id,
           idValue: tvInfo.LGUDID,
         });
       } else {
         idList.push({
-          errorCode: 'ERR.801',
-          errorText: 'Unsupported Device ID Type',
+          errorCode: "ERR.801",
+          errorText: "Unsupported Device ID Type",
         });
       }
     });

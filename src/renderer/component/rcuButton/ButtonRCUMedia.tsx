@@ -1,13 +1,13 @@
-import { css } from '@emotion/react';
-import { gray2 } from '../../styles/colors';
-import { buttonReaction } from '../../styles/effects';
-import { arrangeCenterByFlex } from '../../styles/partials';
-import ButtonRCU from './ButtonRCU';
-import type { RCUButtonCommonProps } from './ButtonRCU';
-import type { SerializedStyles } from '@emotion/react';
+import { css } from "@emotion/react";
+import { gray2 } from "../../styles/colors";
+import { buttonReaction } from "../../styles/effects";
+import { arrangeCenterByFlex } from "../../styles/partials";
+import ButtonRCU from "./ButtonRCU";
+import type { RCUButtonCommonProps } from "./ButtonRCU";
+import type { SerializedStyles } from "@emotion/react";
 
 type Props = RCUButtonCommonProps & {
-  type: 'Stop' | 'Play' | 'Pause' | 'Backward' | 'Forward';
+  type: "Stop" | "Play" | "Pause" | "Backward" | "Forward";
 };
 
 function ButtonRCUMedia(props: Props) {
@@ -16,7 +16,7 @@ function ButtonRCUMedia(props: Props) {
     <ButtonRCU
       {...props}
       keyCode={type}
-      alternativeCSS={buttonCSS(type === 'Stop')}
+      alternativeCSS={buttonCSS(type === "Stop")}
       iconAdditionalCSS={iconCSS(type)}
     />
   );
@@ -43,14 +43,14 @@ const buttonCSS = (isStop: boolean) => css`
   `}
 `;
 
-const iconCSS = (type: Props['type']) => css`
+const iconCSS = (type: Props["type"]) => css`
   width: 12px;
   height: 12px;
   ${iconTypeCSSMap[type]};
 `;
 
 const iconTypeCSSMap: {
-  [key in Props['type']]: SerializedStyles;
+  [key in Props["type"]]: SerializedStyles;
 } = {
   Stop: css`
     width: 14px;

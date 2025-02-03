@@ -1,5 +1,5 @@
-import ApiKeys from '../lib/ApiKeys';
-import { functionRunner } from '../lib/functionRunner';
+import ApiKeys from "../lib/ApiKeys";
+import { functionRunner } from "../lib/functionRunner";
 
 const { Root } = ApiKeys;
 
@@ -16,8 +16,8 @@ function setDetailFlatten() {
       });
     }
 
-    window.addEventListener('keyboardStateChange', detailFlatten, true);
-    window.addEventListener('cursorStateChange', detailFlatten, true);
-    window.addEventListener('screenOrientationChange', detailFlatten, true);
+    window.addEventListener("keyboardStateChange", detailFlatten, true);
+    window.addEventListener("cursorStateChange", detailFlatten, true);
+    window.addEventListener("screenOrientationChange", detailFlatten, true);
   });
 }

@@ -1,6 +1,6 @@
-import { ipcRenderer, webFrame } from 'electron';
-import type { ServiceData } from '@service/Service';
-import { webOSEnv } from '../lib/appEnv';
+import { ipcRenderer, webFrame } from "electron";
+import type { ServiceData } from "@service/Service";
+import { webOSEnv } from "../lib/appEnv";
 
 const bridgeMap: { [key: number]: WebOSServiceBridgePrivate } = {};
 
@@ -18,7 +18,7 @@ class WebOSServiceBridgePrivate {
 
   cancel() {
     if (!this.url) return;
-    ipcRenderer.send('call-service', {
+    ipcRenderer.send("call-service", {
       url: this.url,
       params: JSON.stringify({ subscribe: true }),
       token: this.token,
@@ -49,7 +49,7 @@ class WebOSServiceBridgePrivate {
     };
     ipcRenderer.on(this.channel, this.callbackHandler);
 
-    ipcRenderer.send('call-service', {
+    ipcRenderer.send("call-service", {
       url: this.url,
       params,
       token: this.token,
@@ -66,7 +66,7 @@ export function getWebOSServiceBridgeApi() {
       bridgeKey: number,
       url: string,
       params: string,
-      onservicecallback?: any
+      onservicecallback?: any,
     ) => {
       if (!bridgeMap[bridgeKey]) {
         bridgeMap[bridgeKey] = new WebOSServiceBridgePrivate(onservicecallback);

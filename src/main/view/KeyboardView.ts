@@ -1,16 +1,16 @@
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { constStore } from '@share/store/constStore';
-import type { RCUButtonEventType } from '@share/structure/events';
-import type { Orientation2Way } from '@share/structure/orientations';
-import _ from 'lodash';
-import OverlayView from '@view/OverlayView';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import { emtDev, emtSetting, emtWindow } from '../module/eventEmitters';
-import { VKBPriorityKeys } from '../lib/keyManager';
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { constStore } from "@share/store/constStore";
+import type { RCUButtonEventType } from "@share/structure/events";
+import type { Orientation2Way } from "@share/structure/orientations";
+import _ from "lodash";
+import OverlayView from "@view/OverlayView";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import { emtDev, emtSetting, emtWindow } from "../module/eventEmitters";
+import { VKBPriorityKeys } from "../lib/keyManager";
 
 const KeyboardHeightRatio: {
-  [key in Orientation2Way]: { [key2 in 'default' | 'number']: number };
+  [key in Orientation2Way]: { [key2 in "default" | "number"]: number };
 } = {
   landscape: {
     default: 0.38,
@@ -24,25 +24,25 @@ const KeyboardHeightRatio: {
 
 const getKeyboardHeightRatio = (inputType: string, orn: Orientation2Way) => {
   const inputTypeFiltered =
-    inputType === 'number' || inputType === 'tel' ? 'number' : 'default';
+    inputType === "number" || inputType === "tel" ? "number" : "default";
   return KeyboardHeightRatio[orn][inputTypeFiltered];
 };
 
 const getKeyboardHeight = (
   baseHeight: number,
   inputType: string,
-  orn: Orientation2Way
+  orn: Orientation2Way,
 ) => {
   return _.toInteger(baseHeight * getKeyboardHeightRatio(inputType, orn));
 };
 
 class KeyboardView extends OverlayView {
-  name = 'KeyboardView';
+  name = "KeyboardView";
   isShowing = false;
-  orn: Orientation2Way = 'landscape';
+  orn: Orientation2Way = "landscape";
   vkbType: string;
 
-  constructor(vkbType: 'default' | 'number') {
+  constructor(vkbType: "default" | "number") {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
@@ -53,22 +53,22 @@ class KeyboardView extends OverlayView {
     this.vkbType = vkbType;
 
     this.webContents.loadURL(
-      resolveHtmlPath('index.html', `keyboard/${vkbType}/${this.orn}`)
+      resolveHtmlPath("index.html", `keyboard/${vkbType}/${this.orn}`),
     );
     this.setEventHandler();
   }
 
   setEventHandler = () => {
-    this.webContents.on('did-finish-load', () => {
-      this.webContents.send('reloaded', this.orn);
+    this.webContents.on("did-finish-load", () => {
+      this.webContents.send("reloaded", this.orn);
     });
 
-    emtWindow.on('main-window-orientation-changed', this.changeOrientation);
+    emtWindow.on("main-window-orientation-changed", this.changeOrientation);
 
-    emtSetting.on('change-zoomFactor', this.changeZoomFactor);
+    emtSetting.on("change-zoomFactor", this.changeZoomFactor);
 
     emtDev.on(`open-devtools-vkb-${this.vkbType}`, () =>
-      this.webContents.openDevTools({ mode: 'detach' })
+      this.webContents.openDevTools({ mode: "detach" }),
     );
   };
 
@@ -91,19 +91,19 @@ class KeyboardView extends OverlayView {
 
   hide = () => {
     this.isShowing = false;
-    this.webContents.send('be-hidden');
+    this.webContents.send("be-hidden");
     this.webContents.closeDevTools();
   };
 
   changeOrientation = (orn: Orientation2Way) => {
     this.orn = orn;
     if (this.isShowing) this.show();
-    this.webContents.send('window-orientation-changed', orn);
+    this.webContents.send("window-orientation-changed", orn);
   };
 
   handleRCUInput = (keyCode: string, eventType: RCUButtonEventType) => {
-    if (eventType === 'down' || !_.includes(VKBPriorityKeys, keyCode)) return;
-    this.webContents.send('rcu-pressed', keyCode);
+    if (eventType === "down" || !_.includes(VKBPriorityKeys, keyCode)) return;
+    this.webContents.send("rcu-pressed", keyCode);
   };
 
   changeZoomFactor = () => {

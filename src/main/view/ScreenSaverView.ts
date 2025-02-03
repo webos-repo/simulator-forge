@@ -1,13 +1,13 @@
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { DefaultRect } from '@share/constant/defaults';
-import { constStore } from '@share/store/constStore';
-import { emtApp, emtSetting } from '../module/eventEmitters';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import windowSetting from '@settings/windowSetting';
-import OverlayView from './OverlayView';
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { DefaultRect } from "@share/constant/defaults";
+import { constStore } from "@share/store/constStore";
+import { emtApp, emtSetting } from "../module/eventEmitters";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import windowSetting from "@settings/windowSetting";
+import OverlayView from "./OverlayView";
 
 export default class ScreenSaverView extends OverlayView {
-  name = 'ScreenSaverView';
+  name = "ScreenSaverView";
   isShowing = false;
   videoRect: Electron.Rectangle = DefaultRect;
 
@@ -19,28 +19,28 @@ export default class ScreenSaverView extends OverlayView {
         nodeIntegration: true,
       },
     });
-    this.webContents.loadURL(resolveHtmlPath('index.html', 'screen_saver'));
+    this.webContents.loadURL(resolveHtmlPath("index.html", "screen_saver"));
     this.setEventHandler();
   }
 
   private setEventHandler = () => {
-    emtSetting.on('change-zoomFactor', this.handleChangeZoom);
+    emtSetting.on("change-zoomFactor", this.handleChangeZoom);
 
     emtApp
-      .on('video-rect', this.setVideoRect)
-      .on('video-paused-fg-app', this.resetVideoRect);
+      .on("video-rect", this.setVideoRect)
+      .on("video-paused-fg-app", this.resetVideoRect);
   };
 
   show = () => {
     this.isShowing = true;
     this.resetSize();
     this.sendVideoRect();
-    this.webContents.send('is-shown');
+    this.webContents.send("is-shown");
   };
 
   hide = () => {
     this.isShowing = false;
-    this.webContents.send('is-hidden');
+    this.webContents.send("is-hidden");
   };
 
   private handleChangeZoom = () => {
@@ -50,7 +50,7 @@ export default class ScreenSaverView extends OverlayView {
 
   private resetSize = (
     width = windowSetting.size.width,
-    height = windowSetting.size.height
+    height = windowSetting.size.height,
   ) => {
     this.setAutoResize({ width: true, height: true });
     this.setBounds({
@@ -72,6 +72,6 @@ export default class ScreenSaverView extends OverlayView {
   };
 
   private sendVideoRect = () => {
-    this.webContents.send('video-rect', this.videoRect);
+    this.webContents.send("video-rect", this.videoRect);
   };
 }

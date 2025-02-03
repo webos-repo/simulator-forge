@@ -1,10 +1,10 @@
-import appState from '../assistants/appState';
-import ApiKeys from './ApiKeys';
-import { functionRunner } from './functionRunner';
-import { ipcRenderer } from 'electron';
+import appState from "../assistants/appState";
+import ApiKeys from "./ApiKeys";
+import { functionRunner } from "./functionRunner";
+import { ipcRenderer } from "electron";
 
 export function wrapWindowApis() {
-  ipcRenderer.once('wrap-window-api', () => {
+  ipcRenderer.once("wrap-window-api", () => {
     wrapWindowOpen();
     wrapWindowClose();
   });
@@ -22,7 +22,7 @@ function wrapWindowOpen() {
         return originOpen(...args);
       };
     },
-    { replace: { RootKey, IsolateBridgeKey } }
+    { replace: { RootKey, IsolateBridgeKey } },
   );
 }
 
@@ -34,6 +34,6 @@ function wrapWindowClose() {
         }
       : () => {
           window.close = () => {};
-        }
+        },
   );
 }

@@ -1,11 +1,11 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { getTargetFilePath } from '@share/lib/paths';
-import type { AppInfoWithState } from '@share/structure/appInfo';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { ipcRenderer } from 'electron';
-import path from 'path';
-import fs from 'fs';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { getTargetFilePath } from "@share/lib/paths";
+import type { AppInfoWithState } from "@share/structure/appInfo";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ipcRenderer } from "electron";
+import path from "path";
+import fs from "fs";
 
 type Props = {
   appInfoWithState: AppInfoWithState;
@@ -26,16 +26,16 @@ function AppIcon({
   const appTitleDiv = useRef<any>(null);
   const appTitle = useRef<any>(null);
   const tooltip = `title: ${title}\nappId: ${id}${
-    appState === 'background' ? '\nbackground' : ''
+    appState === "background" ? "\nbackground" : ""
   }`;
 
   const iconData = useMemo(() => {
     const iconPath = largeIcon
       ? path.join(appPath, largeIcon)
       : icon
-      ? path.join(appPath, icon)
-      : getTargetFilePath('assets', 'icon.png');
-    const iconRaw = fs.readFileSync(iconPath).toString('base64');
+        ? path.join(appPath, icon)
+        : getTargetFilePath("assets", "icon.png");
+    const iconRaw = fs.readFileSync(iconPath).toString("base64");
     return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
   }, [appPath, icon, largeIcon]);
 
@@ -48,7 +48,7 @@ function AppIcon({
 
   return (
     <AppIconLayout title={tooltip} onContextMenu={() => handleRightClick(id)}>
-      {appState === 'background' && <BackgroundLight />}
+      {appState === "background" && <BackgroundLight />}
       <AppIconWrapper>
         <AppIconBox
           iconColor={iconColor}
@@ -66,12 +66,12 @@ function AppIcon({
 }
 
 const handleLaunchApp = (appPath: string) =>
-  ipcRenderer.send('launch-app', {
+  ipcRenderer.send("launch-app", {
     appPath,
   });
 
 const handleRightClick = (appId: string) => {
-  ipcRenderer.send('app-icon-right-click', appId);
+  ipcRenderer.send("app-icon-right-click", appId);
 };
 
 const AppIconLayout = styled.button`
@@ -135,8 +135,8 @@ const AppIconBox = styled.div<{
   box-sizing: border-box;
   overflow: hidden;
   background-size: cover;
-  background-color: ${({ iconColor }) => iconColor || 'rgb(243, 243, 243)'};
-  background-image: url('${({ iconData }) => iconData}');
+  background-color: ${({ iconColor }) => iconColor || "rgb(243, 243, 243)"};
+  background-image: url("${({ iconData }) => iconData}");
 `;
 
 const AppTitleWrapper = styled.div<{ long: boolean }>`

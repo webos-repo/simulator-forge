@@ -1,16 +1,16 @@
-import _ from 'lodash';
-import { tvInfo } from '@tvSettings/index';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import type { EventEmitter } from 'events';
-import type { LunaAdditionalData } from './index';
+import _ from "lodash";
+import { tvInfo } from "@tvSettings/index";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import type { EventEmitter } from "events";
+import type { LunaAdditionalData } from "./index";
 
 const subscriptions: Map<string, { emitter: EventEmitter; keys: string[] }> =
   new Map();
 
 const cancelSubscription = (token: string) => {
   if (subscriptions.has(token)) {
-    subscriptions.get(token)!.emitter.emit('subscribe-return', {
+    subscriptions.get(token)!.emitter.emit("subscribe-return", {
       ret: {},
       isSubscription: false,
     });
@@ -35,10 +35,10 @@ class TVDeviceInformation {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -47,7 +47,7 @@ class TVDeviceInformation {
       cancelSubscription(token);
     }
 
-    if (method === 'getSystemInfo') {
+    if (method === "getSystemInfo") {
       return await this.getSystemInfo(params, emitter, token);
     }
     return methodNotFound(category, method);
@@ -56,13 +56,13 @@ class TVDeviceInformation {
   getSystemInfo = async (
     params: string,
     emitter: EventEmitter,
-    token: string
+    token: string,
   ) => {
     const { keys, subscribe }: { keys?: string[]; subscribe?: boolean } =
       JSON.parse(params);
 
     if (!keys || _.isEmpty(keys)) {
-      return methodError('ERROR_06', 'Invalid argument.');
+      return methodError("ERROR_06", "Invalid argument.");
     }
 
     if (subscribe && !subscriptions.has(token)) {
@@ -71,7 +71,7 @@ class TVDeviceInformation {
 
     const ret = getSystemInfoFromSettings(keys);
     if (_.isEmpty(ret)) {
-      return methodError('ERROR_06', 'Invalid argument.');
+      return methodError("ERROR_06", "Invalid argument.");
     }
 
     return {

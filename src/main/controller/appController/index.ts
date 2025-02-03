@@ -1,3 +1,3 @@
-import { listenAppEvent } from './appHandler';
+import { listenAppEvent } from "./appHandler";
 
 listenAppEvent();

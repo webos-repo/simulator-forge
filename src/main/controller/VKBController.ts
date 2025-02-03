@@ -1,24 +1,24 @@
-import KeyboardView from '@view/KeyboardView';
+import KeyboardView from "@view/KeyboardView";
 
-type VKBKeys = 'default' | 'number';
+type VKBKeys = "default" | "number";
 
 class VKBController {
   private readonly VKBMap: { [key in VKBKeys]: KeyboardView };
 
   constructor() {
     this.VKBMap = {
-      default: new KeyboardView('default'),
-      number: new KeyboardView('number'),
+      default: new KeyboardView("default"),
+      number: new KeyboardView("number"),
     };
   }
 
   convertType = (inputType: string) => {
     switch (inputType) {
-      case 'number':
-      case 'tel':
-        return 'number';
+      case "number":
+      case "tel":
+        return "number";
       default:
-        return 'default';
+        return "default";
     }
   };
 

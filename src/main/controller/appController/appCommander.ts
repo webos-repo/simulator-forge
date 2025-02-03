@@ -1,8 +1,8 @@
-import type { Orientation } from '@share/structure/orientations';
-import type { MovePos } from '@share/structure/positions';
-import type { SendToFramesParam } from '@view/AppView';
-import overlayController from '../OverlayController';
-import { runningApps } from './appMemory';
+import type { Orientation } from "@share/structure/orientations";
+import type { MovePos } from "@share/structure/positions";
+import type { SendToFramesParam } from "@view/AppView";
+import overlayController from "../OverlayController";
+import { runningApps } from "./appMemory";
 
 const mouseHideDelay = 6000;
 let mouseHideTimerId: NodeJS.Timeout | null = null;
@@ -26,7 +26,7 @@ function setAppCurOrn(orientation: Orientation) {
 
   requester.curOrientation = orientation;
   requester.sendToFrames({
-    channel: 'current-orientation-changed',
+    channel: "current-orientation-changed",
     args: [orientation],
   });
 }
@@ -35,7 +35,7 @@ function toggleFgAppInspector() {
   if (runningApps.fgApp?.webContents.isDevToolsOpened()) {
     runningApps.fgApp?.webContents.closeDevTools();
   } else {
-    runningApps.fgApp?.webContents.openDevTools({ mode: 'detach' });
+    runningApps.fgApp?.webContents.openDevTools({ mode: "detach" });
   }
 }
 
@@ -51,14 +51,14 @@ function preventCursorHide({ appPath }: { appPath: string }) {
   }
   mouseHideTimerId = setTimeout(
     () => runningApps.fgApp?.hideCursor(),
-    mouseHideDelay
+    mouseHideDelay,
   );
 }
 
 function invokeWheel(eventData: MovePos) {
   const { x, y, movementX: deltaX, movementY: deltaY } = eventData;
   runningApps.fgApp?.webContents.sendInputEvent({
-    type: 'mouseWheel',
+    type: "mouseWheel",
     x,
     y,
     deltaX,

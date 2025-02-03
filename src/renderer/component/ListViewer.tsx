@@ -1,6 +1,6 @@
-import plusImage from 'assets/ui_icons/js-service-plus.png';
-import styled from '@emotion/styled';
-import type { ReactNode } from 'react';
+import plusImage from "assets/ui_icons/js-service-plus.png";
+import styled from "@emotion/styled";
+import type { ReactNode } from "react";
 
 type Props = {
   title: string;

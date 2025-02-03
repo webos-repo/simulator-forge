@@ -1,7 +1,7 @@
-import { ipcHandler } from '@share/lib/utils';
-import type { Orientation } from '@share/structure/orientations';
-import { webOSEnv } from '../lib/appEnv';
-import { webFrame, ipcRenderer } from 'electron';
+import { ipcHandler } from "@share/lib/utils";
+import type { Orientation } from "@share/structure/orientations";
+import { webOSEnv } from "../lib/appEnv";
+import { webFrame, ipcRenderer } from "electron";
 
 class AppState {
   getMouseMoveDataFast = false;
@@ -24,25 +24,25 @@ class AppState {
   setEventHandler = () => {
     ipcRenderer
       .on(
-        'screen-orientation-changed',
+        "screen-orientation-changed",
         ipcHandler((scrOrn: Orientation) => {
           this.scrOrn = scrOrn;
-        })
+        }),
       )
       .on(
-        'current-orientation-changed',
+        "current-orientation-changed",
         ipcHandler((curOrn: Orientation) => {
           this.curOrn = curOrn;
-        })
+        }),
       )
       .on(
-        'screen-saver-toggled',
+        "screen-saver-toggled",
         ipcHandler((screenSaver: boolean) => {
           this.screenSaver = screenSaver;
-        })
+        }),
       );
 
-    window.addEventListener('cursorStateChange', (e: any) => {
+    window.addEventListener("cursorStateChange", (e: any) => {
       this.cursorVisibility = e.detail.visibility;
     });
   };

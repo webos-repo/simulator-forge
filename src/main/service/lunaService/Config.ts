@@ -1,23 +1,23 @@
-import _ from 'lodash';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
-import { tvInfo } from '@tvSettings/index';
-import type { LunaAdditionalData } from './index';
+import _ from "lodash";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
+import { tvInfo } from "@tvSettings/index";
+import type { LunaAdditionalData } from "./index";
 
 class ConfigService {
   call = async (
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (method) {
-        case 'getConfigs':
+        case "getConfigs":
           return await this.getConfigs(params);
         default:
       }
@@ -31,7 +31,7 @@ class ConfigService {
     const tvInfoConfigs = tvInfo.configs;
 
     if (!configNames) {
-      return methodError(-2, 'Invalid parameter error', { subscribed: false });
+      return methodError(-2, "Invalid parameter error", { subscribed: false });
     }
 
     const configs = configNames?.reduce((pre: any, cur) => {

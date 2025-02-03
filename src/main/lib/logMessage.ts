@@ -1,16 +1,16 @@
-import { dialog } from 'electron';
+import { dialog } from "electron";
 
 type Message = {
-  type: 'info' | 'warning' | 'error';
+  type: "info" | "warning" | "error";
   message: string;
   detail: string;
 };
 
 class LogMessage extends Error implements Message {
   constructor(
-    public type: Message['type'],
-    public message: Message['message'],
-    public detail: Message['detail']
+    public type: Message["type"],
+    public message: Message["message"],
+    public detail: Message["detail"],
   ) {
     super(detail);
   }
@@ -28,8 +28,8 @@ function showErrorBox(errorObj: any) {
     errorObj.showToUser();
   } else {
     dialog.showMessageBox({
-      type: 'error',
-      message: errorObj?.name || 'Unknown error',
+      type: "error",
+      message: errorObj?.name || "Unknown error",
       detail: errorObj?.message,
     });
   }

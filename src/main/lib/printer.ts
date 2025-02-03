@@ -1,5 +1,5 @@
-import path from 'path';
-import caller from 'caller';
+import path from "path";
+import caller from "caller";
 
 const print = {
   info: (...args: any[]) => {

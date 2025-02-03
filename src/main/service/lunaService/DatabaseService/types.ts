@@ -5,7 +5,7 @@ type WhereClause = {
   collate?: string;
 };
 
-type Operation = 'read' | 'create' | 'update' | 'delete';
+type Operation = "read" | "create" | "update" | "delete";
 
 type Query = {
   from: string;

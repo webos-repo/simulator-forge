@@ -1,17 +1,17 @@
-import moment from 'moment-timezone';
-import { tvLocation } from '@tvSettings/index';
-import type * as ActivityManagerTypes from './types';
+import moment from "moment-timezone";
+import { tvLocation } from "@tvSettings/index";
+import type * as ActivityManagerTypes from "./types";
 
 const NonPreciseIntervals = [
-  '12h',
-  '6h',
-  '3h',
-  '1h',
-  '20m',
-  '30m',
-  '15m',
-  '10m',
-  '5m',
+  "12h",
+  "6h",
+  "3h",
+  "1h",
+  "20m",
+  "30m",
+  "15m",
+  "10m",
+  "5m",
 ];
 
 const activityTimerMap: Map<string, NodeJS.Timeout> = new Map();
@@ -19,7 +19,7 @@ const activityTimerMap: Map<string, NodeJS.Timeout> = new Map();
 // a - b
 const getTimeDiff = (
   a: moment.Moment,
-  b = moment().tz(tvLocation.timeZone)
+  b = moment().tz(tvLocation.timeZone),
 ) => {
   return moment.duration(a.diff(b)).asMilliseconds();
 };
@@ -27,10 +27,10 @@ const getTimeDiff = (
 const validInterval = (
   timeNum: number,
   timeType: string,
-  precise?: boolean
+  precise?: boolean,
 ) => {
   if (!precise) {
-    if (timeType === 'd') return true;
+    if (timeType === "d") return true;
     return NonPreciseIntervals.includes(`${timeNum}${timeType}`);
   }
   return true;
@@ -39,16 +39,16 @@ const validInterval = (
 const convertTimeToMilli = (timeNum: number, timeType: string) => {
   let ret = timeNum;
   switch (timeType) {
-    case 'd':
+    case "d":
       ret *= 24 * 60 * 60 * 1000;
       break;
-    case 'h':
+    case "h":
       ret *= 60 * 60 * 1000;
       break;
-    case 'm':
+    case "m":
       ret *= 60 * 1000;
       break;
-    case 's':
+    case "s":
       ret *= 1000;
       break;
     default:
@@ -59,7 +59,7 @@ const convertTimeToMilli = (timeNum: number, timeType: string) => {
 
 const handleInterval = (
   activity: ActivityManagerTypes.Activity,
-  callback: any
+  callback: any,
 ) => {
   const { end, precise, interval } = activity.schedule!;
   if (!interval) return false;
@@ -75,7 +75,7 @@ const handleInterval = (
   if (intervalMilli <= 0) return false;
 
   let endTime: moment.Moment | undefined;
-  if (end) endTime = moment(end, 'Y-M-D H:m:s', true).tz(tvLocation.timeZone);
+  if (end) endTime = moment(end, "Y-M-D H:m:s", true).tz(tvLocation.timeZone);
 
   activityTimerMap.set(
     activity.name,
@@ -83,7 +83,7 @@ const handleInterval = (
       if (endTime && getTimeDiff(endTime) < 0) return;
       callback(activity);
       setTimeout(callbackCaller, intervalMilli);
-    }, intervalMilli)
+    }, intervalMilli),
   );
 
   return true;
@@ -91,13 +91,13 @@ const handleInterval = (
 
 const handleStart = (
   activity: ActivityManagerTypes.Activity,
-  callback: any
+  callback: any,
 ) => {
   const { start, end, interval } = activity.schedule!;
   const { continuous } = activity.type;
 
   if (!start) return false;
-  const startTime = moment(start, 'Y-M-D H:m:s', true).tz(tvLocation.timeZone);
+  const startTime = moment(start, "Y-M-D H:m:s", true).tz(tvLocation.timeZone);
 
   if (!startTime.isValid()) {
     return false;
@@ -107,7 +107,7 @@ const handleStart = (
   if (curStartDiff < 0) return false;
 
   if (end) {
-    const endTime = moment(end, 'Y-M-D H:m:s', true).tz(tvLocation.timeZone);
+    const endTime = moment(end, "Y-M-D H:m:s", true).tz(tvLocation.timeZone);
     const startEndDiff = getTimeDiff(endTime, startTime);
     if (startEndDiff < 0) return false;
   }
@@ -119,7 +119,7 @@ const handleStart = (
       if (continuous && interval) {
         handleInterval(activity, callback);
       }
-    }, curStartDiff)
+    }, curStartDiff),
   );
 
   return true;
@@ -127,7 +127,7 @@ const handleStart = (
 
 export const setSchedule = (
   activity: ActivityManagerTypes.Activity,
-  callback: any
+  callback: any,
 ) => {
   if (!activity.schedule) return false;
   if (activity.schedule?.start) {

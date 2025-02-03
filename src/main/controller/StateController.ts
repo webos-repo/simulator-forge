@@ -1,6 +1,6 @@
-import { ipcHandler } from '@share/lib/utils';
-import { ipcMain } from 'electron';
-import _ from 'lodash';
+import { ipcHandler } from "@share/lib/utils";
+import { ipcMain } from "electron";
+import _ from "lodash";
 
 class StateController {
   mainScreenLoaded = false;
@@ -11,8 +11,8 @@ class StateController {
 
   private setEventHandler = () => {
     ipcMain.once(
-      'main-screen-loaded',
-      ipcHandler(() => this.setState('mainScreenLoaded')(true))
+      "main-screen-loaded",
+      ipcHandler(() => this.setState("mainScreenLoaded")(true)),
     );
   };
 

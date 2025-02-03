@@ -1,9 +1,9 @@
-import { webOSTVVersion } from '../../../package.json';
+import { webOSTVVersion } from "../../../package.json";
 
 const electronVersion = process.versions.electron;
 const [eMajorVersion, eMiddleVersion, eMinorVersion] = electronVersion
-  .split('-')[0]
-  .split('.')
+  .split("-")[0]
+  .split(".")
   .map((s) => parseInt(s, 10));
 
 export const getElectronVersion = () => {
@@ -15,13 +15,13 @@ export const getElectronVersion = () => {
   };
 };
 
-export type WebOSVersion = '6.0' | '22' | '23' | '24';
+export type WebOSVersion = "6.0" | "22" | "23" | "24";
 
 const WebOSVerFromElectronMajorVer: Record<string, WebOSVersion> = {
-  8: '6.0',
-  11: '22',
-  15: '23',
-  22: '24',
+  8: "6.0",
+  11: "22",
+  15: "23",
+  22: "24",
 };
 
 export const getWebOSVersion = (): WebOSVersion => {

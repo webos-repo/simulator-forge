@@ -1,10 +1,10 @@
-import settingsDB from '@settings/settingsDB';
+import settingsDB from "@settings/settingsDB";
 import type {
   Orientation,
   Orientation2Way,
-} from '@share/structure/orientations';
-import type { Bound, Pos, Size } from '@share/structure/positions';
-import { emtSetting } from '../module/eventEmitters';
+} from "@share/structure/orientations";
+import type { Bound, Pos, Size } from "@share/structure/positions";
+import { emtSetting } from "../module/eventEmitters";
 
 type DBData = {
   width?: number;
@@ -12,13 +12,13 @@ type DBData = {
   zoomFactor?: number;
 };
 
-const WSKey = 'window-settings';
+const WSKey = "window-settings";
 
 class WindowSetting {
   private BaseWidth: Readonly<number> = 1280;
   private BaseHeight: Readonly<number> = 720;
-  private orn4w: Orientation = 'landscape';
-  private orn2w: Orientation2Way = 'landscape';
+  private orn4w: Orientation = "landscape";
+  private orn2w: Orientation2Way = "landscape";
   private x = 50;
   private y = 50;
   private width!: number;
@@ -40,7 +40,7 @@ class WindowSetting {
   private initSettings = (
     width = this.BaseWidth,
     height = this.BaseHeight,
-    zoomFactor = 1
+    zoomFactor = 1,
   ) => {
     [this.width, this.height, this.zoomFactor] = [width, height, zoomFactor];
     this.setToDB({
@@ -122,10 +122,10 @@ class WindowSetting {
   setOrn = (orn: Orientation) => {
     if (this.orn4w === orn) return;
     this.orn4w = orn;
-    if (orn === 'landscape' || orn === 'reversed_landscape') {
-      this.setOrn2Way('landscape');
+    if (orn === "landscape" || orn === "reversed_landscape") {
+      this.setOrn2Way("landscape");
     } else {
-      this.setOrn2Way('portrait');
+      this.setOrn2Way("portrait");
     }
   };
 
@@ -138,12 +138,12 @@ class WindowSetting {
     if (this.zoomFactor === zoomFactor) return;
     this.zoomFactor = zoomFactor;
     this.setSize(this.BaseWidth * zoomFactor, this.BaseHeight * zoomFactor);
-    emtSetting.emit('change-zoomFactor', this.zoom);
+    emtSetting.emit("change-zoomFactor", this.zoom);
     this.setToDB({ zoomFactor });
   };
 
   private isLandscape = () => {
-    return this.orn2w === 'landscape';
+    return this.orn2w === "landscape";
   };
 }
 

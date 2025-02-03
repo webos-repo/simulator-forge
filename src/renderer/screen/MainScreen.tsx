@@ -1,21 +1,21 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { ipcRenderer } from 'electron';
-import { ToastContainer, Flip } from 'react-toastify';
-import { ipcHandler } from '@share/lib/utils';
-import AppBar from '../component/appBar/AppBar';
-import Spinner from '../component/Spinner';
-import Notification from '../component/Notification';
-import { clearToast, showToast } from '../lib/toastManager';
-import 'react-toastify/dist/ReactToastify.css';
-import { arrangeCenterByFlex } from '../styles/partials';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import { ipcRenderer } from "electron";
+import { ToastContainer, Flip } from "react-toastify";
+import { ipcHandler } from "@share/lib/utils";
+import AppBar from "../component/appBar/AppBar";
+import Spinner from "../component/Spinner";
+import Notification from "../component/Notification";
+import { clearToast, showToast } from "../lib/toastManager";
+import "react-toastify/dist/ReactToastify.css";
+import { arrangeCenterByFlex } from "../styles/partials";
 
-import beanbird from 'assets/beanbird-sky.jpg';
+import beanbird from "assets/beanbird-sky.jpg";
 
 const closeOnRotateContents = [
-  'This app does not support portrait mode.',
-  'Please orient the screen to landscape mode to enjoy.',
+  "This app does not support portrait mode.",
+  "Please orient the screen to landscape mode to enjoy.",
 ];
 
 function MainScreen() {
@@ -30,19 +30,19 @@ function MainScreen() {
   };
 
   useEffect(() => {
-    document.addEventListener('mouseenter', () => {
-      ipcRenderer.send('main-window-mouseenter');
+    document.addEventListener("mouseenter", () => {
+      ipcRenderer.send("main-window-mouseenter");
     });
     ipcRenderer
-      .on('set-spinner', ipcHandler(setShowSpinner))
-      .on('clear-main-screen', () => {
+      .on("set-spinner", ipcHandler(setShowSpinner))
+      .on("clear-main-screen", () => {
         setShowSpinner(false);
         clearToast();
       })
-      .on('show-noti-close-rotate', () => setNotiTimer(setCloseRotateVisible))
-      .on('show-toast', ipcHandler(showToast));
+      .on("show-noti-close-rotate", () => setNotiTimer(setCloseRotateVisible))
+      .on("show-toast", ipcHandler(showToast));
 
-    ipcRenderer.send('main-screen-loaded');
+    ipcRenderer.send("main-screen-loaded");
   }, []);
 
   return (
@@ -85,7 +85,7 @@ const MainScreenLayout = styled.main<{ preventPointerEvent: boolean }>(
       css`
         pointer-events: none;
       `,
-  ]
+  ],
 );
 
 const IgnorePanel = styled.div`

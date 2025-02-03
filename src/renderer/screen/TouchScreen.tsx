@@ -1,10 +1,10 @@
-import { css, keyframes } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
-import styled from '@emotion/styled';
-import React, { useState, useRef, useEffect } from 'react';
-import { ipcRenderer } from 'electron';
-import { ipcHandler } from '@share/lib/utils';
-import type { MouseEventType } from '@share/structure/events';
+import { css, keyframes } from "@emotion/react";
+import type { SerializedStyles } from "@emotion/react";
+import styled from "@emotion/styled";
+import React, { useState, useRef, useEffect } from "react";
+import { ipcRenderer } from "electron";
+import { ipcHandler } from "@share/lib/utils";
+import type { MouseEventType } from "@share/structure/events";
 
 function TouchScreen() {
   const [edge, setEdge] = useState({
@@ -40,8 +40,8 @@ function TouchScreen() {
   const handleMouseLeave = (e: React.MouseEvent) => {
     setIsEntered(false);
     if (isDown.current) {
-      ipcRenderer.send('touch-screen-mouse-leave-event');
-      handleMouseUp({ ...e, type: 'mouseup' });
+      ipcRenderer.send("touch-screen-mouse-leave-event");
+      handleMouseUp({ ...e, type: "mouseup" });
     }
   };
 
@@ -59,8 +59,8 @@ function TouchScreen() {
   };
 
   useEffect(() => {
-    ipcRenderer.on('edge-data', ipcHandler(setEdge));
-    ipcRenderer.send('req-edge-data');
+    ipcRenderer.on("edge-data", ipcHandler(setEdge));
+    ipcRenderer.send("req-edge-data");
   }, []);
 
   return (
@@ -110,7 +110,7 @@ function TouchScreen() {
 
 function sendMouseEvent(e: React.MouseEvent) {
   ipcRenderer.send(
-    'touch-screen-mouse-event',
+    "touch-screen-mouse-event",
     {
       type: e.type,
       x: e.clientX,
@@ -118,11 +118,11 @@ function sendMouseEvent(e: React.MouseEvent) {
       movementX: e.movementX,
       movementY: e.movementY,
     } as MouseEventType,
-    e.timeStamp
+    e.timeStamp,
   );
 }
 
-const EdgeRange = '30px';
+const EdgeRange = "30px";
 
 const TouchScreenLayout = styled.section`
   width: 100vw;
@@ -182,7 +182,7 @@ const Cursor = styled.div<{
   }
 `;
 
-type EdgePosition = 'bottom' | 'left' | 'right';
+type EdgePosition = "bottom" | "left" | "right";
 
 const EdgeBox = styled.section<{
   position: EdgePosition;

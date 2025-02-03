@@ -16,8 +16,8 @@ type OptionalInfo = {
   iconColor?: string;
   appDescription?: string;
   disableBackHistoryAPI?: boolean;
-  resolution?: '1920x1080' | '1280x720';
-  supportTouchMode?: 'full' | 'virtual' | 'none';
+  resolution?: "1920x1080" | "1280x720";
+  supportTouchMode?: "full" | "virtual" | "none";
   virtualTouch?: {
     verticalThreshold?: number;
     horizontalThreshold?: number;
@@ -35,17 +35,17 @@ type AppInfo = AppInfoJson & {
   appPath: string;
 };
 type AppInfoWithState = AppInfo & {
-  appState: 'foreground' | 'background' | 'notLaunched';
+  appState: "foreground" | "background" | "notLaunched";
 };
 type AppInfoJsonMandatory = Mandatory;
 
 const AppInfoRequirements: (keyof AppInfoJsonMandatory)[] = [
-  'id',
-  'title',
-  'type',
-  'main',
-  'icon',
-  'version',
+  "id",
+  "title",
+  "type",
+  "main",
+  "icon",
+  "version",
 ];
 
 export type { AppInfoJson, AppInfo, AppInfoJsonMandatory, AppInfoWithState };

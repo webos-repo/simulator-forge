@@ -1,4 +1,4 @@
-import { makeDB } from '@controller/dbController';
+import { makeDB } from "@controller/dbController";
 
-const settingsDB = makeDB('settings');
+const settingsDB = makeDB("settings");
 export default settingsDB;

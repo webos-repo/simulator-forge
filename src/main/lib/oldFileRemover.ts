@@ -1,12 +1,12 @@
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
+import fs from "fs";
+import os from "os";
+import path from "path";
 
-const WebOSServiceFileName = 'webos-service.js';
-const HomeNodeModules = path.resolve(os.homedir(), 'node_modules');
+const WebOSServiceFileName = "webos-service.js";
+const HomeNodeModules = path.resolve(os.homedir(), "node_modules");
 const WebOSServiceFilePath = path.resolve(
   HomeNodeModules,
-  WebOSServiceFileName
+  WebOSServiceFileName,
 );
 
 export function removeWebOSServiceFile() {
@@ -16,7 +16,7 @@ export function removeWebOSServiceFile() {
       {
         force: true,
         recursive: true,
-      }
+      },
     );
   } catch {
     // pass

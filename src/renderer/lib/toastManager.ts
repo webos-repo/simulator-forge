@@ -1,7 +1,7 @@
-import { shell } from 'electron';
-import { toast } from 'react-toastify';
-import VersionToast from '../component/toast/VersionToast';
-import GeneralToast from '../component/toast/GeneralToast';
+import { shell } from "electron";
+import { toast } from "react-toastify";
+import VersionToast from "../component/toast/VersionToast";
+import GeneralToast from "../component/toast/GeneralToast";
 
 interface GeneralToastProps {
   title: string;
@@ -15,7 +15,7 @@ interface VersionToastProps {
 }
 
 interface ToastParams {
-  category: 'general' | 'version';
+  category: "general" | "version";
   props: GeneralToastProps | VersionToastProps;
 }
 
@@ -24,13 +24,13 @@ function clearToast() {
 }
 
 function showToast({ category, props }: ToastParams) {
-  if (category === 'general') showGeneralToast(props as GeneralToastProps);
-  else if (category === 'version') showVersionToast(props as VersionToastProps);
+  if (category === "general") showGeneralToast(props as GeneralToastProps);
+  else if (category === "version") showVersionToast(props as VersionToastProps);
 }
 
 function showVersionToast(props: VersionToastProps) {
   toast.info(VersionToast(props), {
-    position: 'top-right',
+    position: "top-right",
     progress: undefined,
     autoClose: 5000,
   });
@@ -39,7 +39,7 @@ function showVersionToast(props: VersionToastProps) {
 function showGeneralToast(props: GeneralToastProps) {
   const { linkUrl } = props;
   toast.success(GeneralToast(props), {
-    position: 'top-right',
+    position: "top-right",
     progress: undefined,
     autoClose: 5000,
     ...(linkUrl

@@ -1,12 +1,12 @@
-import { css, keyframes } from '@emotion/react';
-import styled from '@emotion/styled';
-import { directions } from '@share/structure/orientations';
-import type { Direction } from '@share/structure/orientations';
-import { useState, useEffect, useRef } from 'react';
-import { ipcRenderer } from 'electron';
-import { ipcHandler } from '@share/lib/utils';
-import { random } from 'lodash';
-import { DefaultRect } from '@share/constant/defaults';
+import { css, keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
+import { directions } from "@share/structure/orientations";
+import type { Direction } from "@share/structure/orientations";
+import { useState, useEffect, useRef } from "react";
+import { ipcRenderer } from "electron";
+import { ipcHandler } from "@share/lib/utils";
+import { random } from "lodash";
+import { DefaultRect } from "@share/constant/defaults";
 
 const DefaultGuidePos = {
   top: 300,
@@ -20,15 +20,15 @@ function ScreenSaverScreen() {
   const [guidePos, setGuidePos] = useState(DefaultGuidePos);
   const guideMoveTimer = useRef<NodeJS.Timer | null>(null);
   const holePos = useRef(DefaultRect);
-  const guidanceMoveTime = process.env.NODE_ENV === 'test' ? 200 : 8000;
+  const guidanceMoveTime = process.env.NODE_ENV === "test" ? 200 : 8000;
 
   const preventScreenSaver = (e: any) => {
     if (!shown) return;
     if (movePrevent) {
       setMovePrevent(false);
-      if (e.type === 'mousemove') return;
+      if (e.type === "mousemove") return;
     }
-    ipcRenderer.send('prevent-screen-saver-from-screen');
+    ipcRenderer.send("prevent-screen-saver-from-screen");
   };
 
   const checkGuideVisible = () => {
@@ -52,19 +52,19 @@ function ScreenSaverScreen() {
 
     ipcRenderer
       .on(
-        'video-rect',
+        "video-rect",
         ipcHandler((newHolePos: Electron.Rectangle) => {
           holePos.current = newHolePos;
-        })
+        }),
       )
-      .on('is-shown', () => {
+      .on("is-shown", () => {
         setGuidePos(DefaultGuidePos);
         resetGuideMoveTimer(true);
         setShown(true);
         setMovePrevent(true);
         if (checkGuideVisible()) setGuideVisible(true);
       })
-      .on('is-hidden', () => {
+      .on("is-hidden", () => {
         setShown(false);
         setGuideVisible(false);
         resetGuideMoveTimer(false);
@@ -192,25 +192,25 @@ const BlackBox = styled.div<{
   height: 100%;
 
   ${({ direction, holePos: { x, y, width, height } }) =>
-    direction === 'Up'
+    direction === "Up"
       ? css`
           height: ${y}px;
         `
-      : direction === 'Down'
-      ? css`
-          top: ${y + height}px;
-          height: ${720 - y - height}px;
-        `
-      : direction === 'Left'
-      ? css`
-          width: ${x}px;
-        `
-      : direction === 'Right'
-      ? css`
-          left: ${x + width}px;
-          width: ${1280 - x - width}px;
-        `
-      : undefined}
+      : direction === "Down"
+        ? css`
+            top: ${y + height}px;
+            height: ${720 - y - height}px;
+          `
+        : direction === "Left"
+          ? css`
+              width: ${x}px;
+            `
+          : direction === "Right"
+            ? css`
+                left: ${x + width}px;
+                width: ${1280 - x - width}px;
+              `
+            : undefined}
 `;
 
 export default ScreenSaverScreen;

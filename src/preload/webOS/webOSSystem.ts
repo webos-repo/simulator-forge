@@ -1,9 +1,9 @@
-import { orientations } from '@share/structure/orientations';
-import { ipcRenderer } from 'electron';
-import appState from '../assistants/appState';
-import { webOSEnv } from '../lib/appEnv';
-import ApiKeys from '../lib/ApiKeys';
-import { functionRunner } from '../lib/functionRunner';
+import { orientations } from "@share/structure/orientations";
+import { ipcRenderer } from "electron";
+import appState from "../assistants/appState";
+import { webOSEnv } from "../lib/appEnv";
+import ApiKeys from "../lib/ApiKeys";
+import { functionRunner } from "../lib/functionRunner";
 
 export function getWebOSSystemApi() {
   const { appInfo, webOSSystemConf, settingsConf, launchEnv } = webOSEnv;
@@ -25,8 +25,8 @@ export function getWebOSSystemApi() {
     screenOrientation: () => appState.scrOrn,
     currentOrientation: () => appState.curOrn,
     isActivated: () => appState.isActivated,
-    phoneRegion: () => '',
-    timeFormat: () => '',
+    phoneRegion: () => "",
+    timeFormat: () => "",
     isMinimal: () => true,
     cursor: {
       visibility: () => appState.cursorVisibility,
@@ -36,7 +36,7 @@ export function getWebOSSystemApi() {
   const methods = {
     window: {
       setFocus: () => {
-        checkArgsLength(['needFocus', 'true'], 2);
+        checkArgsLength(["needFocus", "true"], 2);
       },
       setProperty: (...args: any[]) => {
         checkArgsLength(args, 2);
@@ -57,13 +57,13 @@ export function getWebOSSystemApi() {
     },
     activate: () => {},
     deactivate: () => {
-      ipcRenderer.send('app-deactivate', appInfo.id);
+      ipcRenderer.send("app-deactivate", appInfo.id);
     },
     hide: () => {
       methods.deactivate();
     },
     close: () => {
-      ipcRenderer.send('close-app-by-id', appInfo.id);
+      ipcRenderer.send("close-app-by-id", appInfo.id);
     },
     getIdentifier: () => {
       return webOSEnv.appInfo.id;
@@ -73,20 +73,20 @@ export function getWebOSSystemApi() {
       const [screenOrientation] = args;
       if (orientations.includes(screenOrientation)) {
         ipcRenderer.send(
-          'req-change-app-orn',
+          "req-change-app-orn",
           webOSEnv.appInfo.id,
-          screenOrientation
+          screenOrientation,
         );
         return true; // TODO: check return value
       }
       return undefined;
     },
     platformBack: () => {
-      ipcRenderer.send('platform-back', appInfo.id);
+      ipcRenderer.send("platform-back", appInfo.id);
     },
     setCursor: (shape: string, x: number, y: number) => {
-      if (shape === 'default' || shape === '') {
-        ipcRenderer.send('set-cursor', x, y);
+      if (shape === "default" || shape === "") {
+        ipcRenderer.send("set-cursor", x, y);
         return true;
       }
       return false;
@@ -114,7 +114,7 @@ export function getWebOSSystemApi() {
     editorFocused: () => {},
     getResource: (...args: any[]) => {
       checkArgsLength(args, 1);
-      return '';
+      return "";
     },
     enableFullScreenMode: (...args: any[]) => {
       checkArgsLength(args, 1);
@@ -178,7 +178,7 @@ export function getWebOSSystemApi() {
       return false;
     },
     closeWebView: () => {},
-    ...(webOSEnv.simulatorInfo.webOSVersion === '6.0'
+    ...(webOSEnv.simulatorInfo.webOSVersion === "6.0"
       ? {
           serviceEnable: (...args: any[]) => {
             checkArgsLength(args, 1);
@@ -194,7 +194,7 @@ export function getWebOSSystemApi() {
 
 function checkArgsLength(args: any[], len: number) {
   if (args.length < len) {
-    throw TypeError('Insufficient number of arguments.');
+    throw TypeError("Insufficient number of arguments.");
   }
   return true;
 }
@@ -208,7 +208,7 @@ export function makeWebOSSystemInApp() {
     () => {
       function setProps(map: any, target: any, valueFunc: (v: any) => any) {
         Object.entries(map).forEach(([key, value]: [string, any]) => {
-          if (typeof value === 'object') {
+          if (typeof value === "object") {
             if (!target[key]) {
               Object.defineProperty(target, key, { value: {} });
             }
@@ -230,7 +230,7 @@ export function makeWebOSSystemInApp() {
               return value();
             },
           };
-        }
+        },
       );
       setProps(
         window[RootKey][WebOSSystemKey].methods,
@@ -239,16 +239,16 @@ export function makeWebOSSystemInApp() {
           return {
             value,
           };
-        }
+        },
       );
 
-      Object.defineProperty(window, 'PalmSystem', {
+      Object.defineProperty(window, "PalmSystem", {
         value: window.webOSSystem,
       });
-      Object.defineProperty(window, 'webOSGetResource', {
+      Object.defineProperty(window, "webOSGetResource", {
         value: window.webOSSystem.getResource,
       });
-      Object.defineProperty(window, 'webos', {
+      Object.defineProperty(window, "webos", {
         value: {
           timezone: window.webOSSystem.timeZone,
         },
@@ -257,6 +257,6 @@ export function makeWebOSSystemInApp() {
       Object.preventExtensions(window.webOSSystem);
       Object.preventExtensions(window.webos);
     },
-    { replace: { RootKey, WebOSSystemKey } }
+    { replace: { RootKey, WebOSSystemKey } },
   );
 }

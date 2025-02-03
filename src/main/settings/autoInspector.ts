@@ -1,6 +1,6 @@
-import settingsDB from './settingsDB';
+import settingsDB from "./settingsDB";
 
-const DBKey = 'auto-inspector' as const;
+const DBKey = "auto-inspector" as const;
 let autoLaunch = settingsDB.getOrSet(DBKey, false);
 
 export function toggleAutoInspector() {

@@ -1,8 +1,8 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { grayBtnBgColor, grayBtnFtColor } from '../styles/colors';
-import { arrangeCenterByFlex } from '../styles/partials';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import { grayBtnBgColor, grayBtnFtColor } from "../styles/colors";
+import { arrangeCenterByFlex } from "../styles/partials";
 
 type Props = {
   contents: string[];
@@ -37,7 +37,7 @@ const NotificationBox = styled.div<{ visible: boolean }>`
   background-color: ${grayBtnBgColor};
   color: ${grayBtnFtColor};
   font-size: 1.2rem;
-  font-family: 'LG Smart 2.0 Regular', sans-serif;
+  font-family: "LG Smart 2.0 Regular", sans-serif;
   border-radius: 15px;
   line-height: 1.5;
   transition: all 0.3s;

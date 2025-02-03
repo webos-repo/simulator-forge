@@ -1,41 +1,41 @@
-import 'react-simple-keyboard/build/css/index.css';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import type { Orientation2Way } from '@share/structure/orientations';
-import { ipcRenderer } from 'electron';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import SimpleKeyboard from 'react-simple-keyboard';
-import keyNavigation from 'simple-keyboard-key-navigation';
-import { ipcHandler } from '@share/lib/utils';
-import { ipcSender } from '../lib/utils';
-import getReactSimpleKeyboardCustomCSS from '../styles/vkbCustom';
+import "react-simple-keyboard/build/css/index.css";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { Orientation2Way } from "@share/structure/orientations";
+import { ipcRenderer } from "electron";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import SimpleKeyboard from "react-simple-keyboard";
+import keyNavigation from "simple-keyboard-key-navigation";
+import { ipcHandler } from "@share/lib/utils";
+import { ipcSender } from "../lib/utils";
+import getReactSimpleKeyboardCustomCSS from "../styles/vkbCustom";
 import {
   defaultVKBLayout,
   numberVKBLayout,
   vkbDisplay,
-} from '../styles/vkbLayouts';
-import { blackBlue } from '../styles/colors';
+} from "../styles/vkbLayouts";
+import { blackBlue } from "../styles/colors";
 
-const unusedKeyNames = ['{eng}', '{aa}', '{voice}', '', '{none}', '{blank}'];
+const unusedKeyNames = ["{eng}", "{aa}", "{voice}", "", "{none}", "{blank}"];
 let keyboard: any;
 let kbdNavigation: any;
 
 function VKBScreen() {
   const { inputType, initOrn } = useParams();
-  const [layoutName, setLayoutName] = useState('default');
+  const [layoutName, setLayoutName] = useState("default");
   const [orn, setOrn] = useState(initOrn as Orientation2Way);
   const vkbLayout = getVKBLayout(inputType!);
 
   const handleKeyPress = (pressedKeyName: string) => {
     switch (pressedKeyName) {
-      case '{shift}':
-        setLayoutName(layoutName === 'default' ? 'shift' : 'default');
+      case "{shift}":
+        setLayoutName(layoutName === "default" ? "shift" : "default");
         break;
-      case '{symbol}':
-      case '{symbol_num}':
-      case '{abc}':
-        setLayoutName(layoutName === 'symbol' ? 'default' : 'symbol');
+      case "{symbol}":
+      case "{symbol_num}":
+      case "{abc}":
+        setLayoutName(layoutName === "symbol" ? "default" : "symbol");
         break;
       default:
     }
@@ -44,19 +44,19 @@ function VKBScreen() {
     }
     const pressedKeyValue = convertVKBKey(pressedKeyName);
     if (pressedKeyValue) {
-      ipcRenderer.send('vkb-key-pressed', pressedKeyValue);
+      ipcRenderer.send("vkb-key-pressed", pressedKeyValue);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mouseenter', () => {
-      ipcRenderer.send('main-window-mouseenter');
+    document.addEventListener("mouseenter", () => {
+      ipcRenderer.send("main-window-mouseenter");
     });
     ipcRenderer
-      .on('reloaded', ipcHandler(setOrn))
-      .on('window-orientation-changed', ipcHandler(setOrn))
-      .on('be-hidden', resetMarker)
-      .on('rcu-pressed', ipcHandler(handleNavigation));
+      .on("reloaded", ipcHandler(setOrn))
+      .on("window-orientation-changed", ipcHandler(setOrn))
+      .on("be-hidden", resetMarker)
+      .on("rcu-pressed", ipcHandler(handleNavigation));
   }, []);
 
   return (
@@ -64,7 +64,7 @@ function VKBScreen() {
       orn={orn}
       data-orn={orn}
       css={getReactSimpleKeyboardCustomCSS(orn)}
-      onFocusCapture={ipcSender('overlay-focused')}
+      onFocusCapture={ipcSender("overlay-focused")}
       data-testid="VKBScreenLayout"
     >
       <SimpleKeyboard
@@ -103,7 +103,7 @@ const VKBScreenLayout = styled.main<{ orn: Orientation2Way }>`
   padding: 15px 0 20px 0;
 
   ${({ orn }) =>
-    orn === 'portrait' &&
+    orn === "portrait" &&
     css`
       padding: 5px 0 5px 0;
     `}
@@ -111,8 +111,8 @@ const VKBScreenLayout = styled.main<{ orn: Orientation2Way }>`
 
 const getVKBLayout = (layoutName: string) => {
   switch (layoutName) {
-    case 'number':
-    case 'tel':
+    case "number":
+    case "tel":
       return numberVKBLayout;
     default:
       return defaultVKBLayout;
@@ -122,29 +122,29 @@ const getVKBLayout = (layoutName: string) => {
 const convertVKBKey = (keyName: string) => {
   let keyValue;
   switch (keyName) {
-    case '{bksp}':
-      keyValue = 'Backspace';
+    case "{bksp}":
+      keyValue = "Backspace";
       break;
-    case '{enter}':
-      keyValue = 'Enter';
+    case "{enter}":
+      keyValue = "Enter";
       break;
-    case '{shift}':
-      keyValue = 'Shift';
+    case "{shift}":
+      keyValue = "Shift";
       break;
-    case '{symbol}':
+    case "{symbol}":
       keyValue = null;
       break;
-    case '{clearall}':
-      keyValue = 'ClearAll';
+    case "{clearall}":
+      keyValue = "ClearAll";
       break;
-    case '{arrowleft}':
-      keyValue = 'ArrowLeft';
+    case "{arrowleft}":
+      keyValue = "ArrowLeft";
       break;
-    case '{arrowright}':
-      keyValue = 'ArrowRight';
+    case "{arrowright}":
+      keyValue = "ArrowRight";
       break;
-    case '{space}':
-      keyValue = ' ';
+    case "{space}":
+      keyValue = " ";
       break;
     default:
       keyValue = keyName;
@@ -155,21 +155,21 @@ const convertVKBKey = (keyName: string) => {
 
 const makeMouseOverToNavigationMove = () => {
   if (!keyboard) return;
-  const buttons = document.querySelectorAll('.hg-button');
+  const buttons = document.querySelectorAll(".hg-button");
   buttons.forEach((button: any) => {
-    button.addEventListener('mouseover', () => {
-      const rawData = button.getAttribute('data-skbtnuid');
-      const rawDataSliced = rawData.slice(rawData.indexOf('-') + 1);
+    button.addEventListener("mouseover", () => {
+      const rawData = button.getAttribute("data-skbtnuid");
+      const rawDataSliced = rawData.slice(rawData.indexOf("-") + 1);
       const rowPos = parseInt(
         rawDataSliced.slice(
-          rawDataSliced.indexOf('r') + 1,
-          rawDataSliced.indexOf('b')
+          rawDataSliced.indexOf("r") + 1,
+          rawDataSliced.indexOf("b"),
         ),
-        10
+        10,
       );
       const btnPos = parseInt(
-        rawDataSliced.slice(rawDataSliced.indexOf('b') + 1),
-        10
+        rawDataSliced.slice(rawDataSliced.indexOf("b") + 1),
+        10,
       );
       keyboard.modules.keyNavigation.setMarker(rowPos, btnPos);
     });
@@ -182,7 +182,7 @@ const resetMarker = () => {
 };
 
 const setNavigationHandler = () => {
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener("keydown", (e) => {
     handleNavigation(e.key);
   });
 };
@@ -190,7 +190,7 @@ const setNavigationHandler = () => {
 const checkDisabled = (y: number, x: number) => {
   const btn = kbdNavigation.getButtonAt(y, x);
   if (!btn) return true;
-  return unusedKeyNames.includes(btn.getAttribute('data-skbtn'));
+  return unusedKeyNames.includes(btn.getAttribute("data-skbtn"));
 };
 
 const handleNavigation = (key: string) => {
@@ -198,21 +198,21 @@ const handleNavigation = (key: string) => {
   const beforePos = kbdNavigation.lastMarkerPos;
   let isVerticalMove = false;
   switch (key) {
-    case 'ArrowUp':
+    case "ArrowUp":
       kbdNavigation.up();
       isVerticalMove = true;
       break;
-    case 'ArrowDown':
+    case "ArrowDown":
       kbdNavigation.down();
       isVerticalMove = true;
       break;
-    case 'ArrowRight':
+    case "ArrowRight":
       kbdNavigation.right();
       break;
-    case 'ArrowLeft':
+    case "ArrowLeft":
       kbdNavigation.left();
       break;
-    case 'Enter':
+    case "Enter":
       kbdNavigation.press();
       return;
     default:
@@ -220,12 +220,12 @@ const handleNavigation = (key: string) => {
 
   if (kbdNavigation.lastMarkerPos === beforePos) {
     if (isVerticalMove) {
-      ipcRenderer.send('req-vkb-hide');
+      ipcRenderer.send("req-vkb-hide");
       return;
     }
     const curY = kbdNavigation.lastMarkerPos[0];
     let x = 0;
-    if (key === 'ArrowRight') {
+    if (key === "ArrowRight") {
       while (checkDisabled(curY, x)) {
         x += 1;
       }
@@ -241,7 +241,7 @@ const handleNavigation = (key: string) => {
   if (
     checkDisabled(
       kbdNavigation.lastMarkerPos[0],
-      kbdNavigation.lastMarkerPos[1]
+      kbdNavigation.lastMarkerPos[1],
     )
   ) {
     handleNavigation(key);

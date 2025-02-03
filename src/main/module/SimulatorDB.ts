@@ -1,10 +1,10 @@
-import type { DBBaseKey } from '@controller/dbController';
-import type Store from 'electron-store';
+import type { DBBaseKey } from "@controller/dbController";
+import type Store from "electron-store";
 
 export default class SimulatorDB {
   constructor(
     private db: Store<Record<string, unknown>>,
-    private dbBaseKey: DBBaseKey
+    private dbBaseKey: DBBaseKey,
   ) {}
 
   get(dataPath?: string): any {
@@ -15,7 +15,7 @@ export default class SimulatorDB {
   }
 
   set(key: string, value: any) {
-    const dbPath = key === '' ? this.dbBaseKey : `${this.dbBaseKey}.${key}`;
+    const dbPath = key === "" ? this.dbBaseKey : `${this.dbBaseKey}.${key}`;
     return this.db.set(dbPath, value);
   }
 
@@ -36,7 +36,7 @@ export default class SimulatorDB {
   setOnDidChange({ key, handler }: { key?: string; handler: any }) {
     return this.db.onDidChange(
       key ? `${this.dbBaseKey}.${key}` : this.dbBaseKey,
-      handler
+      handler,
     );
   }
 }

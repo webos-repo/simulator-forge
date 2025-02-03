@@ -1,8 +1,8 @@
-import { Pos } from '@share/structure/positions';
-import { BrowserWindow } from 'electron';
-import windowSetting from '@settings/windowSetting';
-import { resolveHtmlPath } from '../lib/pathResolver';
-import { emtSetting } from '../module/eventEmitters';
+import { Pos } from "@share/structure/positions";
+import { BrowserWindow } from "electron";
+import windowSetting from "@settings/windowSetting";
+import { resolveHtmlPath } from "../lib/pathResolver";
+import { emtSetting } from "../module/eventEmitters";
 
 class RcuWindow extends BrowserWindow {
   constructor(mainWndBound: Readonly<Electron.Rectangle>) {
@@ -12,7 +12,7 @@ class RcuWindow extends BrowserWindow {
       width: windowSetting.rcuSize.width,
       height: windowSetting.rcuSize.height,
       useContentSize: true,
-      title: 'RCU',
+      title: "RCU",
       show: false,
       resizable: false,
       frame: false,
@@ -24,14 +24,14 @@ class RcuWindow extends BrowserWindow {
         contextIsolation: false,
       },
     });
-    this.loadURL(resolveHtmlPath('index.html', 'rcu'));
+    this.loadURL(resolveHtmlPath("index.html", "rcu"));
     this.setMenuBarVisibility(false);
     this.setEventHandler();
   }
 
   private setEventHandler = () => {
-    this.once('ready-to-show', this.handleReadyToShow);
-    emtSetting.on('touch-mode-changed', this.sendTouchModeState);
+    this.once("ready-to-show", this.handleReadyToShow);
+    emtSetting.on("touch-mode-changed", this.sendTouchModeState);
   };
 
   private handleReadyToShow = () => {
@@ -47,7 +47,7 @@ class RcuWindow extends BrowserWindow {
   };
 
   private sendTouchModeState = (isTouchMode: boolean) => {
-    this.webContents.send('touch-mode-changed', isTouchMode);
+    this.webContents.send("touch-mode-changed", isTouchMode);
   };
 
   fixContentBounds = ({ x, y }: Pos) => {

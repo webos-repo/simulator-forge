@@ -1,9 +1,9 @@
-import lunaService from '@service/lunaService';
-import JSServiceController from '@controller/JSServiceController';
-import { serviceNotFound } from '@service/ServiceError';
-import type { SendToFramesParam } from '@view/AppView';
-import { splitServiceURL } from '../lib/pathResolver';
-import { emtApp, emtService } from '../module/eventEmitters';
+import lunaService from "@service/lunaService";
+import JSServiceController from "@controller/JSServiceController";
+import { serviceNotFound } from "@service/ServiceError";
+import type { SendToFramesParam } from "@view/AppView";
+import { splitServiceURL } from "../lib/pathResolver";
+import { emtApp, emtService } from "../module/eventEmitters";
 
 export type ServiceData = {
   url: string;
@@ -19,7 +19,7 @@ export type ServiceCallback = (
   res: any,
   subscribe: boolean,
   isCalledFromApp: boolean,
-  frameId: number
+  frameId: number,
 ) => void;
 
 async function callService({
@@ -37,7 +37,7 @@ async function callService({
     token,
     serviceCallback,
     isCancel,
-    frameId
+    frameId,
   );
 
   if (!isLunaService) {
@@ -51,7 +51,7 @@ async function callService({
         token,
         serviceCallback,
         isCancel,
-        frameId
+        frameId,
       );
     } else {
       serviceCallback(
@@ -59,7 +59,7 @@ async function callService({
         serviceNotFound(serviceName),
         false,
         isCalledFromApp,
-        frameId
+        frameId,
       );
     }
   }
@@ -70,11 +70,11 @@ const serviceCallback: ServiceCallback = (
   res: any,
   subscribe: boolean,
   isCalledFromApp: boolean,
-  frameId: number
+  frameId: number,
 ) => {
   if (isCalledFromApp) {
-    const appId = token.slice(0, token.lastIndexOf('.'));
-    emtApp.emit('send-to-app-by-id', appId, {
+    const appId = token.slice(0, token.lastIndexOf("."));
+    emtApp.emit("send-to-app-by-id", appId, {
       channel: `return-service-${token}`,
       args: res ? [res] : undefined,
       frameId,
@@ -84,4 +84,4 @@ const serviceCallback: ServiceCallback = (
   }
 };
 
-emtService.onWithIpcMain('call-service', callService);
+emtService.onWithIpcMain("call-service", callService);

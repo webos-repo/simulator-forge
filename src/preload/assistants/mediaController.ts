@@ -1,4 +1,4 @@
-const MediaTags = ['video', 'audio'] as const;
+const MediaTags = ["video", "audio"] as const;
 
 interface State {
   currentPlayingElm?: HTMLMediaElement;

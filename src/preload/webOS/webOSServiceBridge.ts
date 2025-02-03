@@ -1,5 +1,5 @@
-import ApiKeys from '../lib/ApiKeys';
-import { functionRunner } from '../lib/functionRunner';
+import ApiKeys from "../lib/ApiKeys";
+import { functionRunner } from "../lib/functionRunner";
 
 export function makeWebOSServiceBridgeInApp() {
   // [WARNING] Require local copy
@@ -23,7 +23,7 @@ export function makeWebOSServiceBridgeInApp() {
             this.bridgeKey,
             url,
             params,
-            this.onservicecallback
+            this.onservicecallback,
           );
         }
         cancel() {
@@ -39,6 +39,6 @@ export function makeWebOSServiceBridgeInApp() {
         RootKey,
         WebOSServiceBridgeKey,
       },
-    }
+    },
   );
 }

@@ -1,12 +1,12 @@
-import { getTouchMode } from '@settings/touchMode';
-import type { AppInfo } from '@share/structure/appInfo';
-import AppView from '@view/AppView';
-import { showErrorBox } from '../../lib/logMessage';
-import { readAppEntry, readAppInfo } from '../../lib/metaFileReader';
-import Mutex from '../../lib/mutex';
-import { getUserAgents } from '../../lib/userAgents';
-import { emtApp, emtView, emtWindow } from '../../module/eventEmitters';
-import overlayController from '../OverlayController';
+import { getTouchMode } from "@settings/touchMode";
+import type { AppInfo } from "@share/structure/appInfo";
+import AppView from "@view/AppView";
+import { showErrorBox } from "../../lib/logMessage";
+import { readAppEntry, readAppInfo } from "../../lib/metaFileReader";
+import Mutex from "../../lib/mutex";
+import { getUserAgents } from "../../lib/userAgents";
+import { emtApp, emtView, emtWindow } from "../../module/eventEmitters";
+import overlayController from "../OverlayController";
 import {
   checkAppInfoRequirements,
   checkCloseOnRotation,
@@ -15,8 +15,8 @@ import {
   reqChangeWindowOrn,
   reqNotiCloseRotate,
   reqPreventScreenSaver,
-} from './appLib';
-import { appInfos, runningApps } from './appMemory';
+} from "./appLib";
+import { appInfos, runningApps } from "./appMemory";
 
 const launchMutex = new Mutex();
 
@@ -44,15 +44,15 @@ function launchApp({
       return;
     }
     moveFgAppToBg();
-    emtWindow.emit('set-spinner', true);
+    emtWindow.emit("set-spinner", true);
     newAppView = makeAppView(appInfo, launchParams);
     setAfterFirstLoadHandler(newAppView);
     newAppView.load();
     runningApps.add(newAppView);
   } catch (err) {
     if (newAppView) runningApps.removeAppById(newAppView.appId);
-    emtWindow.emit('set-spinner', false);
-    emtApp.emit('failed-to-launch-app', appPath);
+    emtWindow.emit("set-spinner", false);
+    emtApp.emit("failed-to-launch-app", appPath);
     showErrorBox(err);
   }
 }
@@ -121,14 +121,14 @@ function closeApp(appView?: AppView) {
   if (!appView) return;
   if (appView === runningApps.fgApp) {
     overlayController.hideAllOverlay();
-    emtView.emit('unset-touch-view');
+    emtView.emit("unset-touch-view");
     runningApps.resetFgApp();
   }
-  emtWindow.emit('remove-view', appView);
+  emtWindow.emit("remove-view", appView);
   appView.clear();
   (appView.webContents as any)?.destroy();
   runningApps.removeAppById(appView.appId);
-  emtWindow.emit('set-landscape');
+  emtWindow.emit("set-landscape");
   appInfos.update();
 }
 
@@ -136,7 +136,7 @@ function clearAllApp() {
   closeFgApp();
   runningApps.apps.forEach((appView) => {
     appView.clear();
-    emtWindow.emit('remove-view', appView);
+    emtWindow.emit("remove-view", appView);
   });
   runningApps.reset();
   appInfos.update();
@@ -144,23 +144,23 @@ function clearAllApp() {
 
 function setAfterFirstLoadHandler(appView: AppView) {
   appView.webContents
-    .once('did-finish-load', () => {
+    .once("did-finish-load", () => {
       moveAppToFg(appView);
       appInfos.add(appView.appInfo);
     })
-    .on('did-finish-load', appView.afterLoad);
+    .on("did-finish-load", appView.afterLoad);
 }
 
 function moveAppToFg(appView: AppView) {
-  emtWindow.once('change-window-orientation-done', () => {
+  emtWindow.once("change-window-orientation-done", () => {
     appView.handleForeground();
-    emtWindow.emit('set-view', appView);
+    emtWindow.emit("set-view", appView);
     runningApps.setFgApp(appView);
-    emtApp.emit('fg-app-changed', appView);
-    if (getTouchMode()) emtView.emit('set-touch-view');
+    emtApp.emit("fg-app-changed", appView);
+    if (getTouchMode()) emtView.emit("set-touch-view");
     appInfos.update();
     reqPreventScreenSaver();
-    emtWindow.emit('clear-main-screen');
+    emtWindow.emit("clear-main-screen");
   });
   reqChangeWindowOrn(appView.curOrientation);
 }
@@ -170,10 +170,10 @@ function moveFgAppToBg() {
   if (!fgApp) return;
   runningApps.resetFgApp();
   overlayController.hideAllOverlay();
-  emtWindow.emit('remove-view', fgApp);
+  emtWindow.emit("remove-view", fgApp);
   fgApp.handleBackground();
-  emtApp.emit('fg-app-removed');
-  emtView.emit('unset-touch-view');
+  emtApp.emit("fg-app-removed");
+  emtView.emit("unset-touch-view");
   appInfos.update();
 }
 
@@ -184,10 +184,10 @@ function switchApp(appInfo: AppInfo) {
     if (runningApps.fgApp === appView) return;
     moveFgAppToBg();
   }
-  emtWindow.emit('set-spinner', true);
+  emtWindow.emit("set-spinner", true);
   setTimeout(() => {
     moveAppToFg(appView);
-    appView.invokeWebOSEvent('webOSRelaunch');
+    appView.invokeWebOSEvent("webOSRelaunch");
   }, 500);
 }
 

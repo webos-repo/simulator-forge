@@ -1,10 +1,10 @@
-import { tvLocation } from '@tvSettings/index';
-import { emtSetting } from '../../module/eventEmitters';
-import { isJsonStrValid } from '../../lib/jsonChecker';
-import { methodError, methodNotFound } from '@service/ServiceError';
+import { tvLocation } from "@tvSettings/index";
+import { emtSetting } from "../../module/eventEmitters";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { methodError, methodNotFound } from "@service/ServiceError";
 
-import type { EventEmitter } from 'events';
-import type { LunaAdditionalData } from './index';
+import type { EventEmitter } from "events";
+import type { LunaAdditionalData } from "./index";
 
 type SettingsType = {
   localeInfo?: {
@@ -27,7 +27,7 @@ type SettingsType = {
   captionEnable?: string;
 };
 
-const optionKeys = ['country', 'smartServiceCountryCode2', 'audioGuidance'];
+const optionKeys = ["country", "smartServiceCountryCode2", "audioGuidance"];
 const subscriptions: Map<
   string,
   {
@@ -42,31 +42,31 @@ const subscriptions: Map<
 const getLocaleInfo = () => {
   return {
     locales: {
-      UI: 'en-US',
-      TV: 'en-US',
-      FMT: 'en-US',
-      NLP: 'en-US',
-      STT: 'en-US',
-      AUD: 'en-US',
-      AUD2: 'en-US',
+      UI: "en-US",
+      TV: "en-US",
+      FMT: "en-US",
+      NLP: "en-US",
+      STT: "en-US",
+      AUD: "en-US",
+      AUD2: "en-US",
     },
-    clock: 'locale',
-    keyboards: ['en'],
+    clock: "locale",
+    keyboards: ["en"],
     timezone: tvLocation.timeZone,
   };
 };
 
 const getSettingValue = (key: string | undefined) => {
-  if (key === 'country') return { country: tvLocation.country };
-  if (key === 'smartServiceCountryCode2')
+  if (key === "country") return { country: tvLocation.country };
+  if (key === "smartServiceCountryCode2")
     return { smartServiceCountryCode2: tvLocation.countryAlpha2 };
-  if (key === 'audioGuidance') return { audioGuidance: 'off' };
+  if (key === "audioGuidance") return { audioGuidance: "off" };
   return undefined;
 };
 
 const getSettings = (
   key?: string,
-  keys?: string[]
+  keys?: string[],
 ): SettingsType | undefined => {
   if (key && keys) return undefined;
 
@@ -80,19 +80,19 @@ const getSettings = (
     return undefined;
   }
   return {
-    ...(keys.includes('country') ? getSettingValue('country') : null),
-    ...(keys.includes('smartServiceCountryCode2')
-      ? getSettingValue('smartServiceCountryCode2')
+    ...(keys.includes("country") ? getSettingValue("country") : null),
+    ...(keys.includes("smartServiceCountryCode2")
+      ? getSettingValue("smartServiceCountryCode2")
       : null),
-    ...(keys.includes('audioGuidance')
-      ? getSettingValue('audioGuidance')
+    ...(keys.includes("audioGuidance")
+      ? getSettingValue("audioGuidance")
       : null),
   };
 };
 
 const cancelSubscription = (token: string) => {
   if (subscriptions.has(token)) {
-    subscriptions.get(token)!.emitter.emit('subscribe-return', {
+    subscriptions.get(token)!.emitter.emit("subscribe-return", {
       ret: {},
       isSubscription: false,
     });
@@ -103,13 +103,13 @@ const cancelSubscription = (token: string) => {
   };
 };
 
-emtSetting.on('settings-updated', () => {
+emtSetting.on("settings-updated", () => {
   subscriptions.forEach(({ emitter, category, method, keys, key }) => {
     let ret;
     if (!category) {
       if (
-        (!keys && key === 'localeInfo') ||
-        (!key && keys && keys.length === 1 && keys[0] === 'localeInfo')
+        (!keys && key === "localeInfo") ||
+        (!key && keys && keys.length === 1 && keys[0] === "localeInfo")
       ) {
         ret = {
           returnValue: true,
@@ -119,7 +119,7 @@ emtSetting.on('settings-updated', () => {
           },
         };
       }
-    } else if (category === 'option') {
+    } else if (category === "option") {
       const settings = getSettings(key, keys);
       ret = {
         returnValue: true,
@@ -127,18 +127,18 @@ emtSetting.on('settings-updated', () => {
         method,
         settings,
       };
-    } else if (category === 'caption') {
+    } else if (category === "caption") {
       ret = {
         returnValue: true,
         category,
         method,
         settings: {
-          captionEnable: 'off',
+          captionEnable: "off",
         },
       };
     }
     if (ret) {
-      emitter.emit('subscribe-return', { ret, isSubscription: true });
+      emitter.emit("subscribe-return", { ret, isSubscription: true });
     }
   });
 });
@@ -148,10 +148,10 @@ class SettingsService {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData
+    additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
-      return methodError('ERROR_99', 'JSON format error.');
+      return methodError("ERROR_99", "JSON format error.");
     }
 
     const { emitter, token, isCancel } = additionalData;
@@ -160,9 +160,9 @@ class SettingsService {
       cancelSubscription(token);
     }
 
-    if (category === '') {
+    if (category === "") {
       switch (method) {
-        case 'getSystemSettings':
+        case "getSystemSettings":
           return await this.getSystemSettings(params, emitter, token);
         default:
       }
@@ -173,14 +173,14 @@ class SettingsService {
   getSystemSettings = async (
     params: string,
     emitter: EventEmitter,
-    token: string
+    token: string,
   ) => {
     const { category, keys, key, subscribe } = JSON.parse(params);
-    const method = 'getSystemSettings';
+    const method = "getSystemSettings";
     const retError = {
       method,
       returnValue: false,
-      errorText: 'There is no matched result from DB',
+      errorText: "There is no matched result from DB",
     };
 
     if (subscribe && !subscriptions.has(token)) {
@@ -190,18 +190,18 @@ class SettingsService {
     let settings;
     if (!category) {
       if (
-        (!keys && key === 'localeInfo') ||
-        (!key && keys && keys.length === 1 && keys[0] === 'localeInfo')
+        (!keys && key === "localeInfo") ||
+        (!key && keys && keys.length === 1 && keys[0] === "localeInfo")
       ) {
         settings = {
           localeInfo: getLocaleInfo(),
         };
       }
-    } else if (category === 'option') {
+    } else if (category === "option") {
       settings = getSettings(key, keys);
-    } else if (category === 'caption') {
+    } else if (category === "caption") {
       settings = {
-        captionEnable: 'off',
+        captionEnable: "off",
       };
     }
 

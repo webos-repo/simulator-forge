@@ -1,17 +1,17 @@
-import type { ShareFrameIdParam } from '@share/structure/ipcParams';
-import { contextBridge, ipcRenderer, webFrame } from 'electron';
-import { loadLGFont } from './assistants/fontLoader';
-import { getTestApi } from './assistants/devAssistant';
-import ApiKeys from './lib/ApiKeys';
-import { webOSEnv } from './lib/appEnv';
-import { wrapWindowApis } from './lib/windowWrapper';
-import { getWebOSServiceBridgeApi } from './webOS/webOSServiceBridgePrivate';
-import { makeWebOSServiceBridgeInApp } from './webOS/webOSServiceBridge';
-import { getWebOSSystemApi, makeWebOSSystemInApp } from './webOS/webOSSystem';
-import * as eventDispatcher from './assistants/eventDispatcher';
-import * as isolationAssistant from './assistants/isolationAssistant';
-import * as inAppRunner from './assistants/inAppRunner';
-import * as devAssistant from './assistants/devAssistant';
+import type { ShareFrameIdParam } from "@share/structure/ipcParams";
+import { contextBridge, ipcRenderer, webFrame } from "electron";
+import { loadLGFont } from "./assistants/fontLoader";
+import { getTestApi } from "./assistants/devAssistant";
+import ApiKeys from "./lib/ApiKeys";
+import { webOSEnv } from "./lib/appEnv";
+import { wrapWindowApis } from "./lib/windowWrapper";
+import { getWebOSServiceBridgeApi } from "./webOS/webOSServiceBridgePrivate";
+import { makeWebOSServiceBridgeInApp } from "./webOS/webOSServiceBridge";
+import { getWebOSSystemApi, makeWebOSSystemInApp } from "./webOS/webOSSystem";
+import * as eventDispatcher from "./assistants/eventDispatcher";
+import * as isolationAssistant from "./assistants/isolationAssistant";
+import * as inAppRunner from "./assistants/inAppRunner";
+import * as devAssistant from "./assistants/devAssistant";
 
 declare global {
   interface Window {
@@ -59,7 +59,7 @@ function setWindowListener() {
   inAppRunner.setAppWindowListener();
 }
 
-ipcRenderer.send('share-frame-id', {
+ipcRenderer.send("share-frame-id", {
   appId: webOSEnv.appInfo.id,
 } as ShareFrameIdParam);
 

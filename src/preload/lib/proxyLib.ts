@@ -1,7 +1,7 @@
 export function setChangeListener(
   targetObj: any,
   targetKey: string,
-  handler: any
+  handler: any,
 ) {
   // eslint-disable-next-line no-new
   new Proxy(targetObj, {

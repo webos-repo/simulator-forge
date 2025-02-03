@@ -1,30 +1,30 @@
-import { checkMacViewPositionBug } from '@main/lib/bugVersionChecker';
-import { constStore } from '@share/store/constStore';
-import type { AppInfo } from '@share/structure/appInfo';
+import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
+import { constStore } from "@share/store/constStore";
+import type { AppInfo } from "@share/structure/appInfo";
 import type {
   MouseEventType,
   RCUButtonEventType,
   TouchEventType,
-} from '@share/structure/events';
-import type { Direction, Orientation } from '@share/structure/orientations';
-import type { WebOSEnv } from '@share/structure/webOSEnv';
+} from "@share/structure/events";
+import type { Direction, Orientation } from "@share/structure/orientations";
+import type { WebOSEnv } from "@share/structure/webOSEnv";
 import {
   convertKey,
   convertKeyType,
   isCustomKey,
   isRequirePress,
-} from '../lib/keyManager';
-import { getElectronVersion } from '../lib/simulInfo';
-import { DefaultRect } from '@share/constant/defaults';
-import { ipcHandler } from '@share/lib/utils';
-import { app, BrowserView } from 'electron';
-import path from 'path';
-import _ from 'lodash';
-import watcherManger from '../module/watcher';
-import { emtApp, emtSetting } from '../module/eventEmitters';
-import { isAutoInspectorOn } from '@settings/autoInspector';
-import windowSetting from '@settings/windowSetting';
-import type chokidar from 'chokidar';
+} from "../lib/keyManager";
+import { getElectronVersion } from "../lib/simulInfo";
+import { DefaultRect } from "@share/constant/defaults";
+import { ipcHandler } from "@share/lib/utils";
+import { app, BrowserView } from "electron";
+import path from "path";
+import _ from "lodash";
+import watcherManger from "../module/watcher";
+import { emtApp, emtSetting } from "../module/eventEmitters";
+import { isAutoInspectorOn } from "@settings/autoInspector";
+import windowSetting from "@settings/windowSetting";
+import type chokidar from "chokidar";
 
 type AppViewConstructorParams = {
   appInfo: AppInfo;
@@ -45,12 +45,12 @@ const CSSLikeTV = `
   html { user-select: none; overflow: hidden; }
   * { cursor: default; font-family: "LG Display-Regular"; font-weight: 400 !important; }
 `;
-const CSSCursorHide = '* { cursor: none }';
+const CSSCursorHide = "* { cursor: none }";
 const PropsAffectedByZoom: Readonly<string[]> = [
-  'x',
-  'y',
-  'movementX',
-  'movementY',
+  "x",
+  "y",
+  "movementX",
+  "movementY",
 ];
 
 const calcMouseWithWindowZoom = (mouseEvent: MouseEventType) => {
@@ -64,15 +64,15 @@ const calcMouseWithWindowZoom = (mouseEvent: MouseEventType) => {
 };
 
 class AppView extends BrowserView {
-  name = 'AppView';
+  name = "AppView";
   appInfo: AppInfo;
   appId: string;
   appPath: string;
   appEntry: string;
   launchParams?: string;
   disableBackHistoryAPI: boolean;
-  state: 'background' | 'foreground';
-  curOrientation: Orientation = 'landscape';
+  state: "background" | "foreground";
+  curOrientation: Orientation = "landscape";
   private readonly userAgent: string;
   private readonly resolution: string;
   private watcher: chokidar.FSWatcher | null | undefined;
@@ -104,13 +104,13 @@ class AppView extends BrowserView {
           : {}),
         defaultFontFamily: {
           // TODO: serif, sans-serif check
-          standard: 'LG Display-Regular',
-          sansSerif: 'LG Display-Regular',
-          serif: 'LG Display-Regular',
+          standard: "LG Display-Regular",
+          sansSerif: "LG Display-Regular",
+          serif: "LG Display-Regular",
         },
         preload: app.isPackaged
-          ? path.join(__dirname, 'preload.js')
-          : path.join(__dirname, '../../../.erb/dll/preload.js'),
+          ? path.join(__dirname, "preload.js")
+          : path.join(__dirname, "../../../.erb/dll/preload.js"),
       },
     });
 
@@ -119,10 +119,10 @@ class AppView extends BrowserView {
     this.appPath = appInfo.appPath;
     this.appEntry = appEntry;
     this.disableBackHistoryAPI = !!appInfo.disableBackHistoryAPI;
-    this.resolution = appInfo.resolution || '1920x1080';
+    this.resolution = appInfo.resolution || "1920x1080";
     this.launchParams = launchParams;
     this.userAgent = userAgent;
-    this.state = backgroundLaunched ? 'background' : 'foreground';
+    this.state = backgroundLaunched ? "background" : "foreground";
 
     this.setEventHandler();
     this.preventNewWindow();
@@ -145,39 +145,39 @@ class AppView extends BrowserView {
 
   private setEventHandler = () => {
     this.webContents
-      .on('did-frame-finish-load', ipcHandler(this.handleFrameLoaded))
-      .on('media-started-playing', this.handleMediaStart)
-      .on('media-paused', this.handleMediaPaused);
+      .on("did-frame-finish-load", ipcHandler(this.handleFrameLoaded))
+      .on("media-started-playing", this.handleMediaStart)
+      .on("media-paused", this.handleMediaPaused);
 
-    emtSetting.on('change-zoomFactor', this.fitZoomFactor);
+    emtSetting.on("change-zoomFactor", this.fitZoomFactor);
   };
 
   private removeExternalEventHandler = () => {
-    emtSetting.removeListener('change-zoomFactor', this.fitZoomFactor);
+    emtSetting.removeListener("change-zoomFactor", this.fitZoomFactor);
   };
 
   afterLoad = () => {
-    this.invokeWebOSEvent('webOSLaunch');
+    this.invokeWebOSEvent("webOSLaunch");
     this.fitSize();
     this.fitZoomFactor();
     this.insertCSS(CSSLikeTV, true);
     this.hideCursor();
     this.webContents.focus();
-    this.sendToFrames({ channel: 'wrap-window-api' });
+    this.sendToFrames({ channel: "wrap-window-api" });
   };
 
   private preventNewWindow = () => {
     if (getElectronVersion().major < 12) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.webContents.on('new-window', (event, url) => {
+      this.webContents.on("new-window", (event, url) => {
         event.preventDefault();
         if (url) this.webContents.loadURL(url);
       });
     } else {
       (this.webContents as any).setWindowOpenHandler((details: any) => {
         if (details.url) this.webContents.loadURL(details.url);
-        return { action: 'deny' };
+        return { action: "deny" };
       });
     }
   };
@@ -198,7 +198,7 @@ class AppView extends BrowserView {
   };
 
   private fitZoomFactor = () => {
-    const appWidth = this.resolution === '1280x720' ? 1280 : 1920;
+    const appWidth = this.resolution === "1280x720" ? 1280 : 1920;
     this.webContents.zoomFactor = windowSetting.getLongSide() / appWidth;
   };
 
@@ -219,11 +219,11 @@ class AppView extends BrowserView {
   };
 
   insertCSS = (css: string, force = false) => {
-    this.sendToFrames({ channel: 'insert-css', args: [css, force] });
+    this.sendToFrames({ channel: "insert-css", args: [css, force] });
   };
 
   private removeCSS = (css: string) => {
-    this.sendToFrames({ channel: 'remove-css', args: [css] });
+    this.sendToFrames({ channel: "remove-css", args: [css] });
   };
 
   sendToFrames = ({
@@ -240,10 +240,10 @@ class AppView extends BrowserView {
     });
   };
 
-  sendKeyEvent = (type: 'keydown' | 'keyup' | 'keypress', keyCode: string) => {
+  sendKeyEvent = (type: "keydown" | "keyup" | "keypress", keyCode: string) => {
     if (isCustomKey(keyCode)) {
       this.sendToFrames({
-        channel: 'invoke-custom-key',
+        channel: "invoke-custom-key",
         args: [type, keyCode],
       });
       return;
@@ -257,16 +257,16 @@ class AppView extends BrowserView {
 
   invokeEventsByTouch = (touchEvent: TouchEventType, isShortHold: boolean) => {
     this.sendToFrames({
-      channel: 'invoke-event-by-touch',
+      channel: "invoke-event-by-touch",
       args: [touchEvent, isShortHold],
     });
   };
 
   sendMouseEvent = (mouseEvent: MouseEventType) => {
     const mouseEventCalc = calcMouseWithWindowZoom(mouseEvent);
-    if (mouseEventCalc.type === 'click') {
+    if (mouseEventCalc.type === "click") {
       this.sendToFrames({
-        channel: 'invoke-mouse-click',
+        channel: "invoke-mouse-click",
         args: [mouseEventCalc],
       });
       return;
@@ -275,8 +275,8 @@ class AppView extends BrowserView {
   };
 
   sendSwipeEvent = (direction: Direction) => {
-    this.sendKeyEvent('keydown', direction);
-    this.sendKeyEvent('keyup', direction);
+    this.sendKeyEvent("keydown", direction);
+    this.sendKeyEvent("keyup", direction);
   };
 
   handleRCUInput = (keyCode: string, eventType: RCUButtonEventType) => {
@@ -285,94 +285,94 @@ class AppView extends BrowserView {
       this.keyDownTimer = undefined;
     }
 
-    if (eventType === 'down') {
+    if (eventType === "down") {
       // keydown & keypress
-      this.sendKeyEvent('keydown', keyCode);
+      this.sendKeyEvent("keydown", keyCode);
       if (isRequirePress(keyCode)) {
-        this.sendKeyEvent('keypress', keyCode);
+        this.sendKeyEvent("keypress", keyCode);
       } else {
         this.keyDownTimer = setTimeout(() => {
           this.keyDownTimer = setInterval(() => {
-            this.sendKeyEvent('keydown', keyCode);
+            this.sendKeyEvent("keydown", keyCode);
           }, 100);
         }, 500);
       }
-    } else if (eventType === 'up') {
-      this.sendKeyEvent('keyup', keyCode);
+    } else if (eventType === "up") {
+      this.sendKeyEvent("keyup", keyCode);
     } else {
-      this.sendKeyEvent('keypress', keyCode);
+      this.sendKeyEvent("keypress", keyCode);
     }
   };
 
   private handleMediaStart = () => {
-    this.sendToFrames({ channel: 'find-video-rect' });
+    this.sendToFrames({ channel: "find-video-rect" });
   };
 
   private handleMediaPaused = () => {
-    emtApp.emit('video-paused', this.appPath);
+    emtApp.emit("video-paused", this.appPath);
   };
 
   invokeWebOSEvent = (type: string, props?: CustomEventInit) => {
-    this.sendToFrames({ channel: 'invoke-webos-event', args: [type, props] });
+    this.sendToFrames({ channel: "invoke-webos-event", args: [type, props] });
   };
 
   handleForeground = () => {
-    this.state = 'foreground';
+    this.state = "foreground";
     this.setWatcher();
-    this.sendToFrames({ channel: 'go-foreground' });
+    this.sendToFrames({ channel: "go-foreground" });
     this.emitVideoRect();
     this.resumeByDebugger();
 
     if (isAutoInspectorOn()) {
       // this.webContents.once('devtools-focused', this.webContents.focus);
-      this.webContents.openDevTools({ mode: 'detach' });
+      this.webContents.openDevTools({ mode: "detach" });
     }
   };
 
   emitVideoRect = () => {
     emtApp.emit(
-      'video-rect',
+      "video-rect",
       _.mapValues(this.videoRect, (p) =>
-        _.round(p * this.webContents.zoomFactor)
-      )
+        _.round(p * this.webContents.zoomFactor),
+      ),
     );
   };
 
   handleBackground = () => {
-    this.state = 'background';
+    this.state = "background";
     this.webContents.closeDevTools();
     this.removeWatcher();
     this.hideCursor();
     this.leaveMouse();
-    this.sendToFrames({ channel: 'go-background' });
+    this.sendToFrames({ channel: "go-background" });
     this.pauseByDebugger();
     this.storeVideoRect(DefaultRect);
   };
 
   private pauseByDebugger = () => {
     if (!this.webContents.debugger.isAttached()) {
-      this.webContents.debugger.attach('1.1');
-      this.webContents.debugger.sendCommand('Debugger.enable');
+      this.webContents.debugger.attach("1.1");
+      this.webContents.debugger.sendCommand("Debugger.enable");
     }
 
-    this.webContents.debugger.sendCommand('Debugger.pause');
+    this.webContents.debugger.sendCommand("Debugger.pause");
   };
 
   private resumeByDebugger = () => {
     if (!this.webContents.debugger.isAttached()) return;
-    this.webContents.debugger.sendCommand('Debugger.resume');
+    this.webContents.debugger.sendCommand("Debugger.resume");
   };
 
   enterMouse = () => {
     if (this.isMouseEntered) return;
     this.isMouseEntered = true;
-    this.invokeWebOSEvent('webOSMouse', { detail: { type: 'Enter' } });
+    this.invokeWebOSEvent("webOSMouse", { detail: { type: "Enter" } });
   };
 
   leaveMouse = () => {
     if (!this.isMouseEntered) return;
     this.isMouseEntered = false;
-    this.invokeWebOSEvent('webOSMouse', { detail: { type: 'Leave' } });
+    this.invokeWebOSEvent("webOSMouse", { detail: { type: "Leave" } });
   };
 
   showCursor = () => {
@@ -391,16 +391,16 @@ class AppView extends BrowserView {
 
   changedScrOrn = (screenOrientation: Orientation) => {
     this.sendToFrames({
-      channel: 'screen-orientation-changed',
+      channel: "screen-orientation-changed",
       args: [screenOrientation],
     });
-    this.invokeWebOSEvent('screenOrientationChange', {
+    this.invokeWebOSEvent("screenOrientationChange", {
       detail: { screenOrientation },
     });
   };
 
   private invokeCursorStateChange = (visibility: boolean) => {
-    this.invokeWebOSEvent('cursorStateChange', {
+    this.invokeWebOSEvent("cursorStateChange", {
       detail: { visibility },
     });
   };
@@ -408,7 +408,7 @@ class AppView extends BrowserView {
   private handleFrameLoaded = (
     _isMainFrame: boolean,
     _frameProcessId: number,
-    frameRoutingId: number
+    frameRoutingId: number,
   ) => {
     this.addFrameId(frameRoutingId);
   };

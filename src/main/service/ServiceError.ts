@@ -16,7 +16,7 @@ export const methodNotFound = (category: string, method: string) => {
 export const methodError = (
   errorCode: number | string,
   errorText: string,
-  additionalArgs?: any
+  additionalArgs?: any,
 ) => {
   return {
     returnValue: false,

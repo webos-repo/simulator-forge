@@ -1,6 +1,6 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-type MemoryNames = 'toast' | 'launchApp';
+type MemoryNames = "toast" | "launchApp";
 
 const Memories: { [key in MemoryNames]: any[] } = {
   launchApp: [],

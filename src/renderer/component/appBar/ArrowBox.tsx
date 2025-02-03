@@ -1,20 +1,20 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import ArrowLeft from 'assets/ui_icons/arrow_left.png';
-import ArrowRight from 'assets/ui_icons/arrow-right.png';
+import ArrowLeft from "assets/ui_icons/arrow_left.png";
+import ArrowRight from "assets/ui_icons/arrow-right.png";
 
 type Props = {
   scrollHorizontal: (
     deltaX: number,
     deltaY: number,
-    fromButton: boolean
+    fromButton: boolean,
   ) => void;
   visible: boolean;
-  direction: 'left' | 'right';
+  direction: "left" | "right";
 };
 
 function ArrowBox({ scrollHorizontal, visible, direction }: Props) {
-  const deltaX = direction === 'left' ? -150 : 150;
+  const deltaX = direction === "left" ? -150 : 150;
 
   return (
     <ArrowBoxLayout
@@ -45,8 +45,8 @@ const ArrowBoxLayout = styled.div`
 `;
 
 const Arrow = styled.div<{
-  direction: Props['direction'];
-  visible: Props['visible'];
+  direction: Props["direction"];
+  visible: Props["visible"];
 }>`
   width: 80%;
   height: 50%;
@@ -54,7 +54,7 @@ const Arrow = styled.div<{
   background-size: cover;
   background-position: center;
   background-image: url(${({ direction }) =>
-    direction === 'left' ? ArrowLeft : ArrowRight});
+    direction === "left" ? ArrowLeft : ArrowRight});
   opacity: ${({ visible }) => (visible ? 1 : 0)};
 `;
 

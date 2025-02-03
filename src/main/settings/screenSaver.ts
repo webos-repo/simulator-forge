@@ -1,17 +1,17 @@
-import { runningApps } from '@controller/appController/appMemory';
-import { ipcMain } from 'electron';
-import { emtSetting } from '../module/eventEmitters';
-import overlayController from '@controller/OverlayController';
-import settingsDB from './settingsDB';
+import { runningApps } from "@controller/appController/appMemory";
+import { ipcMain } from "electron";
+import { emtSetting } from "../module/eventEmitters";
+import overlayController from "@controller/OverlayController";
+import settingsDB from "./settingsDB";
 
-const DB_KEY = 'screen-saver' as const;
+const DB_KEY = "screen-saver" as const;
 
 let isOn: boolean = settingsDB.getOrSet(`${DB_KEY}.isOn`, false);
 let timeout: number = settingsDB.getOrSet(`${DB_KEY}.timeout-delay`, 120);
 let timer: NodeJS.Timer | undefined;
 
-emtSetting.on('prevent-screen-saver', resetScrSaver);
-ipcMain.on('prevent-screen-saver-from-screen', resetScrSaver);
+emtSetting.on("prevent-screen-saver", resetScrSaver);
+ipcMain.on("prevent-screen-saver-from-screen", resetScrSaver);
 
 function isScrSaverOn() {
   return isOn;
@@ -46,7 +46,7 @@ function clearScrSaverTimer() {
 
 function showScrSaver() {
   if (!isOn || !runningApps.fgApp) return;
-  if (overlayController.checkShowingByName('screenSaver')) return;
+  if (overlayController.checkShowingByName("screenSaver")) return;
   overlayController.showScreenSaver();
 }
 

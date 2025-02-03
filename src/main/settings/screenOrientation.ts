@@ -1,12 +1,12 @@
-import { emtSetting } from '../module/eventEmitters';
-import { orientations } from '@share/structure/orientations';
-import { ipcMain } from 'electron';
-import type { Orientation } from '@share/structure/orientations';
+import { emtSetting } from "../module/eventEmitters";
+import { orientations } from "@share/structure/orientations";
+import { ipcMain } from "electron";
+import type { Orientation } from "@share/structure/orientations";
 
-let scrOrn: Orientation = 'landscape';
+let scrOrn: Orientation = "landscape";
 
 export function toggleScrOrn() {
-  setScrOrn(scrOrn === 'landscape' ? 'portrait' : 'landscape');
+  setScrOrn(scrOrn === "landscape" ? "portrait" : "landscape");
 }
 
 export function getScrOrn() {
@@ -23,7 +23,7 @@ export function setScrOrn(newScrOrn: Orientation) {
 }
 
 function emitScrOrnChanged() {
-  emtSetting.emit('screen-orientation-changed', scrOrn);
+  emtSetting.emit("screen-orientation-changed", scrOrn);
 }
 
-ipcMain.on('rcu-portrait-clicked', toggleScrOrn);
+ipcMain.on("rcu-portrait-clicked", toggleScrOrn);

@@ -1,8 +1,10 @@
-import { css, keyframes } from '@emotion/react';
-import { focusRed } from './colors';
+import { css, keyframes } from "@emotion/react";
+import { focusRed } from "./colors";
 
 export const buttonReaction = css`
-  transition: transform 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition:
+    transform 0.1s ease-in-out,
+    border-color 0.1s ease-in-out;
 
   &:hover {
     border-color: ${focusRed};

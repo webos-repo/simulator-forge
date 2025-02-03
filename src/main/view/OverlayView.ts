@@ -1,4 +1,4 @@
-import { BrowserView } from 'electron';
+import { BrowserView } from "electron";
 
 abstract class OverlayView extends BrowserView {
   abstract name: string;

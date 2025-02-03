@@ -11,6 +11,7 @@
     "email": "loegnah@gmail.com"
   },
   "license": "MIT",
+  "branch": "develop",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -34,7 +35,7 @@
     "network": "^0.6.1",
     "node-machine-id": "^1.1.12",
     "node-navigator": "^1.0.1",
-    "ramda": "^0.28.0",
+    "radashi": "^12.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-ga4": "^2.1.0",

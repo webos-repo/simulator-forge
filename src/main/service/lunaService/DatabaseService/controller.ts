@@ -1,21 +1,21 @@
-import { makeDB } from '@controller/dbController';
-import { emtApp } from '../../../module/eventEmitters';
-import { generateHash } from '../../../lib/hash';
-import _ from 'lodash';
-import R from 'ramda';
-import type * as DBServiceTypes from './types';
+import { makeDB } from "@controller/dbController";
+import { emtApp } from "../../../module/eventEmitters";
+import { generateHash } from "../../../lib/hash";
+import _ from "lodash";
+import { partial } from "radashi";
+import type * as DBServiceTypes from "./types";
 
 export default class DBServiceController {
-  db = makeDB('db8');
+  db = makeDB("db8");
   revId: number;
 
   constructor() {
-    this.revId = this.db.has('revId') ? this.db.get('revId') : 0;
+    this.revId = this.db.has("revId") ? this.db.get("revId") : 0;
     this.setListener();
   }
 
   private setListener = () => {
-    emtApp.on('remove-app-from-list', this.handleAppRemoved);
+    emtApp.on("remove-app-from-list", this.handleAppRemoved);
   };
 
   private handleAppRemoved = (appId: string) => {
@@ -30,7 +30,7 @@ export default class DBServiceController {
   private hasPermission = (
     operation: DBServiceTypes.Operation,
     kind: string,
-    appId: string
+    appId: string,
   ) => {
     const accessibleList = this.db.get(`${escapeDot(kind)}.accessible`);
     if (!accessibleList) return false;
@@ -38,13 +38,13 @@ export default class DBServiceController {
     return !!accessibleList[appId].find((op: string) => op === operation);
   };
 
-  private canRead = R.curry(this.hasPermission)('read');
+  private canRead = partial(this.hasPermission, "read");
 
-  private canCreate = R.curry(this.hasPermission)('create');
+  private canCreate = partial(this.hasPermission, "create");
 
-  private canUpdate = R.curry(this.hasPermission)('update');
+  private canUpdate = partial(this.hasPermission, "update");
 
-  private canDelete = R.curry(this.hasPermission)('delete');
+  private canDelete = partial(this.hasPermission, "delete");
 
   // -3: other error
   // -2: access denied
@@ -84,22 +84,22 @@ export default class DBServiceController {
     if (code < 0 || !filteredData) return -1;
     let count = 0;
     Object.values(filteredData).forEach((d: any) => {
-      if (this.deleteDataById(appId, d['_id']) > 0) count += 1;
+      if (this.deleteDataById(appId, d["_id"]) > 0) count += 1;
     });
     return count;
   };
 
   private getMappingIdKind = () => {
-    return this.db.get('mappingIdKind') || {};
+    return this.db.get("mappingIdKind") || {};
   };
 
   private removeMappingIdKindByKind = (kind: string) => {
     const newRM = _.pickBy(this.getMappingIdKind(), (v) => v === kind);
-    this.db.set('mappingIdKind', newRM);
+    this.db.set("mappingIdKind", newRM);
   };
 
   private removeMappingIdKindById = (id: string) => {
-    this.db.set('mappingIdKind', _.omit(this.getMappingIdKind(), id));
+    this.db.set("mappingIdKind", _.omit(this.getMappingIdKind(), id));
   };
 
   getDataById = (appId: string, id: string) => {
@@ -116,7 +116,7 @@ export default class DBServiceController {
   getDataByQuery = (
     appId: string,
     query: DBServiceTypes.Query,
-    isSearch = true
+    isSearch = true,
   ) => {
     const { from, where, filter, select } = query; // FIXME
     const kind = escapeDot(from);
@@ -141,7 +141,7 @@ export default class DBServiceController {
     let [filteredData, code] = this.filterData(
       Object.values(dbData),
       queryFilters,
-      isSearch
+      isSearch,
     );
     if (select) filteredData = this.filterDataBySelect(filteredData, select);
     return {
@@ -153,7 +153,7 @@ export default class DBServiceController {
   private filterData = (
     originData: any[],
     queryFilters: DBServiceTypes.WhereClause[] | undefined,
-    isSearch: boolean
+    isSearch: boolean,
   ): [any[], number] => {
     let code = 1;
     return [
@@ -161,11 +161,11 @@ export default class DBServiceController {
         ? originData
         : originData.filter((data: any) => {
             return queryFilters.every((flt) => {
-              if (flt?.op === '%%') {
+              if (flt?.op === "%%") {
                 code = -1;
                 return false;
               }
-              if (flt?.op === '?' && !isSearch) {
+              if (flt?.op === "?" && !isSearch) {
                 code = -2;
                 return false;
               }
@@ -179,28 +179,28 @@ export default class DBServiceController {
 
   private filterDataByOp = (
     dataObjects: any,
-    where: DBServiceTypes.WhereClause
+    where: DBServiceTypes.WhereClause,
   ) => {
     const { prop, op, val } = where;
 
     //  <, <=, =, >=, >, !=, ?, %, %%
     switch (op) {
-      case '=':
+      case "=":
         return dataObjects[prop] === val;
-      case '!=':
+      case "!=":
         return dataObjects[prop] !== val;
-      case '<':
+      case "<":
         return dataObjects[prop] < val;
-      case '<=':
+      case "<=":
         return dataObjects[prop] <= val;
-      case '>':
+      case ">":
         return dataObjects[prop] > val;
-      case '>=':
+      case ">=":
         return dataObjects[prop] >= val;
-      case '%':
-      case '?':
+      case "%":
+      case "?":
         return (
-          typeof dataObjects[prop] === 'string' &&
+          typeof dataObjects[prop] === "string" &&
           dataObjects[prop].startsWith(val)
         );
       default:
@@ -230,7 +230,7 @@ export default class DBServiceController {
     appId: string,
     target: string,
     keyOrigin: string,
-    operations: string[]
+    operations: string[],
   ) => {
     const key = escapeDot(keyOrigin);
     if (!this.canUpdate(key, appId)) return false;
@@ -264,7 +264,7 @@ export default class DBServiceController {
       owner,
       private: prvt || false,
       accessible: {
-        [owner]: ['read', 'create', 'update', 'delete'],
+        [owner]: ["read", "create", "update", "delete"],
       },
     });
     return true;
@@ -276,7 +276,7 @@ export default class DBServiceController {
 
   upRevId = () => {
     this.revId += 1;
-    this.db.set('revId', this.revId);
+    this.db.set("revId", this.revId);
     return this.revId;
   };
 
@@ -330,5 +330,5 @@ export default class DBServiceController {
 }
 
 function escapeDot(origin: string) {
-  return origin.replace(/\./g, '-');
+  return origin.replace(/\./g, "-");
 }

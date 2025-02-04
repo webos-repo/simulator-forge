@@ -1,36 +1,56 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import type { Orientation } from "@share/structure/orientations";
-import { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
-import { range } from "lodash";
-import { ipcHandler } from "@share/lib/utils";
-import ButtonRCUArrow from "../component/rcuButton/ButtonRCUArrow";
-import ButtonRCU from "../component/rcuButton/ButtonRCU";
-import ButtonRCUColor from "../component/rcuButton/ButtonRCUColor";
-import ButtonRCUFunc from "../component/rcuButton/ButtonRCUFunc";
-import ButtonRCULong from "../component/rcuButton/ButtonRCULong";
-import ButtonRCUMedia from "../component/rcuButton/ButtonRCUMedia";
-import ButtonRCUPower from "../component/rcuButton/ButtonRCUPower";
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import type { Orientation } from '@share/structure/orientations';
+import React, { useState, useEffect } from 'react';
+import { ipcRenderer } from 'electron';
+import { range } from 'lodash';
+import { ipcHandler } from '@share/lib/utils';
+import ButtonRCUArrow from '../component/rcuButton/ButtonRCUArrow';
+import ButtonRCU from '../component/rcuButton/ButtonRCU';
+import ButtonRCUColor from '../component/rcuButton/ButtonRCUColor';
+import ButtonRCUFunc from '../component/rcuButton/ButtonRCUFunc';
+import ButtonRCULong from '../component/rcuButton/ButtonRCULong';
+import ButtonRCUMedia from '../component/rcuButton/ButtonRCUMedia';
+import ButtonRCUPower from '../component/rcuButton/ButtonRCUPower';
 
-import { arrangeCenterByFlex, arrangeCenterByGrid } from "../styles/partials";
+import powerImage from 'assets/ui_icons/power.png';
+import muteImage from 'assets/ui_icons/mute.png';
+import micImage from 'assets/ui_icons/mic.png';
+import homeImage from 'assets/ui_icons/home.png';
+import backImage from 'assets/ui_icons/back.png';
+import settingImage from 'assets/ui_icons/settings.png';
+import supplyImage from 'assets/ui_icons/supply.png';
+import upImage from 'assets/ui_icons/up.png';
+import downImage from 'assets/ui_icons/down.png';
+import rightImage from 'assets/ui_icons/right.png';
+import leftImage from 'assets/ui_icons/left.png';
+import plusImage from 'assets/ui_icons/plus.png';
+import minusImage from 'assets/ui_icons/minus.png';
+import playImage from 'assets/ui_icons/play.png';
+import pauseImage from 'assets/ui_icons/pause.png';
+import stopImage from 'assets/ui_icons/stop.png';
+import backwardImage from 'assets/ui_icons/backward.png';
+import dotdotdot from 'assets/ui_icons/dotdotdot.png';
+import asterisk from 'assets/ui_icons/asterisk.png';
+import { arrangeCenterByFlex, arrangeCenterByGrid } from '../styles/partials';
 
-const handleLaunchApp = () => ipcRenderer.send("open-app-dialog");
-const handleAddService = () => ipcRenderer.send("open-service-dialog");
-const handleCloseApp = () => ipcRenderer.send("close-fg-app");
-const handleInspector = () => ipcRenderer.send("toggle-inspector");
-const handleTouchMode = () => ipcRenderer.send("rcu-touch-mode-clicked");
-const handlePortrait = () => ipcRenderer.send("rcu-portrait-clicked");
+const forwardImage = backwardImage;
+const handleLaunchApp = () => ipcRenderer.send('open-app-dialog');
+const handleAddService = () => ipcRenderer.send('open-service-dialog');
+const handleCloseApp = () => ipcRenderer.send('close-fg-app');
+const handleInspector = () => ipcRenderer.send('toggle-inspector');
+const handleTouchMode = () => ipcRenderer.send('rcu-touch-mode-clicked');
+const handlePortrait = () => ipcRenderer.send('rcu-portrait-clicked');
 
 const RCUScreen = () => {
   const [touchMode, setTouchMode] = useState(false);
   const [screenOrientation, setScreenOrientation] =
-    useState<Orientation>("landscape");
+    useState<Orientation>('landscape');
 
   useEffect(() => {
     ipcRenderer
-      .on("touch-mode-changed", ipcHandler(setTouchMode))
-      .on("screen-orientation-changed", ipcHandler(setScreenOrientation));
+      .on('touch-mode-changed', ipcHandler(setTouchMode))
+      .on('screen-orientation-changed', ipcHandler(setScreenOrientation));
   }, []);
 
   return (
@@ -38,7 +58,7 @@ const RCUScreen = () => {
       <TopSection>
         <PowerBox>
           <ButtonRCUPower
-            iconImage={"/assets/ui_icons/power.png"}
+            iconImage={powerImage}
             iconNoInvert
             iconAdditionalCSS={css`
               width: 16vw;
@@ -49,91 +69,52 @@ const RCUScreen = () => {
         {...range(1, 10).map((n) => (
           <ButtonRCU keyCode={`${n}`}>{n}</ButtonRCU>
         ))}
-        <ButtonRCU unused iconImage={"/assets/ui_icons/asterisk.png"} />
+        <ButtonRCU unused iconImage={asterisk} />
         <ButtonRCU keyCode="0">{0}</ButtonRCU>
-        <ButtonRCU unused iconImage={"/assets/ui_icons/dotdotdot.png"} />
+        <ButtonRCU unused iconImage={dotdotdot} />
       </TopSection>
       <MidSection>
         <LongButtonBox>
-          <ButtonRCULong
-            type="top"
-            unused
-            iconImage={"/assets/ui_icons/plus.png"}
-            iconNoInvert
-          />
+          <ButtonRCULong type="top" unused iconImage={plusImage} iconNoInvert />
           <ButtonRCULong
             type="bottom"
             unused
-            iconImage={"/assets/ui_icons/minus.png"}
+            iconImage={minusImage}
             iconNoInvert
           />
         </LongButtonBox>
-        <ButtonRCU
-          keyCode="Mute"
-          useOnClick
-          iconImage={"/assets/ui_icons/mute.png"}
-        />
+        <ButtonRCU keyCode="Mute" useOnClick iconImage={muteImage} />
         <LongButtonBox>
-          <ButtonRCULong
-            type="top"
-            unused
-            iconImage={"/assets/ui_icons/up.png"}
-            iconNoInvert
-          />
+          <ButtonRCULong type="top" unused iconImage={upImage} iconNoInvert />
           <ButtonRCULong
             type="bottom"
             unused
-            iconImage={"/assets/ui_icons/down.png"}
+            iconImage={downImage}
             iconNoInvert
           />
         </LongButtonBox>
-        <ButtonRCU
-          keyCode="Home"
-          useOnClick
-          iconImage={"/assets/ui_icons/home.png"}
-        />
-        <ButtonRCU unused iconImage={"/assets/ui_icons/mic.png"} />
-        <ButtonRCU unused iconImage={"/assets/ui_icons/supply.png"} />
+        <ButtonRCU keyCode="Home" useOnClick iconImage={homeImage} />
+        <ButtonRCU unused iconImage={micImage} />
+        <ButtonRCU unused iconImage={supplyImage} />
       </MidSection>
       <BottomSection>
         <ArrowContainer>
           <ButtonRCUArrow direction="Enter" />
-          <ButtonRCUArrow
-            direction="ArrowUp"
-            iconImage={"/assets/ui_icons/up.png"}
-          />
-          <ButtonRCUArrow
-            direction="ArrowRight"
-            iconImage={"/assets/ui_icons/right.png"}
-          />
-          <ButtonRCUArrow
-            direction="ArrowDown"
-            iconImage={"/assets/ui_icons/down.png"}
-          />
-          <ButtonRCUArrow
-            direction="ArrowLeft"
-            iconImage={"/assets/ui_icons/left.png"}
-          />
+          <ButtonRCUArrow direction="ArrowUp" iconImage={upImage} />
+          <ButtonRCUArrow direction="ArrowRight" iconImage={rightImage} />
+          <ButtonRCUArrow direction="ArrowDown" iconImage={downImage} />
+          <ButtonRCUArrow direction="ArrowLeft" iconImage={leftImage} />
         </ArrowContainer>
         <IconBox>
-          <ButtonRCU keyCode="Back" iconImage={"/assets/ui_icons/back.png"} />
-          <ButtonRCUMedia type="Stop" iconImage={"/assets/ui_icons/stop.png"} />
-          <ButtonRCU unused iconImage={"/assets/ui_icons/settings.png"} />
+          <ButtonRCU keyCode="Back" iconImage={backImage} />
+          <ButtonRCUMedia type="Stop" iconImage={stopImage} />
+          <ButtonRCU unused iconImage={settingImage} />
         </IconBox>
         <MediaBox>
-          <ButtonRCUMedia
-            type="Backward"
-            iconImage={"/assets/ui_icons/backward.png"}
-          />
-          <ButtonRCUMedia type="Play" iconImage={"/assets/ui_icons/play.png"} />
-          <ButtonRCUMedia
-            type="Pause"
-            iconImage={"/assets/ui_icons/pause.png"}
-          />
-          <ButtonRCUMedia
-            type="Forward"
-            iconImage={"/assets/ui_icons/forward.png"}
-          />
+          <ButtonRCUMedia type="Backward" iconImage={backwardImage} />
+          <ButtonRCUMedia type="Play" iconImage={playImage} />
+          <ButtonRCUMedia type="Pause" iconImage={pauseImage} />
+          <ButtonRCUMedia type="Forward" iconImage={forwardImage} />
         </MediaBox>
         <ColorBox>
           <ButtonRCUColor color="Red" />
@@ -157,8 +138,8 @@ const RCUScreen = () => {
           value="Portrait"
           onClick={() => handlePortrait()}
           active={
-            screenOrientation === "portrait" ||
-            screenOrientation === "reversed_portrait"
+            screenOrientation === 'portrait' ||
+            screenOrientation === 'reversed_portrait'
           }
         />
       </FunctionSection>

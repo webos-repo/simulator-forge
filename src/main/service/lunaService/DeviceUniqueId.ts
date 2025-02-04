@@ -1,7 +1,6 @@
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@service/ServiceError";
 import { tvInfo } from "@tvSettings/index";
-import type { LunaAdditionalData } from "./index";
 
 type ErrorType = {
   errorCode: string;
@@ -17,7 +16,7 @@ class DeviceUniqueId {
     category: string,
     method: string,
     params: string,
-    additionalData: LunaAdditionalData,
+    // additionalData: LunaAdditionalData,
   ) => {
     if (!isJsonStrValid(params)) {
       return methodError("ERROR_99", "JSON format error.");

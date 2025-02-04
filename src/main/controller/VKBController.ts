@@ -32,10 +32,10 @@ class VKBController {
   getOtherVKBs = (inputType: string) => {
     const vkbType = this.convertType(inputType);
     return Object.entries(this.VKBMap)
-      .filter(([key, value]) => {
+      .filter(([key]) => {
         return key !== vkbType;
       })
-      .map(([key, value]) => value);
+      .map(([, value]) => value);
   };
 }
 

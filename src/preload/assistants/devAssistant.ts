@@ -1,5 +1,4 @@
-import { ipcRenderer, webFrame } from "electron";
-import ApiKeys from "../lib/ApiKeys";
+import { ipcRenderer } from "electron";
 
 export function getTestApi() {
   return {
@@ -10,7 +9,6 @@ export function getTestApi() {
 }
 
 export function setIpcListener() {
-  const { Root, SimulTest } = ApiKeys;
   ipcRenderer
     .on("preload-test1", () => {})
     .on("preload-test2", () => {})

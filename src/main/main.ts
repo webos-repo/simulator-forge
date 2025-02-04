@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 import "@service/Service";
@@ -66,7 +65,7 @@ const startSimulator = async () => {
     menuBuilder.setEventListener();
     menuBuilder.buildMenu();
     analytics.init();
-  } catch (e) {
+  } catch {
     console.error("[Failure] The simulator launch is failed.");
     return;
   }

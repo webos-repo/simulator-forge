@@ -458,7 +458,7 @@ class TouchView extends BrowserView {
     });
   };
 
-  private pseudoTouch = (mouseEvent: MouseEventType, _timeStamp: number) => {
+  private pseudoTouch = (mouseEvent: MouseEventType) => {
     if (!runningApps.fgApp) return;
 
     const { type: mouseType } = mouseEvent;
@@ -601,7 +601,7 @@ class TouchView extends BrowserView {
     this.pseudoHoldTimer = undefined;
   };
 
-  private noneTouch = (mouseEvent: MouseEventType, _timeStamp: number) => {
+  private noneTouch = (mouseEvent: MouseEventType) => {
     if (!runningApps.fgApp || mouseEvent.type !== "mouseup") return;
     const { x, y } = mouseEvent;
     overlayController.showTouchRemote({ x, y });

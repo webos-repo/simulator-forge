@@ -1,7 +1,4 @@
-import type {
-  Direction,
-  DirectionKeyCode,
-} from "@share/structure/orientations";
+import type { DirectionKeyCode } from "@share/structure/orientations";
 import ButtonRCU from "./ButtonRCU";
 import type { RCUButtonCommonProps } from "./ButtonRCU";
 import { css } from "@emotion/react";

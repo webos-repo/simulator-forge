@@ -1,14 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// TODO: This is prototype. Do Implementation
-import React, { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import Select from "react-select";
-import { ipcRenderer } from "electron";
 import { ipcSender } from "../lib/utils";
 
 const TvSettingScreen = () => {
   const models = useMemo(
     () => [
-      // TODO: load model list from the local preset file
       { value: "o20n", label: "O20N" },
       { value: "e60n", label: "E60N" },
       { value: "k7lp", label: "K7LP" },

@@ -1,5 +1,4 @@
 import { getTargetFilePath } from "@share/lib/paths";
-import path from "path";
 import appState from "./appState";
 
 function makeFontFace(dirName: string, fontFileName: string, fontName: string) {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+ 
 import type { RCUButtonEventType } from "./events";
 
 export type RCU_Button = {

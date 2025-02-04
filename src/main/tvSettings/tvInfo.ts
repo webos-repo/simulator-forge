@@ -1,4 +1,4 @@
-/* eslint-disable prefer-const */
+ 
 import { get } from "lodash";
 import { generateHash } from "../lib/hash";
 import tvSettingsDB from "./tvSettingsDB";

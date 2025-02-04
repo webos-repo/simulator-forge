@@ -155,13 +155,8 @@ class ActivityManager {
    * Just check parameters and return true.
    */
   adopt = async (params: string) => {
-    const {
-      activityId,
-      activityName,
-      wait,
-      subscribe,
-      detailedEvents,
-    }: ActivityManagerTypes.AdoptParams = JSON.parse(params);
+    const { activityId, activityName }: ActivityManagerTypes.AdoptParams =
+      JSON.parse(params);
 
     const [activity, errorText] = findActivity({
       name: activityName,
@@ -244,7 +239,6 @@ class ActivityManager {
     const {
       activity,
       subscribe,
-      detailedEvents,
       start,
       replace,
     }: ActivityManagerTypes.CreateParams = JSON.parse(params);

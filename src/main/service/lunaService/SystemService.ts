@@ -27,7 +27,7 @@ const getSystemTime = () => {
       timeZoneFile: "", // In simulator, not be used.
       NITZValid: false, // deprecated
     };
-  } catch (e) {
+  } catch {
     return undefined;
   }
 };
@@ -45,18 +45,18 @@ const cancelSubscription = (token: string) => {
   };
 };
 
-const getSystemTimeSubsHandler = () => {
-  subscriptions.forEach((emitter) => {
-    emitter.emit("subscribe-return", {
-      ret: {
-        ...getSystemTime(),
-        NITZValidTime: "",
-        NITZValidZone: "",
-      },
-      isSubscription: true,
-    });
-  });
-};
+// const getSystemTimeSubsHandler = () => {
+//   subscriptions.forEach((emitter) => {
+//     emitter.emit("subscribe-return", {
+//       ret: {
+//         ...getSystemTime(),
+//         NITZValidTime: "",
+//         NITZValidZone: "",
+//       },
+//       isSubscription: true,
+//     });
+//   });
+// };
 
 class SystemService {
   call = async (

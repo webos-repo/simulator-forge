@@ -2,15 +2,9 @@ import _ from "lodash";
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@service/ServiceError";
 import { tvInfo } from "@tvSettings/index";
-import type { LunaAdditionalData } from "./index";
 
 class ConfigService {
-  call = async (
-    category: string,
-    method: string,
-    params: string,
-    additionalData: LunaAdditionalData,
-  ) => {
+  call = async (category: string, method: string, params: string) => {
     if (!isJsonStrValid(params)) {
       return methodError("ERROR_99", "JSON format error.");
     }

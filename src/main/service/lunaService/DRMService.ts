@@ -1,14 +1,8 @@
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@service/ServiceError";
-import type { LunaAdditionalData } from "./index";
 
 class DRMService {
-  call = async (
-    category: string,
-    method: string,
-    params: string,
-    additionalData: LunaAdditionalData,
-  ) => {
+  call = async (category: string, method: string, params: string) => {
     if (!isJsonStrValid(params)) {
       return methodError("ERROR_99", "JSON format error.");
     }
@@ -16,38 +10,38 @@ class DRMService {
     if (category === "") {
       switch (method) {
         case "load":
-          return await this.load(params);
+          return await this.load();
         case "unload":
-          return await this.unload(params);
+          return await this.unload();
         case "isLoaded":
-          return await this.isLoaded(params);
+          return await this.isLoaded();
         case "sendDrmMessage":
-          return await this.sendDrmMessage(params);
+          return await this.sendDrmMessage();
         case "getRightsError":
-          return await this.getRightsError(params);
+          return await this.getRightsError();
         default:
       }
     }
     return methodNotFound(category, method);
   };
 
-  load = async (params: string) => {
+  load = async () => {
     return methodError(999, "Simulator does not support DRM");
   };
 
-  unload = async (params: string) => {
+  unload = async () => {
     return methodError(999, "Simulator does not support DRM");
   };
 
-  isLoaded = async (params: string) => {
+  isLoaded = async () => {
     return methodError(999, "Simulator does not support DRM");
   };
 
-  sendDrmMessage = async (params: string) => {
+  sendDrmMessage = async () => {
     return methodError(999, "Simulator does not support DRM");
   };
 
-  getRightsError = async (params: string) => {
+  getRightsError = async () => {
     return methodError(999, "Simulator does not support DRM");
   };
 }

@@ -37,7 +37,6 @@ class WindowController {
   initialize = async () => {
     this.mainWindow = new MainWindow();
     while (!this.mainWindow) {
-      // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     constStore.setMainWindowYDiff(
@@ -199,7 +198,7 @@ class WindowController {
     }
     if (this.rcuWindow && this.jsServiceWindow) {
       const { x: rcuX, y: rcuY, width: rcuW } = this.rcuWindow.getBounds();
-      const { height: jsH } = this.jsServiceWindow?.getBounds();
+      const { height: jsH } = this.jsServiceWindow.getBounds();
       this.appListWindow.setPosition(rcuX + rcuW, rcuY + jsH);
     }
     this.appListWindow.show();

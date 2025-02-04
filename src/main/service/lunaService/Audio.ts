@@ -1,15 +1,9 @@
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@service/ServiceError";
 import { emtWindow } from "../../module/eventEmitters";
-import type { LunaAdditionalData } from "./index";
 
 class AudioService {
-  call = async (
-    category: string,
-    method: string,
-    params: string,
-    additionalData: LunaAdditionalData,
-  ) => {
+  call = async (category: string, method: string, params: string) => {
     if (!isJsonStrValid(params)) {
       return methodError("ERROR_99", "JSON format error.");
     }

@@ -1,7 +1,7 @@
 export const isJsonStrValid = (jsonStr: string) => {
   try {
     JSON.parse(jsonStr);
-  } catch (e) {
+  } catch {
     return false;
   }
   return true;

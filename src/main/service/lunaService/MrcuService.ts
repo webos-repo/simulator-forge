@@ -206,7 +206,7 @@ class MrcuService {
     };
   };
 
-  sensor2_getSensorEventData = async (_params: string) => {
+  sensor2_getSensorEventData = async () => {
     // const { sensorType, subscribe } = JSON.parse(params);
     return methodError(1003, "Magic Remote is not Ready", {
       subscribed: false,

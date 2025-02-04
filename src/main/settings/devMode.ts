@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { runningApps } from "@controller/appController/appMemory";
 import overlayController from "@controller/OverlayController";
 import windowController from "@controller/WindowController";

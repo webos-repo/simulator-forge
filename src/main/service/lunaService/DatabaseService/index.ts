@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import type { EventEmitter } from "events";
 import { generateHash } from "../../../lib/hash";
 import { isJsonStrValid } from "../../../lib/jsonChecker";
@@ -14,7 +12,7 @@ const errorKindNotRegistered = (kind?: string) =>
   `kind not registered${kind ? `: '${kind}'` : ""}`;
 const errorPermissionDenied = "db: permission denied";
 
-const cancelSubscription = (token: string) => {
+const cancelSubscription = () => {
   return {
     returnValue: true,
   };
@@ -39,9 +37,9 @@ class DatabaseService {
       return methodError("ERROR_99", "JSON format error.");
     }
 
-    const { emitter, token, isCancel } = additionalData;
+    const { isCancel } = additionalData;
     if (isCancel) {
-      return cancelSubscription(token);
+      return cancelSubscription();
     }
 
     if (category === "") {
@@ -107,7 +105,7 @@ class DatabaseService {
   };
 
   del = async (params: string, token: string) => {
-    const { ids, query, purge }: DBServiceTypes.DelParams = JSON.parse(params);
+    const { ids, query }: DBServiceTypes.DelParams = JSON.parse(params);
     const appId = extractIdFromToken(token);
 
     const results: Array<{ [key: string]: any }> = [];
@@ -158,8 +156,7 @@ class DatabaseService {
   };
 
   find = async (params: string, token: string, isSearch = false) => {
-    const { query, count, watch }: DBServiceTypes.FindParams =
-      JSON.parse(params);
+    const { query }: DBServiceTypes.FindParams = JSON.parse(params);
 
     const appId = extractIdFromToken(token);
     const { filteredData, code } = this.dbController.getDataByQuery(
@@ -370,12 +367,7 @@ class DatabaseService {
     const { permissions } = JSON.parse(params);
     let error;
     permissions.some(
-      ({
-        type,
-        object,
-        caller,
-        operations,
-      }: DBServiceTypes.PutPermissionsParams) => {
+      ({ object, caller, operations }: DBServiceTypes.PutPermissionsParams) => {
         const appId = extractIdFromToken(token);
         const filteredOperations = Object.keys(operations).filter((op) =>
           existPermissions.includes(op),
@@ -417,10 +409,7 @@ class DatabaseService {
     };
   };
 
-  watch = async (
-    params: string,
-    { token, isCalledFromApp, frameId, callback, emitter }: LunaAdditionalData,
-  ) => {
+  watch = async (params: string, { token, emitter }: LunaAdditionalData) => {
     const { subscribe }: { subscribe: boolean } = JSON.parse(params);
     const { query }: DBServiceTypes.WatchParams = JSON.parse(params);
     const appId = extractIdFromToken(token);
@@ -467,7 +456,7 @@ class DatabaseService {
   };
 
   private watchCallback = (appId: string) => () => {
-    watchSubscriptions = watchSubscriptions.filter(([q, emt], i) => {
+    watchSubscriptions = watchSubscriptions.filter(([q, emt]) => {
       const { filteredData: callbackFilteredData, code: callbackCode } =
         this.dbController.getDataByQuery(appId, q);
 

@@ -1,4 +1,4 @@
-/* eslint-disable prefer-const */
+ 
 
 import { emtSetting } from "../module/eventEmitters";
 import dns from "dns";

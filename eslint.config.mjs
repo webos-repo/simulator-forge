@@ -9,10 +9,6 @@ export default tseslint.config(
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
@@ -23,6 +19,7 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 );

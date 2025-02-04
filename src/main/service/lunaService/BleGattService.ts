@@ -33,7 +33,7 @@ class BleGattService {
       return methodError("101", "Invalid JSON format.");
     }
 
-    const { emitter, token, isCancel } = additionalData;
+    const { token, isCancel } = additionalData;
 
     if (isCancel) {
       return cancelSubscription(token);

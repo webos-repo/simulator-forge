@@ -1,6 +1,5 @@
-/* eslint-disable react/no-unused-prop-types */
 import styled from "@emotion/styled";
-import type { ReactNode, MouseEvent } from "react";
+import type { ReactNode } from "react";
 import type { SerializedStyles } from "@emotion/react";
 import { css } from "@emotion/react";
 import useRCUHandler from "../../hook/useRCUHandler";

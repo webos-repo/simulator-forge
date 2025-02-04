@@ -17,7 +17,7 @@
     "package": "electron-forge package",
     "make": "NODE_NO_WARNINGS=1 electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx .",
+    "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,md,json,css,html}\"",
     "formatall": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,css,html}\""
   },

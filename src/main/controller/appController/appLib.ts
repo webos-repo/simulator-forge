@@ -40,7 +40,7 @@ function loadAppInfoFromDB() {
       const appInfo = readAppInfo(appPath);
       checkAppInfoRequirements(appInfo);
       newAppInfos.push(appInfo);
-    } catch (_e) {
+    } catch {
       // pass
     }
   });

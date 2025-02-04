@@ -1,7 +1,4 @@
-import ApiKeys from "../lib/ApiKeys";
 import { functionRunner } from "../lib/functionRunner";
-
-const { Root } = ApiKeys;
 
 export function setAppWindowListener() {
   setDetailFlatten();

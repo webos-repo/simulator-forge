@@ -1,5 +1,5 @@
 import type { ShareFrameIdParam } from "@share/structure/ipcParams";
-import { contextBridge, ipcRenderer, webFrame } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { loadLGFont } from "./assistants/fontLoader";
 import { getTestApi } from "./assistants/devAssistant";
 import ApiKeys from "./lib/ApiKeys";

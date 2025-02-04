@@ -1,9 +1,9 @@
 {
-  "name": "electron-forge-vite-react",
-  "productName": "electron-forge-vite-react",
+  "name": "webos-tv-25-simulator",
+  "productName": "webOS TV 24 Simulator",
   "webOSTVVersion": "24",
-  "version": "1.0.0",
-  "description": "Electron Forge Vite React boilerplate",
+  "version": "0.0.1",
+  "description": "This is webOS TV simulator.",
   "main": ".vite/build/main.js",
   "keywords": [],
   "author": {

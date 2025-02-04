@@ -183,8 +183,8 @@
       },
       "type": "distribution",
       "hardenedRuntime": true,
-      "entitlements": "assets/entitlements.mac.plist",
-      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "entitlements": "@/assets/entitlements.mac.plist",
+      "entitlementsInherit": "@/assets/entitlements.mac.plist",
       "gatekeeperAssess": false
     },
     "dmg": {

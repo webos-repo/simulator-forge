@@ -11,7 +11,7 @@ import { clearToast, showToast } from "../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
 import { arrangeCenterByFlex } from "../styles/partials";
 
-import beanbird from "assets/beanbird-sky.jpg";
+import beanbird from "@/assets/beanbird-sky.jpg";
 
 const closeOnRotateContents = [
   "This app does not support portrait mode.",

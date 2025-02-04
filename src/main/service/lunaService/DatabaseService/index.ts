@@ -37,7 +37,7 @@ class DatabaseService {
       return methodError("ERROR_99", "JSON format error.");
     }
 
-    const { isCancel } = additionalData;
+    const { isCancel, token } = additionalData;
     if (isCancel) {
       return cancelSubscription();
     }

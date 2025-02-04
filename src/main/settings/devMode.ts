@@ -9,43 +9,43 @@ function setDevListener() {
   emtDev
     .onWithIpcMain(
       "dev-test1",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test2",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test3",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test4",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test5",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test6",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-test7",
-      ipcHandler(async (...data: any[]) => {}),
+      ipcHandler(async (..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-preload-test1",
-      ipcHandler((...data: any[]) => {}),
+      ipcHandler((..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-preload-test2",
-      ipcHandler((...data: any[]) => {}),
+      ipcHandler((..._data: any[]) => {}),
     )
     .onWithIpcMain(
       "dev-preload-test3",
-      ipcHandler((...data: any[]) => {}),
+      ipcHandler((..._data: any[]) => {}),
     );
 }
 

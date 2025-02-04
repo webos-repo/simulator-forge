@@ -114,7 +114,7 @@ class MrcuService {
         switch (method) {
           case "getSensorEventData":
             if (!isWebOSVersionGte("24")) break;
-            return await this.sensor2_getSensorEventData(params);
+            return await this.sensor2_getSensorEventData();
           case "cancelSensorDataSubscribe":
             if (!isWebOSVersionGte("24")) break;
             return await this.sensor2_cancelSensorDataSubscribe();

@@ -127,8 +127,6 @@ class TouchView extends BrowserView {
   private edgeMaxX!: number;
   private edgeMinY!: number;
   private edgeMaxY!: number;
-  private halfX!: number;
-  private halfY!: number;
   private fullDownPos?: { x: number; y: number };
   private fullWheelDirFactor?: { x: boolean; y: boolean };
   private isFullWheeling = false;
@@ -218,8 +216,6 @@ class TouchView extends BrowserView {
     this.edgeMaxX = width - this.edgeMinX;
     this.edgeMinY = orn === "landscape" ? 20 : 30;
     this.edgeMaxY = height - this.edgeMinY;
-    this.halfX = width / 2;
-    this.halfY = height / 2;
   };
 
   private readTouchOption = () => {

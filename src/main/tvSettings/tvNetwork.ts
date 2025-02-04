@@ -1,5 +1,3 @@
- 
-
 import { emtSetting } from "../module/eventEmitters";
 import dns from "dns";
 import network from "network";

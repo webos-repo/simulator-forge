@@ -1,56 +1,56 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import type { Orientation } from '@share/structure/orientations';
-import React, { useState, useEffect } from 'react';
-import { ipcRenderer } from 'electron';
-import { range } from 'lodash';
-import { ipcHandler } from '@share/lib/utils';
-import ButtonRCUArrow from '../component/rcuButton/ButtonRCUArrow';
-import ButtonRCU from '../component/rcuButton/ButtonRCU';
-import ButtonRCUColor from '../component/rcuButton/ButtonRCUColor';
-import ButtonRCUFunc from '../component/rcuButton/ButtonRCUFunc';
-import ButtonRCULong from '../component/rcuButton/ButtonRCULong';
-import ButtonRCUMedia from '../component/rcuButton/ButtonRCUMedia';
-import ButtonRCUPower from '../component/rcuButton/ButtonRCUPower';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { Orientation } from "@share/structure/orientations";
+import React, { useState, useEffect } from "react";
+import { ipcRenderer } from "electron";
+import { range } from "lodash";
+import { ipcHandler } from "@share/lib/utils";
+import ButtonRCUArrow from "../component/rcuButton/ButtonRCUArrow";
+import ButtonRCU from "../component/rcuButton/ButtonRCU";
+import ButtonRCUColor from "../component/rcuButton/ButtonRCUColor";
+import ButtonRCUFunc from "../component/rcuButton/ButtonRCUFunc";
+import ButtonRCULong from "../component/rcuButton/ButtonRCULong";
+import ButtonRCUMedia from "../component/rcuButton/ButtonRCUMedia";
+import ButtonRCUPower from "../component/rcuButton/ButtonRCUPower";
 
-import powerImage from 'assets/ui_icons/power.png';
-import muteImage from 'assets/ui_icons/mute.png';
-import micImage from 'assets/ui_icons/mic.png';
-import homeImage from 'assets/ui_icons/home.png';
-import backImage from 'assets/ui_icons/back.png';
-import settingImage from 'assets/ui_icons/settings.png';
-import supplyImage from 'assets/ui_icons/supply.png';
-import upImage from 'assets/ui_icons/up.png';
-import downImage from 'assets/ui_icons/down.png';
-import rightImage from 'assets/ui_icons/right.png';
-import leftImage from 'assets/ui_icons/left.png';
-import plusImage from 'assets/ui_icons/plus.png';
-import minusImage from 'assets/ui_icons/minus.png';
-import playImage from 'assets/ui_icons/play.png';
-import pauseImage from 'assets/ui_icons/pause.png';
-import stopImage from 'assets/ui_icons/stop.png';
-import backwardImage from 'assets/ui_icons/backward.png';
-import dotdotdot from 'assets/ui_icons/dotdotdot.png';
-import asterisk from 'assets/ui_icons/asterisk.png';
-import { arrangeCenterByFlex, arrangeCenterByGrid } from '../styles/partials';
+import powerImage from "assets/ui_icons/power.png";
+import muteImage from "assets/ui_icons/mute.png";
+import micImage from "assets/ui_icons/mic.png";
+import homeImage from "assets/ui_icons/home.png";
+import backImage from "assets/ui_icons/back.png";
+import settingImage from "assets/ui_icons/settings.png";
+import supplyImage from "assets/ui_icons/supply.png";
+import upImage from "assets/ui_icons/up.png";
+import downImage from "assets/ui_icons/down.png";
+import rightImage from "assets/ui_icons/right.png";
+import leftImage from "assets/ui_icons/left.png";
+import plusImage from "assets/ui_icons/plus.png";
+import minusImage from "assets/ui_icons/minus.png";
+import playImage from "assets/ui_icons/play.png";
+import pauseImage from "assets/ui_icons/pause.png";
+import stopImage from "assets/ui_icons/stop.png";
+import backwardImage from "assets/ui_icons/backward.png";
+import dotdotdot from "assets/ui_icons/dotdotdot.png";
+import asterisk from "assets/ui_icons/asterisk.png";
+import { arrangeCenterByFlex, arrangeCenterByGrid } from "../styles/partials";
 
 const forwardImage = backwardImage;
-const handleLaunchApp = () => ipcRenderer.send('open-app-dialog');
-const handleAddService = () => ipcRenderer.send('open-service-dialog');
-const handleCloseApp = () => ipcRenderer.send('close-fg-app');
-const handleInspector = () => ipcRenderer.send('toggle-inspector');
-const handleTouchMode = () => ipcRenderer.send('rcu-touch-mode-clicked');
-const handlePortrait = () => ipcRenderer.send('rcu-portrait-clicked');
+const handleLaunchApp = () => ipcRenderer.send("open-app-dialog");
+const handleAddService = () => ipcRenderer.send("open-service-dialog");
+const handleCloseApp = () => ipcRenderer.send("close-fg-app");
+const handleInspector = () => ipcRenderer.send("toggle-inspector");
+const handleTouchMode = () => ipcRenderer.send("rcu-touch-mode-clicked");
+const handlePortrait = () => ipcRenderer.send("rcu-portrait-clicked");
 
 const RCUScreen = () => {
   const [touchMode, setTouchMode] = useState(false);
   const [screenOrientation, setScreenOrientation] =
-    useState<Orientation>('landscape');
+    useState<Orientation>("landscape");
 
   useEffect(() => {
     ipcRenderer
-      .on('touch-mode-changed', ipcHandler(setTouchMode))
-      .on('screen-orientation-changed', ipcHandler(setScreenOrientation));
+      .on("touch-mode-changed", ipcHandler(setTouchMode))
+      .on("screen-orientation-changed", ipcHandler(setScreenOrientation));
   }, []);
 
   return (
@@ -138,8 +138,8 @@ const RCUScreen = () => {
           value="Portrait"
           onClick={() => handlePortrait()}
           active={
-            screenOrientation === 'portrait' ||
-            screenOrientation === 'reversed_portrait'
+            screenOrientation === "portrait" ||
+            screenOrientation === "reversed_portrait"
           }
         />
       </FunctionSection>

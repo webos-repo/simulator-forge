@@ -1,4 +1,3 @@
- 
 import type { RCUButtonEventType } from "./events";
 
 export type RCU_Button = {

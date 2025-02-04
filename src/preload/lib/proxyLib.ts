@@ -3,7 +3,6 @@ export function setChangeListener(
   targetKey: string,
   handler: any,
 ) {
-   
   new Proxy(targetObj, {
     set: (target: any, key: string, value: any) => {
       target[key] = value;

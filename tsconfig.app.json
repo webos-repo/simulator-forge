@@ -13,6 +13,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
 
     /* Linting */
     "strict": true,
@@ -33,7 +34,9 @@
       "@renderer/*": ["src/renderer/*"],
       "@testLib/*": ["src/__tests__/lib/*"],
       "@mocks/*": ["src/__tests__/__mocks__/*"]
-    }
+    },
+
+    "types": ["vite/client"]
   },
   "include": ["src", "forge.env.d.ts"]
 }

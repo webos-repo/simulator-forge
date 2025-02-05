@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ipcRenderer } from "electron";
 import { useState, useRef, useEffect } from "react";
 import type { AppInfoWithState } from "@share/structure/appInfo";
 import { fadeIn } from "../styles/effects";
@@ -32,7 +31,7 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
   };
 
   useEffect(() => {
-    ipcRenderer.on("resized", checkIsLong);
+    window.ipcRenderer.on("resized", checkIsLong);
   }, []);
 
   useEffect(() => {
@@ -43,9 +42,9 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
     <AppListBox
       appState={appState}
       ref={refAppButton}
-      onClick={() => ipcRenderer.send("launch-app", { appPath })}
+      onClick={() => window.ipcRenderer.send("launch-app", { appPath })}
       onContextMenu={() =>
-        ipcRenderer.send("app-list-right-click", appPath, id)
+        window.ipcRenderer.send("app-list-right-click", appPath, id)
       }
       onMouseEnter={() => setEntered(true)}
       onMouseLeave={() => setEntered(false)}

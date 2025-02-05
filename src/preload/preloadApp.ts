@@ -24,6 +24,7 @@ declare global {
       readonly timezone: string;
     };
     [ApiKeys.Root]: SimulatorExposed;
+    ipcRenderer: typeof ipcRenderer;
   }
 }
 

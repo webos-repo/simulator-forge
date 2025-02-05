@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { Orientation } from "@share/structure/orientations";
-import React, { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
+import { useState, useEffect } from "react";
 import { range } from "lodash";
 import { ipcHandler } from "@share/lib/utils";
 import ButtonRCUArrow from "../component/rcuButton/ButtonRCUArrow";
@@ -35,12 +34,12 @@ import asterisk from "@/assets/ui_icons/asterisk.png";
 import { arrangeCenterByFlex, arrangeCenterByGrid } from "../styles/partials";
 
 const forwardImage = backwardImage;
-const handleLaunchApp = () => ipcRenderer.send("open-app-dialog");
-const handleAddService = () => ipcRenderer.send("open-service-dialog");
-const handleCloseApp = () => ipcRenderer.send("close-fg-app");
-const handleInspector = () => ipcRenderer.send("toggle-inspector");
-const handleTouchMode = () => ipcRenderer.send("rcu-touch-mode-clicked");
-const handlePortrait = () => ipcRenderer.send("rcu-portrait-clicked");
+const handleLaunchApp = () => window.ipcRenderer.send("open-app-dialog");
+const handleAddService = () => window.ipcRenderer.send("open-service-dialog");
+const handleCloseApp = () => window.ipcRenderer.send("close-fg-app");
+const handleInspector = () => window.ipcRenderer.send("toggle-inspector");
+const handleTouchMode = () => window.ipcRenderer.send("rcu-touch-mode-clicked");
+const handlePortrait = () => window.ipcRenderer.send("rcu-portrait-clicked");
 
 const RCUScreen = () => {
   const [touchMode, setTouchMode] = useState(false);
@@ -48,7 +47,7 @@ const RCUScreen = () => {
     useState<Orientation>("landscape");
 
   useEffect(() => {
-    ipcRenderer
+    window.ipcRenderer
       .on("touch-mode-changed", ipcHandler(setTouchMode))
       .on("screen-orientation-changed", ipcHandler(setScreenOrientation));
   }, []);

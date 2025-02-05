@@ -1,29 +1,17 @@
 import { isDevBuild } from "@share/constant/env";
 import path from "path";
 
-function resolveHtmlPath(htmlFileName: string, hash?: string) {
-  return isDevBuild
-    ? makeDevURL(htmlFileName, hash)
-    : makeProdURL(htmlFileName, hash);
-}
-
-function makeDevURL(htmlFileName: string, hash?: string) {
-  const devURL = new URL(
-    `http://localhost:${process.env.PORT || 1212}/${htmlFileName}`,
+export function resolveHtmlPath(htmlFileName: string, hash?: string) {
+  const url = new URL(
+    isDevBuild
+      ? `http://localhost:${process.env.PORT || 1212}/${htmlFileName}`
+      : path.join("file://", __dirname, "../renderer/", htmlFileName),
   );
-  devURL.hash = hash ? `/${hash}` : "";
-  return devURL.toString();
+  url.hash = hash ? `/${hash}` : "";
+  return url.toString();
 }
 
-function makeProdURL(htmlFileName: string, hash?: string) {
-  const prodURL = new URL(
-    path.join("file://", __dirname, "../renderer/", htmlFileName),
-  );
-  prodURL.hash = hash ? `/${hash}` : "";
-  return prodURL.toString();
-}
-
-function splitServiceURL(serviceURL: string) {
+export function splitServiceURL(serviceURL: string) {
   const serviceName = serviceURL.slice(
     serviceURL.indexOf("com"),
     serviceURL.indexOf("/", 7),
@@ -40,8 +28,12 @@ function splitServiceURL(serviceURL: string) {
   return { serviceName, categoryName, methodName };
 }
 
-function extractIdFromToken(token: string) {
+export function extractIdFromToken(token: string) {
   return token.slice(0, token.lastIndexOf("."));
 }
 
-export { resolveHtmlPath, splitServiceURL, extractIdFromToken };
+export function getPreloadPath(isAppView: boolean = false) {
+  return isAppView
+    ? path.join(__dirname, "preloadApp.js")
+    : path.join(__dirname, "preloadSimul.js");
+}

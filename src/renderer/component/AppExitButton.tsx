@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ipcRenderer } from "electron";
 import { useEffect, useState } from "react";
 import {
   grayBtnBgColor,
@@ -18,7 +17,7 @@ function AppExitButton({ value, clickHandler }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
-    ipcRenderer.on("be-hidden", () => setIsFocused(false));
+    window.ipcRenderer.on("be-hidden", () => setIsFocused(false));
   }, []);
 
   return (

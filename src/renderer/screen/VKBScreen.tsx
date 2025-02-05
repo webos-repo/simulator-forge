@@ -2,7 +2,6 @@ import "react-simple-keyboard/build/css/index.css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { Orientation2Way } from "@share/structure/orientations";
-import { ipcRenderer } from "electron";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SimpleKeyboard from "react-simple-keyboard";
@@ -44,15 +43,15 @@ function VKBScreen() {
     }
     const pressedKeyValue = convertVKBKey(pressedKeyName);
     if (pressedKeyValue) {
-      ipcRenderer.send("vkb-key-pressed", pressedKeyValue);
+      window.ipcRenderer.send("vkb-key-pressed", pressedKeyValue);
     }
   };
 
   useEffect(() => {
     document.addEventListener("mouseenter", () => {
-      ipcRenderer.send("main-window-mouseenter");
+      window.ipcRenderer.send("main-window-mouseenter");
     });
-    ipcRenderer
+    window.ipcRenderer
       .on("reloaded", ipcHandler(setOrn))
       .on("window-orientation-changed", ipcHandler(setOrn))
       .on("be-hidden", resetMarker)
@@ -220,7 +219,7 @@ const handleNavigation = (key: string) => {
 
   if (kbdNavigation.lastMarkerPos === beforePos) {
     if (isVerticalMove) {
-      ipcRenderer.send("req-vkb-hide");
+      window.ipcRenderer.send("req-vkb-hide");
       return;
     }
     const curY = kbdNavigation.lastMarkerPos[0];

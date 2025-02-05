@@ -2,21 +2,21 @@
 // import 'regenerator-runtime/runtime';
 import "@service/Service";
 import { dbInit } from "@controller/dbController";
-import analytics from "@main/module/analytics";
+// import analytics from "@main/module/analytics";
 import { setSimulInfoToDB } from "./lib/simulatorInfo";
 import { checkVersion } from "./lib/versionChecker";
 import { removeWebOSServiceFile } from "./lib/oldFileRemover";
 import { app, session } from "electron";
 import menuBuilder from "@main/menu";
-import jsServiceController from "@controller/JSServiceController";
+// import jsServiceController from "@controller/JSServiceController";
 import windowController from "@controller/WindowController";
-import overlayController from "@controller/OverlayController";
+// import overlayController from "@controller/OverlayController";
 import { getUserAgents } from "./lib/userAgents";
 import { turnOnDevMode } from "@settings/devMode";
 import { tvLocation, tvNetwork } from "@tvSettings/index";
-import "@controller/StateController";
-import "@controller/touchController";
-import "@controller/appController";
+// import "@controller/StateController";
+// import "@controller/touchController";
+// import "@controller/appController";
 
 // if (isProdBuild) {
 //   const sourceMapSupport = require("source-map-support");
@@ -59,12 +59,12 @@ const startSimulator = async () => {
     setSimulInfoToDB();
 
     await windowController.initialize();
-    overlayController.initialize();
-    jsServiceController.initialize();
+    // overlayController.initialize();
+    // jsServiceController.initialize();
 
     menuBuilder.setEventListener();
     menuBuilder.buildMenu();
-    analytics.init();
+    // analytics.init();
   } catch {
     console.error("[Failure] The simulator launch is failed.");
     return;

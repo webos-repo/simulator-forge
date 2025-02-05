@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ipcRenderer } from "electron";
 import { useState, useRef, useEffect } from "react";
 import { fadeIn } from "../styles/effects";
 
@@ -34,7 +33,7 @@ function JSService({ id, isActive, dirPath }: JSServiceProps) {
   };
 
   useEffect(() => {
-    ipcRenderer.on("resized", checkIsLong);
+    window.ipcRenderer.on("resized", checkIsLong);
   }, []);
 
   useEffect(() => {
@@ -43,8 +42,10 @@ function JSService({ id, isActive, dirPath }: JSServiceProps) {
 
   return (
     <JSServiceLayout
-      onClick={() => ipcRenderer.send("js-service-toggle", id)}
-      onContextMenu={() => ipcRenderer.send("js-service-right-click", id)}
+      onClick={() => window.ipcRenderer.send("js-service-toggle", id)}
+      onContextMenu={() =>
+        window.ipcRenderer.send("js-service-right-click", id)
+      }
       data-testid={id}
     >
       <TitleWrapper

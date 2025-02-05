@@ -1,4 +1,3 @@
-import { shell } from "electron";
 import { toast } from "react-toastify";
 import VersionToast from "../component/toast/VersionToast";
 import GeneralToast from "../component/toast/GeneralToast";
@@ -45,7 +44,7 @@ function showGeneralToast(props: GeneralToastProps) {
     ...(linkUrl
       ? {
           onClick: () => {
-            shell.openExternal(linkUrl);
+            window.shell.openExternal(linkUrl);
           },
         }
       : {}),

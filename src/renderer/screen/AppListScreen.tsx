@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
 import { ipcHandler } from "@share/lib/utils";
 import AppList from "../component/AppList";
 import type { AppInfoWithState } from "@share/structure/appInfo";
@@ -14,8 +13,8 @@ const AppListScreen = () => {
   };
 
   useEffect(() => {
-    ipcRenderer.on("app-list-updated", ipcHandler(handleAppListUpdated));
-    ipcRenderer.send("app-list-screen-loaded");
+    window.ipcRenderer.on("app-list-updated", ipcHandler(handleAppListUpdated));
+    window.ipcRenderer.send("app-list-screen-loaded");
   }, []);
 
   return (

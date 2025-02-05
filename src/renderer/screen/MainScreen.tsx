@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { ipcRenderer } from "electron";
 import { ToastContainer, Flip } from "react-toastify";
 import { ipcHandler } from "@share/lib/utils";
 import AppBar from "../component/appBar/AppBar";
@@ -31,9 +30,9 @@ function MainScreen() {
 
   useEffect(() => {
     document.addEventListener("mouseenter", () => {
-      ipcRenderer.send("main-window-mouseenter");
+      window.ipcRenderer.send("main-window-mouseenter");
     });
-    ipcRenderer
+    window.ipcRenderer
       .on("set-spinner", ipcHandler(setShowSpinner))
       .on("clear-main-screen", () => {
         setShowSpinner(false);
@@ -41,8 +40,7 @@ function MainScreen() {
       })
       .on("show-noti-close-rotate", () => setNotiTimer(setCloseRotateVisible))
       .on("show-toast", ipcHandler(showToast));
-
-    ipcRenderer.send("main-screen-loaded");
+    window.ipcRenderer.send("main-screen-loaded");
   }, []);
 
   return (

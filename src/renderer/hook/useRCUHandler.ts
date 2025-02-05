@@ -1,6 +1,5 @@
 import type { RCUButtonEventType } from "@share/structure/events";
 import type { RCU_Button } from "@share/structure/ipcParams";
-import { ipcRenderer } from "electron";
 import _ from "lodash";
 import { useState } from "react";
 import type React from "react";
@@ -27,7 +26,7 @@ function useRCUHandler({ keyCode, isTouchRemote }: UseRCUHandlerProps) {
     if (!rcuEventType) return;
 
     if (keyCode !== "Back") {
-      ipcRenderer.send("rcu-button", {
+      window.ipcRenderer.send("rcu-button", {
         keyCode: keyCode!,
         rcuEventType,
         isTouchRemote: !!isTouchRemote,
@@ -36,13 +35,13 @@ function useRCUHandler({ keyCode, isTouchRemote }: UseRCUHandlerProps) {
       if (rcuEventType === "down") {
         setBackLongPressTimer(
           setTimeout(() => {
-            ipcRenderer.send("close-fg-app");
+            window.ipcRenderer.send("close-fg-app");
           }, 1000),
         );
       } else if (backLongPressTimer) {
         clearTimeout(backLongPressTimer);
         setBackLongPressTimer(null);
-        ipcRenderer.send("rcu-back", !!isTouchRemote);
+        window.ipcRenderer.send("rcu-back", !!isTouchRemote);
       }
     }
   };

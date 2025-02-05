@@ -2,7 +2,6 @@ import { css, keyframes } from "@emotion/react";
 import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState, useRef, useEffect } from "react";
-import { ipcRenderer } from "electron";
 import { ipcHandler } from "@share/lib/utils";
 import type { MouseEventType } from "@share/structure/events";
 
@@ -40,7 +39,7 @@ function TouchScreen() {
   const handleMouseLeave = (e: React.MouseEvent) => {
     setIsEntered(false);
     if (isDown.current) {
-      ipcRenderer.send("touch-screen-mouse-leave-event");
+      window.ipcRenderer.send("touch-screen-mouse-leave-event");
       handleMouseUp({ ...e, type: "mouseup" });
     }
   };
@@ -59,8 +58,8 @@ function TouchScreen() {
   };
 
   useEffect(() => {
-    ipcRenderer.on("edge-data", ipcHandler(setEdge));
-    ipcRenderer.send("req-edge-data");
+    window.ipcRenderer.on("edge-data", ipcHandler(setEdge));
+    window.ipcRenderer.send("req-edge-data");
   }, []);
 
   return (
@@ -109,7 +108,7 @@ function TouchScreen() {
 }
 
 function sendMouseEvent(e: React.MouseEvent) {
-  ipcRenderer.send(
+  window.ipcRenderer.send(
     "touch-screen-mouse-event",
     {
       type: e.type,

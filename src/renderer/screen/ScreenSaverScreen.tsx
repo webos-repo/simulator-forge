@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { directions } from "@share/structure/orientations";
 import type { Direction } from "@share/structure/orientations";
 import { useState, useEffect, useRef } from "react";
-import { ipcRenderer } from "electron";
 import { ipcHandler } from "@share/lib/utils";
 import { random } from "lodash";
 import { DefaultRect } from "@share/constant/defaults";
@@ -28,7 +27,7 @@ function ScreenSaverScreen() {
       setMovePrevent(false);
       if (e.type === "mousemove") return;
     }
-    ipcRenderer.send("prevent-screen-saver-from-screen");
+    window.ipcRenderer.send("prevent-screen-saver-from-screen");
   };
 
   const checkGuideVisible = () => {
@@ -50,7 +49,7 @@ function ScreenSaverScreen() {
       }
     };
 
-    ipcRenderer
+    window.ipcRenderer
       .on(
         "video-rect",
         ipcHandler((newHolePos: Electron.Rectangle) => {

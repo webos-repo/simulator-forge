@@ -25,6 +25,7 @@ import { emtApp, emtSetting } from "../module/eventEmitters";
 import { isAutoInspectorOn } from "@settings/autoInspector";
 import windowSetting from "@settings/windowSetting";
 import type chokidar from "chokidar";
+import { getPreloadPath } from "@/main/lib/pathResolver";
 
 type AppViewConstructorParams = {
   appInfo: AppInfo;
@@ -108,9 +109,7 @@ class AppView extends BrowserView {
           sansSerif: "LG Display-Regular",
           serif: "LG Display-Regular",
         },
-        preload: app.isPackaged
-          ? path.join(__dirname, "preload.js")
-          : path.join(__dirname, "../../../.erb/dll/preload.js"),
+        preload: getPreloadPath(true),
       },
     });
 

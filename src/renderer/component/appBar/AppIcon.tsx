@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 import { getTargetFilePath } from "@share/lib/paths";
 import type { AppInfoWithState } from "@share/structure/appInfo";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ipcRenderer } from "electron";
-import path from "path";
+// import path from "path";
 import fs from "fs";
 
 type Props = {
@@ -31,9 +30,11 @@ function AppIcon({
 
   const iconData = useMemo(() => {
     const iconPath = largeIcon
-      ? path.join(appPath, largeIcon)
+      ? // ? path.join(appPath, largeIcon)
+        ""
       : icon
-        ? path.join(appPath, icon)
+        ? // ? path.join(appPath, icon)
+          ""
         : getTargetFilePath("assets", "icon.png");
     const iconRaw = fs.readFileSync(iconPath).toString("base64");
     return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
@@ -66,12 +67,12 @@ function AppIcon({
 }
 
 const handleLaunchApp = (appPath: string) =>
-  ipcRenderer.send("launch-app", {
+  window.ipcRenderer.send("launch-app", {
     appPath,
   });
 
 const handleRightClick = (appId: string) => {
-  ipcRenderer.send("app-icon-right-click", appId);
+  window.ipcRenderer.send("app-icon-right-click", appId);
 };
 
 const AppIconLayout = styled.button`

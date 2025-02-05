@@ -1,8 +1,8 @@
 import { convertTo2Way } from "@share/structure/orientations";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import { getWebOSVersion } from "../lib/simulInfo";
 import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
-import { getTargetFilePath } from "@share/lib/paths";
+// import { getTargetFilePath } from "@share/lib/paths";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import windowSetting from "@settings/windowSetting";
 import {
@@ -16,6 +16,7 @@ import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { productName } from "package.json";
 import { ipcHandler } from "@share/lib/utils";
 import type { Orientation } from "@share/structure/orientations";
+import path from "path";
 
 class MainWindow extends BrowserWindow {
   private backupAppList?: string;
@@ -28,15 +29,16 @@ class MainWindow extends BrowserWindow {
       useContentSize: true,
       autoHideMenuBar: false,
       title: productName,
-      icon: getTargetFilePath("assets", "icon.png"),
+      // icon: getTargetFilePath("assets", "icon.png"),
       show: false,
       acceptFirstMouse: true,
       resizable: false,
       fullscreen: false,
       webPreferences: {
+        preload: getPreloadPath(),
         zoomFactor: windowSetting.zoom,
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
       },
     });
     this.setEventHandler();
@@ -50,8 +52,23 @@ class MainWindow extends BrowserWindow {
       this.webContents.zoomFactor = windowSetting.zoom;
       emtWindow.emit("main-window-ready-to-show");
     });
+    if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+      this.loadURL(
+        `${MAIN_WINDOW_VITE_DEV_SERVER_URL}/src/renderer/screen/mainScreen.html`,
+      );
+    } else {
+      this.loadFile(
+        path.join(
+          __dirname,
+          `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/mainScreen.html`,
+        ),
+      );
+    }
+    this.once("ready-to-show", () => {
+      this.webContents.openDevTools({ mode: "detach" });
+    });
 
-    this.loadURL(url);
+    // this.loadURL(url);
     this.setAutoHideMenuBar(false);
   };
 

@@ -43,7 +43,12 @@ const config: ForgeConfig = {
           target: "main",
         },
         {
-          entry: "src/preload/preload.ts",
+          entry: "src/preload/preloadApp.ts",
+          config: "vite.preload.config.mts",
+          target: "preload",
+        },
+        {
+          entry: "src/preload/preloadSimul.ts",
           config: "vite.preload.config.mts",
           target: "preload",
         },
@@ -59,7 +64,7 @@ const config: ForgeConfig = {
     // at package time, before code signing the application
     new FusesPlugin({
       version: FuseVersion.V1,
-      [FuseV1Options.RunAsNode]: false,
+      [FuseV1Options.RunAsNode]: true,
       [FuseV1Options.EnableCookieEncryption]: true,
       [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
       [FuseV1Options.EnableNodeCliInspectArguments]: false,

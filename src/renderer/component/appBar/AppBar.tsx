@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import type { AppInfoWithState } from "@share/structure/appInfo";
-import { ipcRenderer } from "electron";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ipcHandler } from "@share/lib/utils";
 import { arrangeCenterByFlex } from "../../styles/partials";
 import AppIcon from "./AppIcon";
@@ -44,7 +43,7 @@ function AppBar() {
   };
 
   useEffect(() => {
-    ipcRenderer.on(
+    window.ipcRenderer.on(
       "app-list-updated",
       ipcHandler((data: string) => {
         setAppInfos(JSON.parse(data));

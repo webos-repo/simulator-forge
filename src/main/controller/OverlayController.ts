@@ -68,7 +68,7 @@ class OverlayController {
 
   private setEventHandler = () => {
     ipcMain
-      .once("main-screen-loaded", this.handleMainScreenLoaded)
+      // .once("main-screen-loaded", this.handleMainScreenLoaded) // FIXME: 마이그레이션 후 에러 남
       .on("app-view-clicked", this.hideTopOverlay)
       .on("app-exit-cancel", this.hideExit)
       .on("input-focused", ipcHandler(this.showVKB))

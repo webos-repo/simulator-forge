@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
 import { ipcHandler } from "@share/lib/utils";
 import JSService from "../component/JSService";
 import type { JSServiceProps } from "../component/JSService";
@@ -12,13 +11,13 @@ export default function JSServiceScreen() {
   );
 
   useEffect(() => {
-    ipcRenderer.on(
+    window.ipcRenderer.on(
       "update-js-service-list",
       ipcHandler((data: string) => {
         setJsServiceDataList(JSON.parse(data));
       }),
     );
-    ipcRenderer.send("js-service-screen-loaded");
+    window.ipcRenderer.send("js-service-screen-loaded");
   }, []);
 
   return (

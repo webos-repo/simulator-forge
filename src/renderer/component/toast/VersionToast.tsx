@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import type { VersionToastProps } from "../../lib/toastManager";
 import GeneralToast from "./GeneralToast";
 import { InstallationURL } from "@share/constant/urls";
-import { shell, ipcRenderer } from "electron";
 
 function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
   return (
@@ -16,7 +15,7 @@ function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
         </p>
         <LinkBox>
           <LinkBtn
-            onClick={() => shell.openExternal(InstallationURL)}
+            onClick={() => window.shell.openExternal(InstallationURL)}
             css={css`
               color: mediumaquamarine;
               opacity: 0.9;
@@ -29,7 +28,10 @@ function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
           </LinkBtn>
           <LinkBtn
             onClick={() =>
-              ipcRenderer.send("clicked-skip-this-version", latestVersion)
+              window.window.ipcRenderer.send(
+                "clicked-skip-this-version",
+                latestVersion,
+              )
             }
             css={css`
               color: white;

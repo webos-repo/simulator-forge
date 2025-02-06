@@ -4,13 +4,13 @@ import type { Orientation } from "@share/structure/orientations";
 import { useState, useEffect } from "react";
 import { range } from "lodash";
 import { ipcHandler } from "@share/lib/utils";
-import ButtonRCUArrow from "../component/rcuButton/ButtonRCUArrow";
-import ButtonRCU from "../component/rcuButton/ButtonRCU";
-import ButtonRCUColor from "../component/rcuButton/ButtonRCUColor";
-import ButtonRCUFunc from "../component/rcuButton/ButtonRCUFunc";
-import ButtonRCULong from "../component/rcuButton/ButtonRCULong";
-import ButtonRCUMedia from "../component/rcuButton/ButtonRCUMedia";
-import ButtonRCUPower from "../component/rcuButton/ButtonRCUPower";
+import ButtonRCUArrow from "@/renderer/component/rcuButton/ButtonRCUArrow";
+import ButtonRCU from "@/renderer/component/rcuButton/ButtonRCU";
+import ButtonRCUColor from "@/renderer/component/rcuButton/ButtonRCUColor";
+import ButtonRCUFunc from "@/renderer/component/rcuButton/ButtonRCUFunc";
+import ButtonRCULong from "@/renderer/component/rcuButton/ButtonRCULong";
+import ButtonRCUMedia from "@/renderer/component/rcuButton/ButtonRCUMedia";
+import ButtonRCUPower from "@/renderer/component/rcuButton/ButtonRCUPower";
 
 import powerImage from "@/assets/ui_icons/power.png";
 import muteImage from "@/assets/ui_icons/mute.png";
@@ -31,7 +31,10 @@ import stopImage from "@/assets/ui_icons/stop.png";
 import backwardImage from "@/assets/ui_icons/backward.png";
 import dotdotdot from "@/assets/ui_icons/dotdotdot.png";
 import asterisk from "@/assets/ui_icons/asterisk.png";
-import { arrangeCenterByFlex, arrangeCenterByGrid } from "../styles/partials";
+import {
+  arrangeCenterByFlex,
+  arrangeCenterByGrid,
+} from "@/renderer/styles/partials";
 
 const forwardImage = backwardImage;
 const handleLaunchApp = () => window.ipcRenderer.send("open-app-dialog");
@@ -41,7 +44,7 @@ const handleInspector = () => window.ipcRenderer.send("toggle-inspector");
 const handleTouchMode = () => window.ipcRenderer.send("rcu-touch-mode-clicked");
 const handlePortrait = () => window.ipcRenderer.send("rcu-portrait-clicked");
 
-const RCUScreen = () => {
+export default function RCUScreen() {
   const [touchMode, setTouchMode] = useState(false);
   const [screenOrientation, setScreenOrientation] =
     useState<Orientation>("landscape");
@@ -144,7 +147,7 @@ const RCUScreen = () => {
       </FunctionSection>
     </RCUScreenLayout>
   );
-};
+}
 
 const RCUScreenLayout = styled.main`
   box-sizing: border-box;
@@ -240,5 +243,3 @@ const FunctionSection = styled.section`
   grid-template-rows: 1fr 1fr 1fr;
   font-size: 9.5vw;
 `;
-
-export default RCUScreen;

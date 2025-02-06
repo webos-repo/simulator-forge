@@ -1,11 +1,10 @@
-import { css, keyframes } from "@emotion/react";
-import type { SerializedStyles } from "@emotion/react";
+import { css, keyframes, SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState, useRef, useEffect } from "react";
 import { ipcHandler } from "@share/lib/utils";
-import type { MouseEventType } from "@share/structure/events";
+import { MouseEventType } from "@share/structure/events";
 
-function TouchScreen() {
+export default function TouchScreen() {
   const [edge, setEdge] = useState({
     minX: 0,
     maxX: 0,
@@ -220,5 +219,3 @@ const EdgePositionCSS: { [key in EdgePosition]: SerializedStyles } = {
     height: 100vh;
   `,
 };
-
-export default TouchScreen;

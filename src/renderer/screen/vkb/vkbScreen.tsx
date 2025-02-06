@@ -7,20 +7,20 @@ import { useParams } from "react-router-dom";
 import SimpleKeyboard from "react-simple-keyboard";
 import keyNavigation from "simple-keyboard-key-navigation";
 import { ipcHandler } from "@share/lib/utils";
-import { ipcSender } from "../lib/utils";
-import getReactSimpleKeyboardCustomCSS from "../styles/vkbCustom";
+import { ipcSender } from "@/renderer/lib/utils";
+import getReactSimpleKeyboardCustomCSS from "@/renderer/styles/vkbCustom";
 import {
   defaultVKBLayout,
   numberVKBLayout,
   vkbDisplay,
-} from "../styles/vkbLayouts";
-import { blackBlue } from "../styles/colors";
+} from "@/renderer/styles/vkbLayouts";
+import { blackBlue } from "@/renderer/styles/colors";
 
 const unusedKeyNames = ["{eng}", "{aa}", "{voice}", "", "{none}", "{blank}"];
 let keyboard: any;
 let kbdNavigation: any;
 
-function VKBScreen() {
+export default function VkbScreen() {
   const { inputType, initOrn } = useParams();
   const [layoutName, setLayoutName] = useState("default");
   const [orn, setOrn] = useState(initOrn as Orientation2Way);
@@ -246,5 +246,3 @@ const handleNavigation = (key: string) => {
     handleNavigation(key);
   }
 };
-
-export default VKBScreen;

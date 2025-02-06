@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { ipcHandler } from "@share/lib/utils";
-import JSService from "../component/JSService";
-import type { JSServiceProps } from "../component/JSService";
-import ListViewer from "../component/ListViewer";
-import { ipcSender } from "../lib/utils";
+import JSService from "@/renderer/component/JSService";
+import type { JSServiceProps } from "@/renderer/component/JSService";
+import ListViewer from "@/renderer/component/ListViewer";
+import { ipcSender } from "@/renderer/lib/utils";
 
 export default function JSServiceScreen() {
   const [jsServiceDataList, setJsServiceDataList] = useState<JSServiceProps[]>(

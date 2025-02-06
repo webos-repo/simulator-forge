@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { ipcHandler } from "@share/lib/utils";
-import AppList from "../component/AppList";
+import AppList from "@/renderer/component/AppList";
 import type { AppInfoWithState } from "@share/structure/appInfo";
-import ListViewer from "../component/ListViewer";
-import { ipcSender } from "../lib/utils";
+import ListViewer from "@/renderer/component/ListViewer";
+import { ipcSender } from "@/renderer/lib/utils";
 
-const AppListScreen = () => {
+export default function AppListScreen() {
   const [appInfos, setAppInfos] = useState<AppInfoWithState[]>([]);
 
   const handleAppListUpdated = (appListDataStr: string) => {
@@ -25,6 +25,4 @@ const AppListScreen = () => {
       {appInfos?.map((appInfo, idx) => <AppList appInfo={appInfo} key={idx} />)}
     </ListViewer>
   );
-};
-
-export default AppListScreen;
+}

@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { ToastContainer, Flip } from "react-toastify";
 import { ipcHandler } from "@share/lib/utils";
-import AppBar from "../component/appBar/AppBar";
-import Spinner from "../component/Spinner";
-import Notification from "../component/Notification";
-import { clearToast, showToast } from "../lib/toastManager";
+import AppBar from "../../component/appBar/AppBar";
+import Spinner from "../../component/Spinner";
+import Notification from "../../component/Notification";
+import { clearToast, showToast } from "../../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
-import { arrangeCenterByFlex } from "../styles/partials";
+import { arrangeCenterByFlex } from "../../styles/partials";
 
 import beanbird from "@/assets/beanbird-sky.jpg";
 
@@ -17,7 +17,7 @@ const closeOnRotateContents = [
   "Please orient the screen to landscape mode to enjoy.",
 ];
 
-function MainScreen() {
+export default function MainScreen() {
   const [showSpinner, setShowSpinner] = useState(false);
   const [closeRotateVisible, setCloseRotateVisible] = useState(false);
 
@@ -92,5 +92,3 @@ const IgnorePanel = styled.div`
   background-color: transparent;
   z-index: 5;
 `;
-
-export default MainScreen;

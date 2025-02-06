@@ -1,0 +1,12 @@
+import "@/renderer/styles/global.css";
+import ScreenSaverScreen from "@/renderer/screen/screenSaver/screenSaverScreen";
+import GlobalStyles from "@/renderer/styles/GlobalStyles";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <GlobalStyles />
+    <ScreenSaverScreen />
+  </StrictMode>,
+);

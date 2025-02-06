@@ -1,5 +1,5 @@
 import { convertTo2Way } from "@share/structure/orientations";
-import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
 import { getWebOSVersion } from "../lib/simulInfo";
 import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
 // import { getTargetFilePath } from "@share/lib/paths";
@@ -16,7 +16,7 @@ import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { productName } from "package.json";
 import { ipcHandler } from "@share/lib/utils";
 import type { Orientation } from "@share/structure/orientations";
-import path from "path";
+import { loadWindow } from "@/main/lib/windowHelper";
 
 class MainWindow extends BrowserWindow {
   private backupAppList?: string;
@@ -42,28 +42,29 @@ class MainWindow extends BrowserWindow {
       },
     });
     this.setEventHandler();
-    this.initialize(resolveHtmlPath("index.html"));
+    this.initialize();
   }
 
-  private initialize = (url: string) => {
+  private initialize = () => {
     this.once("ready-to-show", () => {
       this.fixContentSize();
       this.show();
       this.webContents.zoomFactor = windowSetting.zoom;
       emtWindow.emit("main-window-ready-to-show");
     });
-    if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-      this.loadURL(
-        `${MAIN_WINDOW_VITE_DEV_SERVER_URL}/src/renderer/screen/mainScreen.html`,
-      );
-    } else {
-      this.loadFile(
-        path.join(
-          __dirname,
-          `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/mainScreen.html`,
-        ),
-      );
-    }
+    // if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    //   this.loadURL(
+    //     `${MAIN_WINDOW_VITE_DEV_SERVER_URL}/src/renderer/screen/mainScreen.html`,
+    //   );
+    // } else {
+    //   this.loadFile(
+    //     path.join(
+    //       __dirname,
+    //       `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/mainScreen.html`,
+    //     ),
+    //   );
+    // }
+    loadWindow(this, "main");
     this.once("ready-to-show", () => {
       this.webContents.openDevTools({ mode: "detach" });
     });

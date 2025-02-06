@@ -1,8 +1,8 @@
 import { useState, useCallback, useMemo } from "react";
 import Select from "react-select";
-import { ipcSender } from "../lib/utils";
+import { ipcSender } from "@/renderer/lib/utils";
 
-const TvSettingScreen = () => {
+export default function TvSettingScreen() {
   const models = useMemo(
     () => [
       { value: "o20n", label: "O20N" },
@@ -54,6 +54,4 @@ const TvSettingScreen = () => {
       </div>
     </div>
   );
-};
-
-export default TvSettingScreen;
+}

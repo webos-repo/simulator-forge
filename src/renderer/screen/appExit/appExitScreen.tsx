@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import AppExitButton from "../component/AppExitButton";
-import { ipcSender } from "../lib/utils";
-import { fontColorWhite, viewBgColor } from "../styles/colors";
-import { arrangeCenterByFlex } from "../styles/partials";
+import AppExitButton from "@/renderer/component/AppExitButton";
+import { ipcSender } from "@/renderer/lib/utils";
+import { fontColorWhite, viewBgColor } from "@/renderer/styles/colors";
+import { arrangeCenterByFlex } from "@/renderer/styles/partials";
 
-function AppExitScreen() {
+export default function AppExitScreen() {
   return (
     <AppExitLayout
       onFocusCapture={ipcSender("overlay-focused")}
@@ -44,5 +44,3 @@ const ButtonBox = styled.div`
   flex-direction: column;
   flex-grow: 1;
 `;
-
-export default AppExitScreen;

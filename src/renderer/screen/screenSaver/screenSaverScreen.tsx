@@ -12,7 +12,7 @@ const DefaultGuidePos = {
   left: 100,
 };
 
-function ScreenSaverScreen() {
+export default function ScreenSaverScreen() {
   const [shown, setShown] = useState(false);
   const [movePrevent, setMovePrevent] = useState(true);
   const [guideVisible, setGuideVisible] = useState(false);
@@ -211,5 +211,3 @@ const BlackBox = styled.div<{
               `
             : undefined}
 `;
-
-export default ScreenSaverScreen;

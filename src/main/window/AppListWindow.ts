@@ -1,8 +1,9 @@
 import { BrowserWindow, ipcMain, Menu } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import { emtApp, emtWindow } from "../module/eventEmitters";
 import { ipcHandler } from "@share/lib/utils";
+import { loadWindow } from "@/main/lib/windowHelper";
 
 class AppListWindow extends BrowserWindow {
   private backupAppList?: string;
@@ -22,10 +23,11 @@ class AppListWindow extends BrowserWindow {
       webPreferences: {
         zoomFactor: windowSetting.zoom,
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
-    this.loadURL(resolveHtmlPath("index.html", "app_list"));
+    loadWindow(this, "appList");
     this.setMenuBarVisibility(false);
     this.setEventHandler();
   }

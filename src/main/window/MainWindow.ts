@@ -52,24 +52,11 @@ class MainWindow extends BrowserWindow {
       this.webContents.zoomFactor = windowSetting.zoom;
       emtWindow.emit("main-window-ready-to-show");
     });
-    // if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    //   this.loadURL(
-    //     `${MAIN_WINDOW_VITE_DEV_SERVER_URL}/src/renderer/screen/mainScreen.html`,
-    //   );
-    // } else {
-    //   this.loadFile(
-    //     path.join(
-    //       __dirname,
-    //       `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/mainScreen.html`,
-    //     ),
-    //   );
-    // }
-    loadWindow(this, "main");
     this.once("ready-to-show", () => {
-      this.webContents.openDevTools({ mode: "detach" });
+      // this.webContents.openDevTools({ mode: "detach" });
     });
 
-    // this.loadURL(url);
+    loadWindow(this, "main");
     this.setAutoHideMenuBar(false);
   };
 

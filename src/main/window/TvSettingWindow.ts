@@ -1,14 +1,15 @@
 import { BrowserWindow } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
+import { loadWindow } from "@/main/lib/windowHelper";
 
 class TvSettingWindow extends BrowserWindow {
   constructor() {
     super({
       x: windowSetting.pos.x + 100,
       y: windowSetting.pos.y + 100,
-      width: 800, // TODO: set a proper width
-      height: 600, // TODO: set a proper height
+      width: 800,
+      height: 600,
       useContentSize: true,
       title: "TV Settings",
       modal: true,
@@ -18,17 +19,14 @@ class TvSettingWindow extends BrowserWindow {
       acceptFirstMouse: true,
       webPreferences: {
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
-    this.initialize(resolveHtmlPath("index.html", "tv_setting"));
+    loadWindow(this, "tvSetting");
     this.setEventHandler();
     this.setMenuBarVisibility(false);
   }
-
-  initialize = (url: string) => {
-    this.loadURL(url);
-  };
 
   setEventHandler = () => {
     // file deepcode ignore AttrAccessOnNull: <please specify a reason of ignoring this>

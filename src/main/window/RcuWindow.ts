@@ -1,8 +1,9 @@
 import { Pos } from "@share/structure/positions";
 import { BrowserWindow } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
 import { emtSetting } from "../module/eventEmitters";
+import { loadWindow } from "@/main/lib/windowHelper";
+import { getPreloadPath } from "@/main/lib/pathResolver";
 
 class RcuWindow extends BrowserWindow {
   constructor(mainWndBound: Readonly<Electron.Rectangle>) {
@@ -21,10 +22,11 @@ class RcuWindow extends BrowserWindow {
       webPreferences: {
         zoomFactor: windowSetting.zoom,
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
-    this.loadURL(resolveHtmlPath("index.html", "rcu"));
+    loadWindow(this, "rcu");
     this.setMenuBarVisibility(false);
     this.setEventHandler();
   }
@@ -41,7 +43,7 @@ class RcuWindow extends BrowserWindow {
       setTimeout(() => {
         this.fixContentBounds(this.getContentBounds());
         this.show();
-        // this.webContents.openDevTools({ mode: 'detach' });
+        // this.webContents.openDevTools({ mode: "detach" });
       }, 500);
     }
   };

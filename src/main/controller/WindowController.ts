@@ -36,26 +36,27 @@ class WindowController {
 
   initialize = async () => {
     this.mainWindow = new MainWindow();
-    // while (!this.mainWindow) {
-    //   await new Promise((resolve) => setTimeout(resolve, 100));
-    // }
+    while (!this.mainWindow) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     constStore.setMainWindowYDiff(
       this.mainWindow.getContentBounds().y - this.mainWindow.getBounds().y,
     );
 
-    // this.rcuWindow = new RcuWindow(this.mainWindow.getContentBounds());
-    // this.rcuWindow.setParentWindow(this.mainWindow);
+    this.rcuWindow = new RcuWindow(this.mainWindow.getContentBounds());
+    this.rcuWindow.setParentWindow(this.mainWindow);
 
-    // this.appListWindow = new AppListWindow();
-    // this.jsServiceWindow = new JSServiceWindow();
-    // this.tvSettingWindow = new TvSettingWindow();
-    // this.allWindows = {
-    //   main: this.mainWindow,
-    //   rcu: this.rcuWindow,
-    //   appList: this.appListWindow,
-    //   jsService: this.jsServiceWindow,
-    //   tvSetting: this.tvSettingWindow,
-    // };
+    this.appListWindow = new AppListWindow();
+    this.jsServiceWindow = new JSServiceWindow();
+    this.tvSettingWindow = new TvSettingWindow();
+
+    this.allWindows = {
+      main: this.mainWindow,
+      rcu: this.rcuWindow,
+      appList: this.appListWindow,
+      jsService: this.jsServiceWindow,
+      tvSetting: this.tvSettingWindow,
+    };
 
     this.setEventHandler();
     if (process.platform === "linux") this.focusControlLinux();

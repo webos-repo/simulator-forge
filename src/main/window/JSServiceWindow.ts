@@ -1,8 +1,9 @@
 import { BrowserWindow, ipcMain, Menu } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import { emtService, emtWindow } from "../module/eventEmitters";
 import { ipcHandler } from "@share/lib/utils";
+import { loadWindow } from "@/main/lib/windowHelper";
 
 class JSServiceWindow extends BrowserWindow {
   constructor() {
@@ -20,11 +21,12 @@ class JSServiceWindow extends BrowserWindow {
       webPreferences: {
         zoomFactor: windowSetting.zoom,
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
+    loadWindow(this, "jsService");
     this.setEventHandler();
-    this.loadURL(resolveHtmlPath("index.html", "js_service"));
     this.setMenuBarVisibility(false);
   }
 

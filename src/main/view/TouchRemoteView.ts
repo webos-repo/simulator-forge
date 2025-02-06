@@ -3,8 +3,9 @@ import { constStore } from "@share/store/constStore";
 import _ from "lodash";
 import OverlayView from "@view/OverlayView";
 import windowSetting from "@settings/windowSetting";
-import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting } from "../module/eventEmitters";
+import { loadView } from "@/main/lib/windowHelper";
 
 const TouchRemoteSize = {
   width: 236,
@@ -25,7 +26,7 @@ export default class TouchRemoteView extends OverlayView {
         preload: getPreloadPath(),
       },
     });
-    this.webContents.loadURL(resolveHtmlPath("index.html", "touch_remote"));
+    loadView(this, "touchRemote");
     this.setEventHandler();
   }
 

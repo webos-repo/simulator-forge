@@ -7,6 +7,6 @@ import { createRoot } from "react-dom/client";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GlobalStyles />
-    <VkbScreen />
+    <VkbScreen inputType="default" />
   </StrictMode>,
 );

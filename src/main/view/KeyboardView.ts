@@ -5,9 +5,10 @@ import type { Orientation2Way } from "@/share/structure/orientations";
 import _ from "lodash";
 import OverlayView from "@/main/view/OverlayView";
 import windowSetting from "@/main/settings/windowSetting";
-import { getPreloadPath, resolveHtmlPath } from "@/main/lib/pathResolver";
+import { getPreloadPath } from "@/main/lib/pathResolver";
 import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
 import { VKBPriorityKeys } from "@/main/lib/keyManager";
+import { loadView } from "@/main/lib/windowHelper";
 
 const KeyboardHeightRatio: {
   [key in Orientation2Way]: { [key2 in "default" | "number"]: number };
@@ -52,10 +53,7 @@ class KeyboardView extends OverlayView {
       },
     });
     this.vkbType = vkbType;
-
-    this.webContents.loadURL(
-      resolveHtmlPath("index.html", `keyboard/${vkbType}/${this.orn}`),
-    );
+    loadView(this, `keyboard/${vkbType}`);
     this.setEventHandler();
   }
 

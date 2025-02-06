@@ -4,8 +4,9 @@ import type { Orientation2Way } from "@share/structure/orientations";
 import _ from "lodash";
 import OverlayView from "@view/OverlayView";
 import windowSetting from "@settings/windowSetting";
-import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
+import { loadView } from "@/main/lib/windowHelper";
 
 const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
   landscape: { x: 280, y: 480, width: 700, height: 128 },
@@ -25,10 +26,9 @@ export default class AppExitView extends OverlayView {
         preload: getPreloadPath(),
       },
     });
-    this.webContents.loadURL(resolveHtmlPath("index.html", "app_exit"));
 
+    loadView(this, "appExit");
     emtWindow.on("main-window-orientation-changed", this.changeOrientation);
-
     emtSetting.on("change-zoomFactor", this.handleChangeZoom);
   }
 

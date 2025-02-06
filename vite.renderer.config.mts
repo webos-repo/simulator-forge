@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
-const getWindowPath = (windowName: string) =>
+const getScreenPath = (windowName: string) =>
   path.resolve(
     __dirname,
     "src",
@@ -20,16 +20,17 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        app_exit_window: getWindowPath("appExit"),
-        app_list_window: getWindowPath("appList"),
-        js_service_window: getWindowPath("jsService"),
-        main_window: getWindowPath("main"),
-        rcu_window: getWindowPath("rcu"),
-        screen_saver_window: getWindowPath("screenSaver"),
-        touch_window: getWindowPath("touch"),
-        touch_remote_window: getWindowPath("touchRemote"),
-        tv_setting_window: getWindowPath("tvSetting"),
-        vkb_window: getWindowPath("vkb"),
+        main_window: getScreenPath("main"),
+        rcu_window: getScreenPath("rcu"),
+        app_list_window: getScreenPath("appList"),
+        js_service_window: getScreenPath("jsService"),
+        tv_setting_window: getScreenPath("tvSetting"),
+        app_exit_view: getScreenPath("appExit"),
+        screen_saver_view: getScreenPath("screenSaver"),
+        touch_view: getScreenPath("touch"),
+        touch_remote_view: getScreenPath("touchRemote"),
+        vkb_default_view: getScreenPath("vkb/default"),
+        vkb_number_view: getScreenPath("vkb/number"),
       },
     },
   },

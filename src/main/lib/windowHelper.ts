@@ -1,4 +1,4 @@
-import { BrowserWindow } from "electron";
+import { BrowserView, BrowserWindow } from "electron";
 import path from "path";
 
 export function loadWindow(targetWindow: BrowserWindow, windowName: string) {
@@ -11,6 +11,21 @@ export function loadWindow(targetWindow: BrowserWindow, windowName: string) {
       path.join(
         __dirname,
         `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/${windowName}/index.html`,
+      ),
+    );
+  }
+}
+
+export function loadView(targetView: BrowserView, viewName: string) {
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    targetView.webContents.loadURL(
+      `${MAIN_WINDOW_VITE_DEV_SERVER_URL}/src/renderer/screen/${viewName}/index.html`,
+    );
+  } else {
+    targetView.webContents.loadFile(
+      path.join(
+        __dirname,
+        `../renderer/${MAIN_WINDOW_VITE_NAME}/src/renderer/screen/${viewName}/index.html`,
       ),
     );
   }

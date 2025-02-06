@@ -2,8 +2,7 @@ import "react-simple-keyboard/build/css/index.css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { Orientation2Way } from "@share/structure/orientations";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SimpleKeyboard from "react-simple-keyboard";
 import keyNavigation from "simple-keyboard-key-navigation";
 import { ipcHandler } from "@share/lib/utils";
@@ -20,10 +19,13 @@ const unusedKeyNames = ["{eng}", "{aa}", "{voice}", "", "{none}", "{blank}"];
 let keyboard: any;
 let kbdNavigation: any;
 
-export default function VkbScreen() {
-  const { inputType, initOrn } = useParams();
+type Params = {
+  inputType: string;
+};
+
+export default function VkbScreen({ inputType }: Params) {
   const [layoutName, setLayoutName] = useState("default");
-  const [orn, setOrn] = useState(initOrn as Orientation2Way);
+  const [orn, setOrn] = useState<Orientation2Way>("landscape");
   const vkbLayout = getVKBLayout(inputType!);
 
   const handleKeyPress = (pressedKeyName: string) => {

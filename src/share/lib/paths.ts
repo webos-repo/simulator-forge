@@ -11,9 +11,10 @@ function getRootPathDev() {
 }
 
 export function getTargetDirPath(targetDirName: TargetDirNames) {
+  const dirPath = targetDirName === "assets" ? "src/assets" : targetDirName;
   return process?.env.NODE_ENV === "production"
-    ? path.resolve(process.resourcesPath, targetDirName)
-    : path.resolve(getRootPathDev(), targetDirName);
+    ? path.resolve(process.resourcesPath, dirPath)
+    : path.resolve(getRootPathDev(), dirPath);
 }
 
 export function getTargetFilePath(

@@ -1,3 +1,7 @@
 import { listenAppEvent } from "./appHandler";
 
-listenAppEvent();
+export default class AppController {
+  static init() {
+    listenAppEvent();
+  }
+}

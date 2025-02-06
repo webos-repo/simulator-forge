@@ -1,25 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { getTargetFilePath } from "@share/lib/paths";
 import type { AppInfoWithState } from "@share/structure/appInfo";
-import { useEffect, useMemo, useRef, useState } from "react";
-// import path from "path";
-import fs from "fs";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   appInfoWithState: AppInfoWithState;
 };
 
 function AppIcon({
-  appInfoWithState: {
-    title,
-    id,
-    icon,
-    iconColor,
-    appPath,
-    largeIcon,
-    appState,
-  },
+  appInfoWithState: { title, id, iconRaw, iconColor, appPath, appState },
 }: Props) {
   const [isTitleLong, setIsTitleLong] = useState(false);
   const appTitleDiv = useRef<any>(null);
@@ -28,17 +17,15 @@ function AppIcon({
     appState === "background" ? "\nbackground" : ""
   }`;
 
-  const iconData = useMemo(() => {
-    const iconPath = largeIcon
-      ? // ? path.join(appPath, largeIcon)
-        ""
-      : icon
-        ? // ? path.join(appPath, icon)
-          ""
-        : getTargetFilePath("assets", "icon.png");
-    const iconRaw = fs.readFileSync(iconPath).toString("base64");
-    return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
-  }, [appPath, icon, largeIcon]);
+  // const iconData = useMemo(() => {
+  //   const iconPath = largeIcon
+  //     ? path.join(appPath, largeIcon)
+  //     : icon
+  //       ? path.join(appPath, icon)
+  //       : getTargetFilePath("assets", "icon.png");
+  //   const iconRaw = fs.readFileSync(iconPath).toString("base64");
+  //   return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
+  // }, [appPath, icon, largeIcon]);
 
   useEffect(() => {
     if (!appTitle || !appTitleDiv) return;
@@ -53,7 +40,7 @@ function AppIcon({
       <AppIconWrapper>
         <AppIconBox
           iconColor={iconColor}
-          iconData={iconData}
+          iconData={iconRaw}
           onClick={() => handleLaunchApp(appPath!)}
         />
       </AppIconWrapper>

@@ -53,7 +53,7 @@ class MainWindow extends BrowserWindow {
       emtWindow.emit("main-window-ready-to-show");
     });
     this.once("ready-to-show", () => {
-      // this.webContents.openDevTools({ mode: "detach" });
+      this.webContents.openDevTools({ mode: "detach" });
     });
 
     loadWindow(this, "main");

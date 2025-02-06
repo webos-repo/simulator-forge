@@ -33,7 +33,9 @@ type OptionalInfo = {
 type AppInfoJson = Mandatory & OptionalInfo;
 type AppInfo = AppInfoJson & {
   appPath: string;
+  iconRaw: string;
 };
+
 type AppInfoWithState = AppInfo & {
   appState: "foreground" | "background" | "notLaunched";
 };

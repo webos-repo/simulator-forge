@@ -3,6 +3,7 @@ import type { ServiceJson } from "@share/structure/serviceInfo";
 import fs from "fs";
 import path from "path";
 import LogMessage from "./logMessage";
+import { getTargetFilePath } from "@/share/lib/paths";
 
 const readJsonFile = (filePath: string, fileName: string) => {
   if (!fs.existsSync(filePath)) throw new Error();
@@ -26,10 +27,37 @@ const readAppInfoJson = (appPath: string): AppInfoJson => {
   }
 };
 
-const readAppInfo = (appPath: string): AppInfo => ({
-  ...readAppInfoJson(appPath),
+const readIconRaw = ({
+  largeIcon,
+  icon,
   appPath,
-});
+}: {
+  largeIcon: AppInfoJson["largeIcon"];
+  icon: AppInfoJson["icon"];
+  appPath: string;
+}): string => {
+  const iconPath = largeIcon
+    ? path.join(appPath, largeIcon)
+    : icon
+      ? path.join(appPath, icon)
+      : getTargetFilePath("assets", "icon.png");
+  const iconRaw = fs.readFileSync(iconPath).toString("base64");
+  return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
+};
+
+const readAppInfo = (appPath: string): AppInfo => {
+  const appInfoJson = readAppInfoJson(appPath);
+  const iconRaw = readIconRaw({
+    largeIcon: appInfoJson.largeIcon,
+    icon: appInfoJson.icon,
+    appPath,
+  });
+  return {
+    ...appInfoJson,
+    appPath,
+    iconRaw,
+  };
+};
 
 const readAppEntry = (dirPath: string) => {
   if (!fs.existsSync(dirPath)) {

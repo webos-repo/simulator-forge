@@ -13,9 +13,9 @@ import windowController from "@/main/controller/WindowController";
 import menuBuilder from "@/main/menu";
 import { turnOnDevMode } from "@/main/settings/devMode";
 import { dbInit } from "@/main/controller/dbController";
+import AppController from "@/main/controller/appController";
 // import "@controller/StateController";
 // import "@controller/touchController";
-// import "@controller/appController";
 
 // for iframe access
 app.commandLine.appendSwitch("disable-site-isolation-trials");
@@ -36,6 +36,7 @@ app.on("ready", () => {
 
 const startSimulator = async () => {
   try {
+    AppController.init();
     appGlobalSetting();
     await Promise.allSettled([
       tvLocation.updateLocationData(),

@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { ToastContainer, Flip } from "react-toastify";
 import { ipcHandler } from "@share/lib/utils";
 import AppBar from "../../component/appBar/AppBar";
-import Spinner from "../../component/Spinner";
+// import Spinner from "../../component/Spinner";
 import Notification from "../../component/Notification";
 import { clearToast, showToast } from "../../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
 import { arrangeCenterByFlex } from "../../styles/partials";
 
 import beanbird from "@/assets/beanbird-sky.jpg";
+import { Spinner } from "@heroui/react";
 
 const closeOnRotateContents = [
   "This app does not support portrait mode.",
@@ -47,7 +48,7 @@ export default function MainScreen() {
   return (
     <MainScreenLayout preventPointerEvent={showSpinner}>
       <AppBar />
-      {showSpinner && <Spinner />}
+      {showSpinner && <Spinner size="lg" color="default" />}
       {closeRotateVisible && (
         <IgnorePanel
           onClick={() => setCloseRotateVisible(false)}

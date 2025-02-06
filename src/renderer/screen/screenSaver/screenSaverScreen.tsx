@@ -49,25 +49,24 @@ export default function ScreenSaverScreen() {
       }
     };
 
-    window.ipcRenderer
-      .on(
-        "video-rect",
-        ipcHandler((newHolePos: Electron.Rectangle) => {
-          holePos.current = newHolePos;
-        }),
-      )
-      .on("is-shown", () => {
-        setGuidePos(DefaultGuidePos);
-        resetGuideMoveTimer(true);
-        setShown(true);
-        setMovePrevent(true);
-        if (checkGuideVisible()) setGuideVisible(true);
-      })
-      .on("is-hidden", () => {
-        setShown(false);
-        setGuideVisible(false);
-        resetGuideMoveTimer(false);
-      });
+    window.ipcRenderer.on(
+      "video-rect",
+      ipcHandler((newHolePos: Electron.Rectangle) => {
+        holePos.current = newHolePos;
+      }),
+    );
+    window.ipcRenderer.on("is-shown", () => {
+      setGuidePos(DefaultGuidePos);
+      resetGuideMoveTimer(true);
+      setShown(true);
+      setMovePrevent(true);
+      if (checkGuideVisible()) setGuideVisible(true);
+    });
+    window.ipcRenderer.on("is-hidden", () => {
+      setShown(false);
+      setGuideVisible(false);
+      resetGuideMoveTimer(false);
+    });
   }, [guidanceMoveTime]);
 
   return (

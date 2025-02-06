@@ -53,11 +53,10 @@ export default function VkbScreen({ inputType }: Params) {
     document.addEventListener("mouseenter", () => {
       window.ipcRenderer.send("main-window-mouseenter");
     });
-    window.ipcRenderer
-      .on("reloaded", ipcHandler(setOrn))
-      .on("window-orientation-changed", ipcHandler(setOrn))
-      .on("be-hidden", resetMarker)
-      .on("rcu-pressed", ipcHandler(handleNavigation));
+    window.ipcRenderer.on("reloaded", ipcHandler(setOrn));
+    window.ipcRenderer.on("window-orientation-changed", ipcHandler(setOrn));
+    window.ipcRenderer.on("be-hidden", resetMarker);
+    window.ipcRenderer.on("rcu-pressed", ipcHandler(handleNavigation));
   }, []);
 
   return (

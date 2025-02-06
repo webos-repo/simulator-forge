@@ -32,14 +32,15 @@ export default function MainScreen() {
     document.addEventListener("mouseenter", () => {
       window.ipcRenderer.send("main-window-mouseenter");
     });
-    window.ipcRenderer
-      .on("set-spinner", ipcHandler(setShowSpinner))
-      .on("clear-main-screen", () => {
-        setShowSpinner(false);
-        clearToast();
-      })
-      .on("show-noti-close-rotate", () => setNotiTimer(setCloseRotateVisible))
-      .on("show-toast", ipcHandler(showToast));
+    window.ipcRenderer.on("set-spinner", ipcHandler(setShowSpinner));
+    window.ipcRenderer.on("clear-main-screen", () => {
+      setShowSpinner(false);
+      clearToast();
+    });
+    window.ipcRenderer.on("show-noti-close-rotate", () =>
+      setNotiTimer(setCloseRotateVisible),
+    );
+    window.ipcRenderer.on("show-toast", ipcHandler(showToast));
     window.ipcRenderer.send("main-screen-loaded");
   }, []);
 

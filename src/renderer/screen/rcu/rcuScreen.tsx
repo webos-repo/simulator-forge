@@ -50,9 +50,11 @@ export default function RCUScreen() {
     useState<Orientation>("landscape");
 
   useEffect(() => {
-    window.ipcRenderer
-      .on("touch-mode-changed", ipcHandler(setTouchMode))
-      .on("screen-orientation-changed", ipcHandler(setScreenOrientation));
+    window.ipcRenderer.on("touch-mode-changed", ipcHandler(setTouchMode));
+    window.ipcRenderer.on(
+      "screen-orientation-changed",
+      ipcHandler(setScreenOrientation),
+    );
   }, []);
 
   return (

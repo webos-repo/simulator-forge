@@ -1,31 +1,21 @@
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 import "@service/Service";
-import { dbInit } from "@controller/dbController";
 // import analytics from "@main/module/analytics";
-import { setSimulInfoToDB } from "./lib/simulatorInfo";
-import { checkVersion } from "./lib/versionChecker";
-import { removeWebOSServiceFile } from "./lib/oldFileRemover";
+import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
+import { checkVersion } from "@/main/lib/versionChecker";
+import { removeWebOSServiceFile } from "@/main/lib/oldFileRemover";
 import { app, session } from "electron";
-import menuBuilder from "@main/menu";
-// import jsServiceController from "@controller/JSServiceController";
-import windowController from "@controller/WindowController";
-// import overlayController from "@controller/OverlayController";
-import { getUserAgents } from "./lib/userAgents";
-import { turnOnDevMode } from "@settings/devMode";
-import { tvLocation, tvNetwork } from "@tvSettings/index";
+import { getUserAgents } from "@/main/lib/userAgents";
+import { tvLocation, tvNetwork } from "@/main/tvSettings/index";
+import overlayController from "@/main/controller/OverlayController";
+import windowController from "@/main/controller/WindowController";
+import menuBuilder from "@/main/menu";
+import { turnOnDevMode } from "@/main/settings/devMode";
+import { dbInit } from "@/main/controller/dbController";
 // import "@controller/StateController";
 // import "@controller/touchController";
 // import "@controller/appController";
-
-// if (isProdBuild) {
-//   const sourceMapSupport = require("source-map-support");
-//   sourceMapSupport.install();
-// } else if (isDevBuild) {
-//   if (process.env.DEBUG_PROD === "true") {
-//     require("electron-debug")();
-//   }
-// }
 
 // for iframe access
 app.commandLine.appendSwitch("disable-site-isolation-trials");
@@ -59,7 +49,7 @@ const startSimulator = async () => {
     setSimulInfoToDB();
 
     await windowController.initialize();
-    // overlayController.initialize();
+    overlayController.initialize();
     // jsServiceController.initialize();
 
     menuBuilder.setEventListener();

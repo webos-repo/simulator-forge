@@ -6,13 +6,13 @@ import {
   emtView,
   emtWindow,
 } from "../module/eventEmitters";
-import { ipcHandler } from "@share/lib/utils";
-import VKBController from "./VKBController";
-import AppExitView from "@view/AppExitView";
-import TouchRemoteView from "@view/TouchRemoteView";
-import ScreenSaverView from "@view/ScreenSaverView";
-import type OverlayView from "@view/OverlayView";
-import type KeyboardView from "@view/KeyboardView";
+import { ipcHandler } from "@/share/lib/utils";
+import VKBController from "@/main/controller/VKBController";
+import AppExitView from "@/main/view/AppExitView";
+import TouchRemoteView from "@/main/view/TouchRemoteView";
+import ScreenSaverView from "@/main/view/ScreenSaverView";
+import OverlayView from "@/main/view/OverlayView";
+import KeyboardView from "@/main/view/KeyboardView";
 
 export type OverlayViewNames =
   | "touchRemote"
@@ -68,7 +68,7 @@ class OverlayController {
 
   private setEventHandler = () => {
     ipcMain
-      // .once("main-screen-loaded", this.handleMainScreenLoaded) // FIXME: 마이그레이션 후 에러 남
+      .once("main-screen-loaded", this.handleMainScreenLoaded) // FIXME: 마이그레이션 후 에러 나던데 체크해보기
       .on("app-view-clicked", this.hideTopOverlay)
       .on("app-exit-cancel", this.hideExit)
       .on("input-focused", ipcHandler(this.showVKB))

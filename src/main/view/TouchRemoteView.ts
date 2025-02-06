@@ -3,7 +3,7 @@ import { constStore } from "@share/store/constStore";
 import _ from "lodash";
 import OverlayView from "@view/OverlayView";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import { emtSetting } from "../module/eventEmitters";
 
 const TouchRemoteSize = {
@@ -11,7 +11,7 @@ const TouchRemoteSize = {
   height: 172,
 };
 
-class TouchRemoteView extends OverlayView {
+export default class TouchRemoteView extends OverlayView {
   name = "TouchRemoteView";
   isShowing = false;
   private backupPos?: { x?: number; y?: number };
@@ -20,8 +20,9 @@ class TouchRemoteView extends OverlayView {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
-        contextIsolation: false,
         nodeIntegration: true,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
     this.webContents.loadURL(resolveHtmlPath("index.html", "touch_remote"));
@@ -71,5 +72,3 @@ class TouchRemoteView extends OverlayView {
     if (this.isShowing && this.backupPos) this.show(this.backupPos);
   };
 }
-
-export default TouchRemoteView;

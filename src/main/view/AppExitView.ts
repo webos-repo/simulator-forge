@@ -4,7 +4,7 @@ import type { Orientation2Way } from "@share/structure/orientations";
 import _ from "lodash";
 import OverlayView from "@view/OverlayView";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
 
 const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
@@ -12,7 +12,7 @@ const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
   portrait: { x: 48, y: 1024, width: 620, height: 128 },
 };
 
-class AppExitView extends OverlayView {
+export default class AppExitView extends OverlayView {
   name = "AppExitView";
   isShowing = false;
 
@@ -20,8 +20,9 @@ class AppExitView extends OverlayView {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
-        contextIsolation: false,
         nodeIntegration: true,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
     this.webContents.loadURL(resolveHtmlPath("index.html", "app_exit"));
@@ -72,5 +73,3 @@ class AppExitView extends OverlayView {
     );
   };
 }
-
-export default AppExitView;

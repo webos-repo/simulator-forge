@@ -2,7 +2,7 @@ import KeyboardView from "@view/KeyboardView";
 
 type VKBKeys = "default" | "number";
 
-class VKBController {
+export default class VKBController {
   private readonly VKBMap: { [key in VKBKeys]: KeyboardView };
 
   constructor() {
@@ -38,5 +38,3 @@ class VKBController {
       .map(([, value]) => value);
   };
 }
-
-export default VKBController;

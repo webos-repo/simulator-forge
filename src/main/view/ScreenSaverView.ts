@@ -2,7 +2,7 @@ import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
 import { DefaultRect } from "@share/constant/defaults";
 import { constStore } from "@share/store/constStore";
 import { emtApp, emtSetting } from "../module/eventEmitters";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
 import windowSetting from "@settings/windowSetting";
 import OverlayView from "./OverlayView";
 
@@ -15,8 +15,9 @@ export default class ScreenSaverView extends OverlayView {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
-        contextIsolation: false,
         nodeIntegration: true,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
     this.webContents.loadURL(resolveHtmlPath("index.html", "screen_saver"));

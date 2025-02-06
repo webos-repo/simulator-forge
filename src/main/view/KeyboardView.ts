@@ -1,13 +1,13 @@
-import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
-import { constStore } from "@share/store/constStore";
-import type { RCUButtonEventType } from "@share/structure/events";
-import type { Orientation2Way } from "@share/structure/orientations";
+import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { constStore } from "@/share/store/constStore";
+import type { RCUButtonEventType } from "@/share/structure/events";
+import type { Orientation2Way } from "@/share/structure/orientations";
 import _ from "lodash";
-import OverlayView from "@view/OverlayView";
-import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
-import { emtDev, emtSetting, emtWindow } from "../module/eventEmitters";
-import { VKBPriorityKeys } from "../lib/keyManager";
+import OverlayView from "@/main/view/OverlayView";
+import windowSetting from "@/main/settings/windowSetting";
+import { getPreloadPath, resolveHtmlPath } from "@/main/lib/pathResolver";
+import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
+import { VKBPriorityKeys } from "@/main/lib/keyManager";
 
 const KeyboardHeightRatio: {
   [key in Orientation2Way]: { [key2 in "default" | "number"]: number };
@@ -46,8 +46,9 @@ class KeyboardView extends OverlayView {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
-        contextIsolation: false,
         nodeIntegration: true,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
     this.vkbType = vkbType;

@@ -18,6 +18,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
 
   build: {
+    target: "es2022",
     rollupOptions: {
       input: {
         main_window: getScreenPath("main"),

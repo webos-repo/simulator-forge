@@ -52,7 +52,7 @@
     "simple-keyboard-key-navigation": "^2.4.167",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "tz-lookup": "^6.1.25",
-    "uuid": "^9.0.1",
+    "uuid": "^11.0.5",
     "which-country": "^1.0.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 import "@service/Service";
-// import analytics from "@main/module/analytics";
+import analytics from "@main/module/analytics";
 import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
 import { checkVersion } from "@/main/lib/versionChecker";
 import { removeWebOSServiceFile } from "@/main/lib/oldFileRemover";
@@ -56,7 +56,7 @@ const startSimulator = async () => {
 
     menuBuilder.setEventListener();
     menuBuilder.buildMenu();
-    // analytics.init();
+    analytics.init();
   } catch {
     console.error("[Failure] The simulator launch is failed.");
     return;

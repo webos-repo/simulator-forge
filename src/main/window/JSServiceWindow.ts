@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain, Menu } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { getPreloadPath, resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
 import { emtService, emtWindow } from "../module/eventEmitters";
 import { ipcHandler } from "@share/lib/utils";
 import { loadWindow } from "@/main/lib/windowHelper";

@@ -6,7 +6,7 @@ import type { Direction, Orientation2Way } from "@share/structure/orientations";
 import type { Pos } from "@share/structure/positions";
 import { BrowserView, ipcMain } from "electron";
 import windowSetting from "@settings/windowSetting";
-import { resolveHtmlPath } from "../lib/pathResolver";
+import { getPreloadPath } from "../lib/pathResolver";
 import {
   emtApp,
   emtDev,
@@ -17,6 +17,7 @@ import {
 import overlayController from "@controller/OverlayController";
 import { ipcHandler } from "@share/lib/utils";
 import type { AppInfoJson } from "@share/structure/appInfo";
+import { loadView } from "@/main/lib/windowHelper";
 
 type MatchedMouseType = Extract<
   MouseEventType["type"],
@@ -136,11 +137,12 @@ class TouchView extends BrowserView {
     super({
       webPreferences: {
         zoomFactor: windowSetting.zoom,
-        contextIsolation: false,
         nodeIntegration: true,
+        contextIsolation: true,
+        preload: getPreloadPath(),
       },
     });
-    this.webContents.loadURL(resolveHtmlPath("index.html", "touch"));
+    loadView(this, "touch");
     this.calcXYByOrn(windowSetting.orn2Way);
     this.preventWhiteScreen();
     this.setEventHandler();

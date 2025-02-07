@@ -14,8 +14,9 @@ import menuBuilder from "@/main/menu";
 import { turnOnDevMode } from "@/main/settings/devMode";
 import { dbInit } from "@/main/controller/dbController";
 import AppController from "@/main/controller/appController";
-// import "@controller/StateController";
-// import "@controller/touchController";
+import jsServiceController from "@/main/controller/JSServiceController";
+import "@controller/StateController";
+import "@controller/touchController";
 
 // for iframe access
 app.commandLine.appendSwitch("disable-site-isolation-trials");
@@ -51,7 +52,7 @@ const startSimulator = async () => {
 
     await windowController.initialize();
     overlayController.initialize();
-    // jsServiceController.initialize();
+    jsServiceController.initialize();
 
     menuBuilder.setEventListener();
     menuBuilder.buildMenu();

@@ -1,15 +1,4 @@
-import { isDevBuild } from "@share/constant/env";
 import path from "path";
-
-export function resolveHtmlPath(htmlFileName: string, hash?: string) {
-  const url = new URL(
-    isDevBuild
-      ? `http://localhost:${process.env.PORT || 1212}/${htmlFileName}`
-      : path.join("file://", __dirname, "../renderer/", htmlFileName),
-  );
-  url.hash = hash ? `/${hash}` : "";
-  return url.toString();
-}
 
 export function splitServiceURL(serviceURL: string) {
   const serviceName = serviceURL.slice(

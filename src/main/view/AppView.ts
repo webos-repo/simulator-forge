@@ -17,8 +17,7 @@ import {
 import { getElectronVersion } from "../lib/simulInfo";
 import { DefaultRect } from "@share/constant/defaults";
 import { ipcHandler } from "@share/lib/utils";
-import { app, BrowserView } from "electron";
-import path from "path";
+import { BrowserView } from "electron";
 import _ from "lodash";
 import watcherManger from "../module/watcher";
 import { emtApp, emtSetting } from "../module/eventEmitters";
@@ -98,11 +97,12 @@ class AppView extends BrowserView {
         nodeIntegration: true,
         nodeIntegrationInSubFrames: true,
         webSecurity: false,
-        // deprecated in electron 18
-        ...(getElectronVersion().major <= 18 ? { nativeWindowOpen: true } : {}),
+        ...(getElectronVersion().major <= 18
+          ? { nativeWindowOpen: true }
+          : undefined),
         ...(getElectronVersion().major <= 12
           ? { worldSafeExecuteJavaScript: true }
-          : {}),
+          : undefined),
         defaultFontFamily: {
           // TODO: serif, sans-serif check
           standard: "LG Display-Regular",

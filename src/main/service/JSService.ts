@@ -71,10 +71,7 @@ class JSService implements IJSService {
       stdio: ["ipc"],
       env: {
         ...process.env,
-        NODE_PATH:
-          process.env.NODE_ENV === "production"
-            ? getTargetFilePath("release", "extra", "modules")
-            : getTargetFilePath("extra", "modules"),
+        NODE_PATH: getTargetFilePath("extra", "modules"),
       },
     });
     if (child) {
@@ -109,6 +106,7 @@ class JSService implements IJSService {
     frameId: number,
   ) => {
     if (!this.child || !this.child.connected) return;
+    console.log("calllllllllllllllllll");
     const { categoryName, methodName } = splitServiceURL(url);
     const subscribe = !!JSON.parse(params).subscribe;
     const name = categoryName
@@ -158,6 +156,7 @@ class JSService implements IJSService {
   };
 
   serviceEventHandler = (message: any) => {
+    console.log(message);
     const { cmd } = message;
 
     if (cmd === "register") {
@@ -184,6 +183,7 @@ class JSService implements IJSService {
   };
 
   callHandler = (message: any, isFromSubscribe = false) => {
+    console.log(message);
     const { uri, args, token, isCancel } = message;
 
     const callbackHandler = (res: any, subscribe: boolean) => {

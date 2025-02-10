@@ -3,7 +3,7 @@ import type { ServiceJson } from "@share/structure/serviceInfo";
 import fs from "fs";
 import path from "path";
 import LogMessage from "./logMessage";
-import { getTargetFilePath } from "@/share/lib/paths";
+import { convertResourcePath } from "@/share/lib/paths";
 
 const readJsonFile = (filePath: string, fileName: string) => {
   if (!fs.existsSync(filePath)) throw new Error();
@@ -40,7 +40,7 @@ const readIconRaw = ({
     ? path.join(appPath, largeIcon)
     : icon
       ? path.join(appPath, icon)
-      : getTargetFilePath("assets", "icon.png");
+      : convertResourcePath("icon", "icon.png");
   const iconRaw = fs.readFileSync(iconPath).toString("base64");
   return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
 };

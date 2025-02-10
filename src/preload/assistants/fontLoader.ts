@@ -1,8 +1,8 @@
-import { getTargetFilePath } from "@share/lib/paths";
+import { convertResourcePath } from "@share/lib/paths";
 import appState from "./appState";
 
 function makeFontFace(dirName: string, fontFileName: string, fontName: string) {
-  const assetPath = getTargetFilePath("assets", "font", dirName, fontFileName)
+  const assetPath = convertResourcePath("font", dirName, fontFileName)
     .replace(/\\/g, "/")
     .replace(/ /g, "\\ ");
 

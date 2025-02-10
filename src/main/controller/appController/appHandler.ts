@@ -1,4 +1,4 @@
-import { getTargetDirPath } from "@share/lib/paths";
+import { convertResourcePath } from "@share/lib/paths";
 import { ipcHandler, sleep } from "@share/lib/utils";
 import type { RCUButtonEventType } from "@share/structure/events";
 import type { RCU_Button, ShareFrameIdParam } from "@share/structure/ipcParams";
@@ -226,7 +226,7 @@ function handleBlankOpened() {
   const fgApp = runningApps.fgApp;
   if (!fgApp) return;
   fgApp.webContents.loadURL(
-    `file://${path.resolve(getTargetDirPath("assets"), "blank.html")}`,
+    `file://${path.resolve(convertResourcePath("blank.html"))}`,
   );
   fgApp.webContents.once("did-finish-load", () => {
     fgApp.insertCSS("body { background-color: black }");

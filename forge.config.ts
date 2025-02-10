@@ -9,9 +9,8 @@ import { VitePlugin } from "@electron-forge/plugin-vite";
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
-    extraResource: ["./extra"],
+    extraResource: ["./extra", "./resource"],
   },
-
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({}),

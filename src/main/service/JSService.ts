@@ -2,7 +2,7 @@ import cp from "child_process";
 import { methodNotFound } from "@service/ServiceError";
 import { splitServiceURL } from "../lib/pathResolver";
 import { emtService, emtWindow } from "../module/eventEmitters";
-import { getTargetFilePath } from "@share/lib/paths";
+import { convertResourcePath } from "@share/lib/paths";
 import type { ChildProcess } from "child_process";
 import type { ServiceCallback, ServiceData } from "./Service";
 
@@ -71,7 +71,7 @@ class JSService implements IJSService {
       stdio: ["ipc"],
       env: {
         ...process.env,
-        NODE_PATH: getTargetFilePath("extra", "modules"),
+        NODE_PATH: convertResourcePath("modules"),
       },
     });
     if (child) {
@@ -106,7 +106,6 @@ class JSService implements IJSService {
     frameId: number,
   ) => {
     if (!this.child || !this.child.connected) return;
-    console.log("calllllllllllllllllll");
     const { categoryName, methodName } = splitServiceURL(url);
     const subscribe = !!JSON.parse(params).subscribe;
     const name = categoryName
@@ -156,7 +155,6 @@ class JSService implements IJSService {
   };
 
   serviceEventHandler = (message: any) => {
-    console.log(message);
     const { cmd } = message;
 
     if (cmd === "register") {
@@ -183,7 +181,6 @@ class JSService implements IJSService {
   };
 
   callHandler = (message: any, isFromSubscribe = false) => {
-    console.log(message);
     const { uri, args, token, isCancel } = message;
 
     const callbackHandler = (res: any, subscribe: boolean) => {

@@ -8,6 +8,11 @@ function GlobalStyles() {
       styles={css`
         ${normalize};
         ${reset};
+
+        :root {
+          background-color: rgba(0, 0, 0, 0);
+        }
+
         body {
           overflow: hidden;
           font-family: Arial, sans-serif;

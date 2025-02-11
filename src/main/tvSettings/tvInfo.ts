@@ -1,7 +1,9 @@
 import { get } from "lodash";
 import { generateHash } from "../lib/hash";
 import tvSettingsDB from "./tvSettingsDB";
-import { webOSTVVersion } from "../../../package.json";
+import { simulConfig } from "@/../simul.config";
+
+const webOSTVVersion = simulConfig.webOSTVVersion;
 
 const firmwareVersionMap = {
   "6.0": "02.00.94",

@@ -2,7 +2,6 @@ import { convertTo2Way } from "@share/structure/orientations";
 import { getPreloadPath } from "../lib/pathResolver";
 import { getWebOSVersion } from "../lib/simulInfo";
 import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
-// import { getTargetFilePath } from "@share/lib/paths";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import windowSetting from "@settings/windowSetting";
 import {
@@ -13,11 +12,11 @@ import {
   emtWindow,
 } from "../module/eventEmitters";
 import LogMessage, { showErrorBox } from "../lib/logMessage";
-import { productName } from "package.json";
 import { ipcHandler } from "@share/lib/utils";
 import type { Orientation } from "@share/structure/orientations";
 import { loadWindow } from "@/main/lib/windowHelper";
-
+import { convertResourcePath } from "@/share/lib/paths";
+import { simulConfig } from "@/../simul.config";
 class MainWindow extends BrowserWindow {
   private backupAppList?: string;
   isDialogOpened = false;
@@ -28,8 +27,8 @@ class MainWindow extends BrowserWindow {
       ...windowSetting.bound,
       useContentSize: true,
       autoHideMenuBar: false,
-      title: productName,
-      // icon: getTargetFilePath("assets", "icon.png"),
+      title: simulConfig.name,
+      icon: convertResourcePath("icon", "icon.png"),
       show: false,
       acceptFirstMouse: true,
       resizable: false,

@@ -1,17 +1,9 @@
 {
-  "name": "webos-tv-25-simulator",
-  "productName": "webOS TV 24 Simulator",
-  "webOSTVVersion": "24",
+  "name": "webos-tv-simulator",
   "version": "0.0.1",
-  "description": "This is webOS TV simulator.",
+  "description": "This is webOS TV Simulator.",
   "main": ".vite/build/main.js",
-  "keywords": [],
-  "author": {
-    "name": "loegnah",
-    "email": "loegnah@gmail.com"
-  },
   "license": "MIT",
-  "branch": "develop",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -20,7 +12,7 @@
     "publish": "electron-forge publish",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,md,json,css,html}\"",
-    "formatall": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,css,html}\""
+    "format:all": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,css,html}\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

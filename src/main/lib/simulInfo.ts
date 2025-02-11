@@ -1,4 +1,4 @@
-import { webOSTVVersion } from "../../../package.json";
+import { simulConfig } from "@/../simul.config";
 
 const electronVersion = process.versions.electron;
 const [eMajorVersion, eMiddleVersion, eMinorVersion] = electronVersion
@@ -26,7 +26,7 @@ const WebOSVerFromElectronMajorVer: Record<string, WebOSVersion> = {
 
 export const getWebOSVersion = (): WebOSVersion => {
   const major = getElectronVersion().major.toString();
-  return WebOSVerFromElectronMajorVer[major] || webOSTVVersion;
+  return WebOSVerFromElectronMajorVer[major] || simulConfig.webOSTVVersion;
 };
 
 export const isWebOSVersionGte = (targetVersion: WebOSVersion) => {

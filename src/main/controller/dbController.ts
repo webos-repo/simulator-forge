@@ -7,7 +7,7 @@ import Store from "electron-store";
 import semver from "semver";
 import { pushMemories } from "../lib/memories";
 import { emtSetting } from "../module/eventEmitters";
-import { webOSTVVersion, version as simulVer } from "package.json";
+import { simulConfig } from "@/../simul.config";
 import SimulatorDB from "../module/SimulatorDB";
 
 type DBBaseKey =
@@ -21,7 +21,7 @@ type DBBaseKey =
 const dbName =
   process.env.NODE_ENV === "development"
     ? `webos-tv-simulator-dev`
-    : `webos-tv-simulator-${webOSTVVersion}`;
+    : `webos-tv-simulator-${simulConfig.webOSTVVersion}`;
 const db = new Store({ name: dbName });
 const defaultResetBaseKeys: DBBaseKey[] = ["internal", "db8", "settings"];
 
@@ -43,7 +43,7 @@ function setListener() {
 function resetDBWhenLaunch(NeedResetDBs: string[]) {
   if (!NeedResetDBs.length) return;
   const simulVerInDB = db.get("simulatorInfo.simulatorVersion");
-  if (!simulVerInDB || semver.gt(simulVer, simulVerInDB as string)) {
+  if (!simulVerInDB || semver.gt(simulConfig.version, simulVerInDB as string)) {
     NeedResetDBs.forEach((baseKey) => {
       if (!db.has(baseKey)) return;
       db.delete(baseKey);

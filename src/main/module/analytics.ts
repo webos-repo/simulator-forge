@@ -2,8 +2,7 @@ import { isDev } from "@share/constant/env";
 import axios from "axios";
 import { machineIdSync } from "node-machine-id";
 import { v4 as uuidV4 } from "uuid";
-import { webOSTVVersion, version as simulVersion } from "../../../package.json";
-
+import { simulConfig } from "@/../simul.config";
 const MEASUREMENT_ID_KEY = {
   dev: {
     id: "G-H2BRSMHP0S",
@@ -48,8 +47,8 @@ class Analytics {
 
   sendVersionInfo = () => {
     this.sendAnalytics("version_info", {
-      webOSTVVersion,
-      simulVersion,
+      webOSTVVersion: simulConfig.webOSTVVersion,
+      simulVersion: simulConfig.version,
     }).catch((e) => {
       console.log(e);
     });

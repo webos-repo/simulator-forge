@@ -8,8 +8,8 @@ import { ipcHandler } from "@share/lib/utils";
 import axios from "axios";
 import { ipcMain } from "electron";
 import semver from "semver";
-import { version } from "package.json";
 import { pushMemories } from "./memories";
+import { simulConfig } from "@/../simul.config";
 
 const simulInfoDB = makeDB("simulatorInfo");
 
@@ -33,13 +33,13 @@ export const checkVersion = async () => {
     }
 
     if (
-      semver.gt(latestVersion, version) &&
+      semver.gt(latestVersion, simulConfig.version) &&
       (!updateSkipVersion || semver.gt(latestVersion, updateSkipVersion))
     ) {
       pushMemories("toast", {
         category: "version",
         props: {
-          currentVersion: version,
+          currentVersion: simulConfig.version,
           latestVersion,
         } as VersionToastProps,
       } as ToastParams);

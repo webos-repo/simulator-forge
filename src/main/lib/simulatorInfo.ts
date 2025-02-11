@@ -1,9 +1,8 @@
 import { makeDB } from "@controller/dbController";
-import { webOSTVVersion, version } from "../../../package.json";
-
+import { simulConfig } from "@/../simul.config";
 const simulInfoDB = makeDB("simulatorInfo");
 
 export function setSimulInfoToDB() {
-  simulInfoDB.set("webOSTVVersion", webOSTVVersion);
-  simulInfoDB.set("simulatorVersion", version);
+  simulInfoDB.set("webOSTVVersion", simulConfig.webOSTVVersion);
+  simulInfoDB.set("simulatorVersion", simulConfig.version);
 }

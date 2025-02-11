@@ -22,7 +22,7 @@ import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
 import { getScrOrn, setScrOrn } from "@settings/screenOrientation";
 import windowSetting from "@settings/windowSetting";
 import type { MenuItemConstructorOptions } from "electron";
-import { branch, productName } from "package.json";
+import { simulConfig } from "@/../simul.config";
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -60,7 +60,7 @@ class MenuBuilder {
       label: "webOS TV",
       submenu: [
         {
-          label: `About ${productName}`,
+          label: `About ${simulConfig.name}`,
           selector: "orderFrontStandardAboutPanel:",
         },
         {
@@ -476,7 +476,7 @@ class MenuBuilder {
         },
       ],
     };
-    const devMenu = branch === "develop" ? [subDevelMenu] : [];
+    const devMenu = simulConfig.isDevBranch ? [subDevelMenu] : [];
     const menu =
       process.platform === "darwin"
         ? [

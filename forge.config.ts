@@ -1,6 +1,5 @@
 import { ForgeConfig } from "@electron-forge/shared-types";
 import { MakerSquirrel } from "@electron-forge/maker-squirrel";
-import { MakerZIP } from "@electron-forge/maker-zip";
 import { MakerDeb } from "@electron-forge/maker-deb";
 import { MakerDMG } from "@electron-forge/maker-dmg";
 import { VitePlugin } from "@electron-forge/plugin-vite";
@@ -9,6 +8,7 @@ import { simulConfig } from "./simul.config";
 const config: ForgeConfig = {
   packagerConfig: {
     name: simulConfig.name,
+    executableName: simulConfig.name,
     appVersion: simulConfig.version,
     extraResource: ["./extra", "./resource"],
     icon: "./resource/icon/icon.png",
@@ -16,9 +16,20 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerZIP({}, ["darwin"]),
+    // windows
     new MakerSquirrel({}),
-    new MakerDeb({}),
+
+    // linux
+    new MakerDeb({
+      options: {
+        bin: simulConfig.name,
+        name: simulConfig.name,
+        productName: simulConfig.name,
+        genericName: simulConfig.name,
+      },
+    }),
+
+    // macOS
     new MakerDMG({
       format: "ULFO",
     }),

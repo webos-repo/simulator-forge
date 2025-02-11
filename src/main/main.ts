@@ -17,6 +17,11 @@ import AppController from "@/main/controller/appController";
 import jsServiceController from "@/main/controller/JSServiceController";
 import "@controller/StateController";
 import "@controller/touchController";
+import started from "electron-squirrel-startup";
+
+if (started) {
+  app.quit();
+}
 
 // for iframe access
 app.commandLine.appendSwitch("disable-site-isolation-trials");

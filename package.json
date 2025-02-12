@@ -1,13 +1,12 @@
 {
-  "name": "webos-tv-simulator",
+  "name": "webos-simulator",
   "version": "0.0.1",
-  "description": "This is webOS TV Simulator.",
+  "description": "This is webOS Simulator.",
   "main": ".vite/build/main.js",
   "license": "MIT",
   "keywords": [],
   "author": {
-    "name": "loegnah",
-    "email": "loegnah@gmail.com"
+    "name": "LG Electronics"
   },
   "scripts": {
     "start": "electron-forge start",

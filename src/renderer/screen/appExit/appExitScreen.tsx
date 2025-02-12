@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import AppExitButton from "@/renderer/component/AppExitButton";
+import AppExitButton from "@/renderer/component/appExitButton";
 import { ipcSender } from "@/renderer/lib/utils";
 import { fontColorWhite, viewBgColor } from "@/renderer/styles/colors";
 import { arrangeCenterByFlex } from "@/renderer/styles/partials";

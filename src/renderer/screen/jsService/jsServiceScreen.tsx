@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { ipcHandler } from "@/share/lib/utils";
-import JSService from "@/renderer/component/JSService";
-import type { JSServiceProps } from "@/renderer/component/JSService";
-import ListViewer from "@/renderer/component/ListViewer";
+import JSService from "@/renderer/component/jsService";
+import type { JSServiceProps } from "@/renderer/component/jsService";
+import ListViewer from "@/renderer/component/listViewer";
 import { ipcSender } from "@/renderer/lib/utils";
 
 export default function JSServiceScreen() {

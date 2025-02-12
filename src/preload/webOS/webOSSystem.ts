@@ -2,7 +2,7 @@ import { orientations } from "@/share/structure/orientations";
 import { ipcRenderer } from "electron";
 import appState from "../assistants/appState";
 import { webOSEnv } from "../lib/appEnv";
-import ApiKeys from "../lib/ApiKeys";
+import ApiKeys from "../lib/apiKeys";
 import { functionRunner } from "../lib/functionRunner";
 
 export function getWebOSSystemApi() {

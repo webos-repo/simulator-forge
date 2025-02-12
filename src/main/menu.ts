@@ -13,7 +13,7 @@ import {
 } from "@/share/constant/urls";
 import { app, Menu, shell } from "electron";
 import { emtWindow, emtDev, emtSetting, emtApp } from "./module/eventEmitters";
-import windowController from "@/main/controller/WindowController";
+import windowController from "@/main/controller/windowController";
 import {
   isAutoInspectorOn,
   toggleAutoInspector,

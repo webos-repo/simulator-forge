@@ -1,4 +1,4 @@
-import ApiKeys from "../lib/ApiKeys";
+import ApiKeys from "../lib/apiKeys";
 import { functionRunner } from "../lib/functionRunner";
 
 export function makeWebOSServiceBridgeInApp() {

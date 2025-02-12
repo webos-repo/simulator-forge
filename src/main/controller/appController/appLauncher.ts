@@ -1,12 +1,12 @@
 import { getTouchMode } from "@/main/settings/touchMode";
 import type { AppInfo } from "@/share/structure/appInfo";
-import AppView from "@/main/view/AppView";
+import AppView from "@/main/view/appView";
 import { showErrorBox } from "../../lib/logMessage";
 import { readAppEntry, readAppInfo } from "../../lib/metaFileReader";
 import Mutex from "../../lib/mutex";
 import { getUserAgents } from "../../lib/userAgents";
 import { emtApp, emtView, emtWindow } from "../../module/eventEmitters";
-import overlayController from "../OverlayController";
+import overlayController from "../overlayController";
 import {
   checkAppInfoRequirements,
   checkCloseOnRotation,

@@ -1,19 +1,19 @@
-import bleGattService from "@/main/service/lunaService/BleGattService";
+import bleGattService from "@/main/service/lunaService/bleGattService";
 import { EventEmitter } from "events";
 import { splitServiceURL } from "../../lib/pathResolver";
-import type { ServiceCallback } from "../Service";
-import activityManager from "./ActivityManager";
-import applicationManager from "./ApplicationManager";
-import audioService from "./Audio";
-import configService from "./Config";
-import connectionManager from "./ConnectionManager";
-import databaseService from "./DatabaseService";
-import deviceUniqueId from "./DeviceUniqueId";
-import drmService from "./DRMService";
-import mrcuService from "./MrcuService";
-import settingsService from "./SettingsService";
-import systemService from "./SystemService";
-import tvDeviceInformation from "./TVDeviceInformation";
+import type { ServiceCallback } from "../service";
+import activityManager from "./activityManager";
+import applicationManager from "./applicationManager";
+import audioService from "./audioService";
+import configService from "./configService";
+import connectionManager from "./connectionManager";
+import databaseService from "./databaseService";
+import deviceUniqueId from "./deviceUniqueId";
+import drmService from "./drmService";
+import mrcuService from "./mrcuService";
+import settingsService from "./settingsService";
+import systemService from "./systemService";
+import tvDeviceInformation from "./tvDeviceInformation";
 
 type LunaAdditionalData = {
   emitter: EventEmitter;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import ButtonTouch from "../../component/rcuButton/ButtonTouch";
-import ButtonTouchArrow from "../../component/rcuButton/ButtonTouchArrow";
-import ButtonTouchColor from "../../component/rcuButton/ButtonTouchColor";
+import ButtonTouch from "../../component/rcuButton/buttonTouch";
+import ButtonTouchArrow from "../../component/rcuButton/buttonTouchArrow";
+import ButtonTouchColor from "../../component/rcuButton/buttonTouchColor";
 
 import homeImage from "@/assets/ui_icons/home.png";
 import backImage from "@/assets/ui_icons/back.png";

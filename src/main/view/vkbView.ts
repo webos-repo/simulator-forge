@@ -2,7 +2,7 @@ import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { constStore } from "@/share/store/constStore";
 import { RCUButtonEventType } from "@/share/structure/events";
 import { Orientation2Way } from "@/share/structure/orientations";
-import OverlayView from "@/main/view/OverlayView";
+import OverlayView from "@/main/view/overlayView";
 import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "@/main/lib/pathResolver";
 import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";

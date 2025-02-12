@@ -2,7 +2,7 @@ import type { ShareFrameIdParam } from "@/share/structure/ipcParams";
 import { contextBridge, ipcRenderer } from "electron";
 import { loadLGFont } from "./assistants/fontLoader";
 import { getTestApi } from "./assistants/devAssistant";
-import ApiKeys from "./lib/ApiKeys";
+import ApiKeys from "./lib/apiKeys";
 import { webOSEnv } from "./lib/appEnv";
 import { wrapWindowApis } from "./lib/windowWrapper";
 import { getWebOSServiceBridgeApi } from "./webOS/webOSServiceBridgePrivate";

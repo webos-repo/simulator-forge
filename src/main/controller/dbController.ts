@@ -8,7 +8,7 @@ import semver from "semver";
 import { pushMemories } from "../lib/memories";
 import { emtSetting } from "../module/eventEmitters";
 import { simulConfig } from "@/../simul.config";
-import SimulatorDB from "../module/SimulatorDB";
+import SimulatorDB from "../module/simulatorDB";
 
 type DBBaseKey =
   | "internal"

@@ -16,7 +16,7 @@ import {
   emtView,
   emtWindow,
 } from "../../module/eventEmitters";
-import overlayController from "../OverlayController";
+import overlayController from "../overlayController";
 import { appInfos, runningApps } from "./appMemory";
 import {
   focusFgApp,

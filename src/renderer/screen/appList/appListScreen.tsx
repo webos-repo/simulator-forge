@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { ipcHandler } from "@/share/lib/utils";
-import AppList from "@/renderer/component/AppList";
+import AppList from "@/renderer/component/appList";
 import type { AppInfoWithState } from "@/share/structure/appInfo";
-import ListViewer from "@/renderer/component/ListViewer";
+import ListViewer from "@/renderer/component/listViewer";
 import { ipcSender } from "@/renderer/lib/utils";
 
 export default function AppListScreen() {

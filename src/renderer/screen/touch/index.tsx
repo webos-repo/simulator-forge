@@ -1,6 +1,6 @@
 import "@/renderer/styles/global.css";
 import TouchScreen from "@/renderer/screen/touch/touchScreen";
-import GlobalStyles from "@/renderer/styles/GlobalStyles";
+import GlobalStyles from "@/renderer/styles/globalStyles";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 

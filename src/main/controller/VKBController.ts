@@ -1,14 +1,14 @@
-import KeyboardView from "@view/KeyboardView";
+import VkbView from "@/main/view/vkbView";
 
 type VKBKeys = "default" | "number";
 
 export default class VKBController {
-  private readonly VKBMap: { [key in VKBKeys]: KeyboardView };
+  private readonly VKBMap: { [key in VKBKeys]: VkbView };
 
   constructor() {
     this.VKBMap = {
-      default: new KeyboardView("default"),
-      number: new KeyboardView("number"),
+      default: new VkbView("default"),
+      number: new VkbView("number"),
     };
   }
 

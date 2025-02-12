@@ -12,7 +12,7 @@ import AppExitView from "@/main/view/AppExitView";
 import TouchRemoteView from "@/main/view/TouchRemoteView";
 import ScreenSaverView from "@/main/view/ScreenSaverView";
 import OverlayView from "@/main/view/OverlayView";
-import KeyboardView from "@/main/view/KeyboardView";
+import VkbView from "@/main/view/vkbView";
 
 export type OverlayViewNames =
   | "touchRemote"
@@ -126,8 +126,8 @@ class OverlayController {
 
   getShowingVKB = () => {
     return this.showingOverlays.find(
-      (view) => view.isShowing && view.name === "KeyboardView",
-    ) as KeyboardView | undefined;
+      (view) => view.isShowing && view.name === "VkbView",
+    ) as VkbView | undefined;
   };
 
   private show = (view: OverlayView, data?: any) => {
@@ -192,7 +192,7 @@ class OverlayController {
     return this.hide(this.appExitView);
   };
 
-  hideVKB = (vkb: KeyboardView | undefined) => {
+  hideVKB = (vkb: VkbView | undefined) => {
     if (!vkb || !this.checkShowing(vkb)) return false;
     this.hide(vkb);
     emtApp.emit("vkb-state-changed", false);

@@ -1,7 +1,7 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { constStore } from "@/share/store/constStore";
-import type { RCUButtonEventType } from "@/share/structure/events";
-import type { Orientation2Way } from "@/share/structure/orientations";
+import { RCUButtonEventType } from "@/share/structure/events";
+import { Orientation2Way } from "@/share/structure/orientations";
 import _ from "lodash";
 import OverlayView from "@/main/view/OverlayView";
 import windowSetting from "@/main/settings/windowSetting";
@@ -10,9 +10,7 @@ import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
 import { VKBPriorityKeys } from "@/main/lib/keyManager";
 import { loadView } from "@/main/lib/windowHelper";
 
-const KeyboardHeightRatio: {
-  [key in Orientation2Way]: { [key2 in "default" | "number"]: number };
-} = {
+const VKB_HEIGHT_RATIO = {
   landscape: {
     default: 0.38,
     number: 0.1,
@@ -21,24 +19,10 @@ const KeyboardHeightRatio: {
     default: 0.17,
     number: 0.05,
   },
-};
+} as const;
 
-const getKeyboardHeightRatio = (inputType: string, orn: Orientation2Way) => {
-  const inputTypeFiltered =
-    inputType === "number" || inputType === "tel" ? "number" : "default";
-  return KeyboardHeightRatio[orn][inputTypeFiltered];
-};
-
-const getKeyboardHeight = (
-  baseHeight: number,
-  inputType: string,
-  orn: Orientation2Way,
-) => {
-  return _.toInteger(baseHeight * getKeyboardHeightRatio(inputType, orn));
-};
-
-class KeyboardView extends OverlayView {
-  name = "KeyboardView";
+class VkbView extends OverlayView {
+  name = "VkbView";
   isShowing = false;
   orn: Orientation2Way = "landscape";
   vkbType: string;
@@ -53,7 +37,7 @@ class KeyboardView extends OverlayView {
       },
     });
     this.vkbType = vkbType;
-    loadView(this, `keyboard/${vkbType}`);
+    loadView(this, `vkb/${vkbType}`);
     this.setEventHandler();
   }
 
@@ -73,15 +57,15 @@ class KeyboardView extends OverlayView {
 
   show = () => {
     const { width, height } = windowSetting.size;
-    const keyboardHeight = getKeyboardHeight(height, this.vkbType, this.orn);
+    const vkbHeight = this.getVkbHeight(height, this.vkbType, this.orn);
     this.setBounds({
       x: 0,
       y:
         (checkMacViewPositionBug() ? constStore.getMainWindowYDiff() : 0) +
         height -
-        keyboardHeight,
+        vkbHeight,
       width,
-      height: keyboardHeight,
+      height: vkbHeight,
     });
     this.setAutoResize({ width: true, height: true });
     this.isShowing = true;
@@ -109,6 +93,17 @@ class KeyboardView extends OverlayView {
     this.webContents.zoomFactor = windowSetting.zoom;
     if (this.isShowing) this.show();
   };
+
+  private getVkbHeight = (
+    baseHeight: number,
+    inputType: string,
+    orn: Orientation2Way,
+  ) => {
+    const inputTypeFiltered =
+      inputType === "number" || inputType === "tel" ? "number" : "default";
+    const heightRatio = VKB_HEIGHT_RATIO[orn][inputTypeFiltered];
+    return _.toInteger(baseHeight * heightRatio);
+  };
 }
 
-export default KeyboardView;
+export default VkbView;

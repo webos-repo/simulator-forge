@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import TouchView from "@view/TouchView";
+import TouchView from "@/main/view/TouchView";
 import {
   emtApp,
   emtSetting,

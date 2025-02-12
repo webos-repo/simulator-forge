@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import windowSetting from "@settings/windowSetting";
+import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import { loadWindow } from "@/main/lib/windowHelper";
 

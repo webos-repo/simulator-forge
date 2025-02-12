@@ -1,7 +1,7 @@
-import { runningApps } from "@controller/appController/appMemory";
+import { runningApps } from "@/main/controller/appController/appMemory";
 import { ipcMain } from "electron";
 import { emtSetting } from "../module/eventEmitters";
-import overlayController from "@controller/OverlayController";
+import overlayController from "@/main/controller/OverlayController";
 import settingsDB from "./settingsDB";
 
 const DB_KEY = "screen-saver" as const;

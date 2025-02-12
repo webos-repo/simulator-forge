@@ -1,4 +1,4 @@
-import { tvInfo, tvLocation } from "@tvSettings/index";
+import { tvInfo, tvLocation } from "@/main/tvSettings/index";
 
 type WebOSSystemConf = {
   deviceInfo: string;

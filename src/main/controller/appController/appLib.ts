@@ -1,10 +1,10 @@
-import { getScrOrn } from "@settings/screenOrientation";
-import { getTouchMode } from "@settings/touchMode";
-import { AppInfoRequirements } from "@share/structure/appInfo";
-import type { AppInfo } from "@share/structure/appInfo";
-import type { Orientation } from "@share/structure/orientations";
-import type { WebOSEnv } from "@share/structure/webOSEnv";
-import { tvInfo, tvLocation } from "@tvSettings/index";
+import { getScrOrn } from "@/main/settings/screenOrientation";
+import { getTouchMode } from "@/main/settings/touchMode";
+import { AppInfoRequirements } from "@/share/structure/appInfo";
+import type { AppInfo } from "@/share/structure/appInfo";
+import type { Orientation } from "@/share/structure/orientations";
+import type { WebOSEnv } from "@/share/structure/webOSEnv";
+import { tvInfo, tvLocation } from "@/main/tvSettings/index";
 import fs from "fs";
 import _ from "lodash";
 import path from "path";

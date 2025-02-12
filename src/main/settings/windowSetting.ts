@@ -1,9 +1,9 @@
-import settingsDB from "@settings/settingsDB";
+import settingsDB from "@/main/settings/settingsDB";
 import type {
   Orientation,
   Orientation2Way,
-} from "@share/structure/orientations";
-import type { Bound, Pos, Size } from "@share/structure/positions";
+} from "@/share/structure/orientations";
+import type { Bound, Pos, Size } from "@/share/structure/positions";
 import { emtSetting } from "../module/eventEmitters";
 
 type DBData = {

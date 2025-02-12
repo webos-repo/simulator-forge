@@ -1,5 +1,5 @@
 import { ipcRenderer, webFrame } from "electron";
-import type { ServiceData } from "@service/Service";
+import type { ServiceData } from "@/main/service/Service";
 import { webOSEnv } from "../lib/appEnv";
 
 const bridgeMap: { [key: number]: WebOSServiceBridgePrivate } = {};

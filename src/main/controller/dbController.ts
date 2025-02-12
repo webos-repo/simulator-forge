@@ -1,8 +1,8 @@
 import type {
   GeneralToastProps,
   ToastParams,
-} from "@renderer/lib/toastManager";
-import { ReleaseNotesURL } from "@share/constant/urls";
+} from "@/renderer/lib/toastManager";
+import { ReleaseNotesURL } from "@/share/constant/urls";
 import Store from "electron-store";
 import semver from "semver";
 import { pushMemories } from "../lib/memories";

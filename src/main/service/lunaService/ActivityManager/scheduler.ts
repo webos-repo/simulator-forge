@@ -1,5 +1,5 @@
 import moment from "moment-timezone";
-import { tvLocation } from "@tvSettings/index";
+import { tvLocation } from "@/main/tvSettings/index";
 import type * as ActivityManagerTypes from "./types";
 
 const NonPreciseIntervals = [

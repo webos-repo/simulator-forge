@@ -1,26 +1,26 @@
-import { IsAutoReloadOn, toggleAutoReload } from "@settings/autoReload";
+import { IsAutoReloadOn, toggleAutoReload } from "@/main/settings/autoReload";
 import {
   isScrSaverOn,
   toggleScrSaverOnOff,
   getScrSaverTimeout,
   setScrSaverTimeout,
-} from "@settings/screenSaver";
+} from "@/main/settings/screenSaver";
 import {
   DeveloperURL,
   ForumURL,
   IntroductionURL,
   ToolsURL,
-} from "@share/constant/urls";
+} from "@/share/constant/urls";
 import { app, Menu, shell } from "electron";
 import { emtWindow, emtDev, emtSetting, emtApp } from "./module/eventEmitters";
-import windowController from "@controller/WindowController";
+import windowController from "@/main/controller/WindowController";
 import {
   isAutoInspectorOn,
   toggleAutoInspector,
-} from "@settings/autoInspector";
-import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
-import { getScrOrn, setScrOrn } from "@settings/screenOrientation";
-import windowSetting from "@settings/windowSetting";
+} from "@/main/settings/autoInspector";
+import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
+import { getScrOrn, setScrOrn } from "@/main/settings/screenOrientation";
+import windowSetting from "@/main/settings/windowSetting";
 import type { MenuItemConstructorOptions } from "electron";
 import { simulConfig } from "@/../simul.config";
 

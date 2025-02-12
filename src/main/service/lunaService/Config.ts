@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
-import { tvInfo } from "@tvSettings/index";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
+import { tvInfo } from "@/main/tvSettings/index";
 
 class ConfigService {
   call = async (category: string, method: string, params: string) => {

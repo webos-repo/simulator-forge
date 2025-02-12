@@ -1,8 +1,8 @@
 /* eslint-disable no-fallthrough */
 
-import { isWebOSVersionGte } from "@main/lib/simulInfo";
+import { isWebOSVersionGte } from "@/main/lib/simulInfo";
 import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import type { LunaAdditionalData } from "./index";
 import type { EventEmitter } from "events";
 

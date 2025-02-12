@@ -1,7 +1,7 @@
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
-import "@service/Service";
-import analytics from "@main/module/analytics";
+import "@/main/service/Service";
+import analytics from "@/main/module/analytics";
 import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
 import { checkVersion } from "@/main/lib/versionChecker";
 import { removeWebOSServiceFile } from "@/main/lib/oldFileRemover";
@@ -15,8 +15,8 @@ import { turnOnDevMode } from "@/main/settings/devMode";
 import { dbInit } from "@/main/controller/dbController";
 import AppController from "@/main/controller/appController";
 import jsServiceController from "@/main/controller/JSServiceController";
-import "@controller/StateController";
-import "@controller/touchController";
+import "@/main/controller/StateController";
+import "@/main/controller/touchController";
 import started from "electron-squirrel-startup";
 
 if (started) {

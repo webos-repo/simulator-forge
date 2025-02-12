@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { runningApps } from "@controller/appController/appMemory";
-import overlayController from "@controller/OverlayController";
-import windowController from "@controller/WindowController";
-import { ipcHandler } from "@share/lib/utils";
+import { runningApps } from "@/main/controller/appController/appMemory";
+import overlayController from "@/main/controller/OverlayController";
+import windowController from "@/main/controller/WindowController";
+import { ipcHandler } from "@/share/lib/utils";
 import { emtDev } from "../module/eventEmitters";
 
 function setDevListener() {

@@ -1,4 +1,4 @@
-import type { ShareFrameIdParam } from "@share/structure/ipcParams";
+import type { ShareFrameIdParam } from "@/share/structure/ipcParams";
 import { contextBridge, ipcRenderer } from "electron";
 import { loadLGFont } from "./assistants/fontLoader";
 import { getTestApi } from "./assistants/devAssistant";

@@ -1,4 +1,4 @@
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import { ipcMain } from "electron";
 import _ from "lodash";
 

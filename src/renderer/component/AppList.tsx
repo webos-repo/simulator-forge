@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useState, useRef, useEffect } from "react";
-import type { AppInfoWithState } from "@share/structure/appInfo";
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { fadeIn } from "../styles/effects";
 
 type Props = {

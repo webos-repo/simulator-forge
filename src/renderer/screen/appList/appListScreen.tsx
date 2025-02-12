@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import AppList from "@/renderer/component/AppList";
-import type { AppInfoWithState } from "@share/structure/appInfo";
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 import ListViewer from "@/renderer/component/ListViewer";
 import { ipcSender } from "@/renderer/lib/utils";
 

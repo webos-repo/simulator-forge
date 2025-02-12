@@ -1,6 +1,6 @@
-import { appInfos } from "@controller/appController/appMemory";
+import { appInfos } from "@/main/controller/appController/appMemory";
 import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import { emtApp } from "../../module/eventEmitters";
 
 class ApplicationManager {

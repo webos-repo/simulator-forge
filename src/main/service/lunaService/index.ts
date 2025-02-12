@@ -1,4 +1,4 @@
-import bleGattService from "@service/lunaService/BleGattService";
+import bleGattService from "@/main/service/lunaService/BleGattService";
 import { EventEmitter } from "events";
 import { splitServiceURL } from "../../lib/pathResolver";
 import type { ServiceCallback } from "../Service";

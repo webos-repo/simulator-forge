@@ -1,6 +1,6 @@
 import chokidar from "chokidar";
 import { emtApp, emtSetting } from "./eventEmitters";
-import { IsAutoReloadOn } from "@settings/autoReload";
+import { IsAutoReloadOn } from "@/main/settings/autoReload";
 
 const WatchingEvents = ["add", "change", "unlink"];
 let isDuplication = false;

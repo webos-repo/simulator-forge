@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import JSService from "@/renderer/component/JSService";
 import type { JSServiceProps } from "@/renderer/component/JSService";
 import ListViewer from "@/renderer/component/ListViewer";

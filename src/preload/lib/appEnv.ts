@@ -1,4 +1,4 @@
-import type { WebOSEnv } from "@share/structure/webOSEnv";
+import type { WebOSEnv } from "@/share/structure/webOSEnv";
 
 function parseEnv(key: string) {
   const rawValue = process.argv.find((argv) => argv.startsWith(`--${key}`));

@@ -1,5 +1,5 @@
 import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import { emtWindow } from "../../module/eventEmitters";
 
 class AudioService {

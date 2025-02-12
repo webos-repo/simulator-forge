@@ -1,11 +1,11 @@
 import "react-simple-keyboard/build/css/index.css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { Orientation2Way } from "@share/structure/orientations";
+import type { Orientation2Way } from "@/share/structure/orientations";
 import { useEffect, useState } from "react";
 import SimpleKeyboard from "react-simple-keyboard";
 import keyNavigation from "simple-keyboard-key-navigation";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import { ipcSender } from "@/renderer/lib/utils";
 import getReactSimpleKeyboardCustomCSS from "@/renderer/styles/vkbCustom";
 import {

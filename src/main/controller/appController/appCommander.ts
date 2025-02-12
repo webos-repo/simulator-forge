@@ -1,6 +1,6 @@
-import type { Orientation } from "@share/structure/orientations";
-import type { MovePos } from "@share/structure/positions";
-import type { SendToFramesParam } from "@view/AppView";
+import type { Orientation } from "@/share/structure/orientations";
+import type { MovePos } from "@/share/structure/positions";
+import type { SendToFramesParam } from "@/main/view/AppView";
 import overlayController from "../OverlayController";
 import { runningApps } from "./appMemory";
 

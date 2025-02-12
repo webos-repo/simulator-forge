@@ -1,5 +1,5 @@
-import type { RCUButtonEventType } from "@share/structure/events";
-import type { RCU_Button } from "@share/structure/ipcParams";
+import type { RCUButtonEventType } from "@/share/structure/events";
+import type { RCU_Button } from "@/share/structure/ipcParams";
 import _ from "lodash";
 import { useState } from "react";
 import type React from "react";

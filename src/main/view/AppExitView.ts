@@ -1,9 +1,9 @@
-import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
-import { constStore } from "@share/store/constStore";
-import type { Orientation2Way } from "@share/structure/orientations";
+import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { constStore } from "@/share/store/constStore";
+import type { Orientation2Way } from "@/share/structure/orientations";
 import _ from "lodash";
-import OverlayView from "@view/OverlayView";
-import windowSetting from "@settings/windowSetting";
+import OverlayView from "@/main/view/OverlayView";
+import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
 import { loadView } from "@/main/lib/windowHelper";

@@ -1,4 +1,4 @@
-import { makeDB } from "@controller/dbController";
+import { makeDB } from "@/main/controller/dbController";
 import { simulConfig } from "@/../simul.config";
 const simulInfoDB = makeDB("simulatorInfo");
 

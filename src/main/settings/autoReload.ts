@@ -1,5 +1,5 @@
 import { emtSetting } from "../module/eventEmitters";
-import settingsDB from "@settings/settingsDB";
+import settingsDB from "@/main/settings/settingsDB";
 
 const DB_KEY = "auto-reload";
 

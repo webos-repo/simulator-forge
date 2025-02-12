@@ -1,6 +1,6 @@
-import { constStore } from "@share/store/constStore";
-import type { ToastParams } from "@renderer/lib/toastManager";
-import type { Orientation } from "@share/structure/orientations";
+import { constStore } from "@/share/store/constStore";
+import type { ToastParams } from "@/renderer/lib/toastManager";
+import type { Orientation } from "@/share/structure/orientations";
 import _ from "lodash";
 import { getMemories, pushMemories, resetMemories } from "../lib/memories";
 import { dialog, ipcMain } from "electron";
@@ -11,11 +11,11 @@ import {
   emtWindow,
 } from "../module/eventEmitters";
 import type { BrowserView, BrowserWindow } from "electron";
-import RcuWindow from "@window/RcuWindow";
-import AppListWindow from "@window/AppListWindow";
-import JSServiceWindow from "@window/JSServiceWindow";
-import TvSettingWindow from "@window/TvSettingWindow";
-import MainWindow from "@window/MainWindow";
+import RcuWindow from "@/main/window/RcuWindow";
+import AppListWindow from "@/main/window/AppListWindow";
+import JSServiceWindow from "@/main/window/JSServiceWindow";
+import TvSettingWindow from "@/main/window/TvSettingWindow";
+import MainWindow from "@/main/window/MainWindow";
 
 type Windows =
   | MainWindow

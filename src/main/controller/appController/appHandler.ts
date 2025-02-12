@@ -1,8 +1,11 @@
-import { convertResourcePath } from "@share/lib/paths";
-import { ipcHandler, sleep } from "@share/lib/utils";
-import type { RCUButtonEventType } from "@share/structure/events";
-import type { RCU_Button, ShareFrameIdParam } from "@share/structure/ipcParams";
-import type { Orientation } from "@share/structure/orientations";
+import { convertResourcePath } from "@/share/lib/paths";
+import { ipcHandler, sleep } from "@/share/lib/utils";
+import type { RCUButtonEventType } from "@/share/structure/events";
+import type {
+  RCU_Button,
+  ShareFrameIdParam,
+} from "@/share/structure/ipcParams";
+import type { Orientation } from "@/share/structure/orientations";
 import { ipcMain } from "electron";
 import type { IpcMainEvent } from "electron";
 import _ from "lodash";

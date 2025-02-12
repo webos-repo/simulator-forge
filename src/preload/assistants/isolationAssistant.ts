@@ -1,5 +1,5 @@
 import { ipcRenderer, webFrame } from "electron";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import _ from "lodash";
 import { webOSEnv } from "../lib/appEnv";
 import {

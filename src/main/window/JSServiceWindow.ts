@@ -1,8 +1,8 @@
 import { BrowserWindow, ipcMain, Menu } from "electron";
-import windowSetting from "@settings/windowSetting";
+import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtService, emtWindow } from "../module/eventEmitters";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import { loadWindow } from "@/main/lib/windowHelper";
 
 class JSServiceWindow extends BrowserWindow {

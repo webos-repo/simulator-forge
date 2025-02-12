@@ -1,10 +1,10 @@
-import { makeDB } from "@controller/dbController";
+import { makeDB } from "@/main/controller/dbController";
 import type {
   ToastParams,
   VersionToastProps,
-} from "@renderer/lib/toastManager";
-import { SDKAPIWorkerURL } from "@share/constant/urls";
-import { ipcHandler } from "@share/lib/utils";
+} from "@/renderer/lib/toastManager";
+import { SDKAPIWorkerURL } from "@/share/constant/urls";
+import { ipcHandler } from "@/share/lib/utils";
 import axios from "axios";
 import { ipcMain } from "electron";
 import semver from "semver";

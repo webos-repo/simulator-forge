@@ -1,10 +1,10 @@
 import { emtService } from "../../../module/eventEmitters";
 import { isJsonStrValid } from "../../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import type { ServiceData } from "../../Service";
 import { setSchedule, stopSchedule } from "./scheduler";
 import type { EventEmitter } from "events";
-import type { LunaAdditionalData } from "@service/lunaService";
+import type { LunaAdditionalData } from "@/main/service/lunaService";
 import type * as ActivityManagerTypes from "./types";
 
 const actMap: Map<string, ActivityManagerTypes.Activity> = new Map();

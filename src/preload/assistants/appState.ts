@@ -1,5 +1,5 @@
-import { ipcHandler } from "@share/lib/utils";
-import type { Orientation } from "@share/structure/orientations";
+import { ipcHandler } from "@/share/lib/utils";
+import type { Orientation } from "@/share/structure/orientations";
 import { webOSEnv } from "../lib/appEnv";
 import { webFrame, ipcRenderer } from "electron";
 

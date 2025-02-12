@@ -1,13 +1,13 @@
-import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
-import { constStore } from "@share/store/constStore";
-import type { AppInfo } from "@share/structure/appInfo";
+import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { constStore } from "@/share/store/constStore";
+import type { AppInfo } from "@/share/structure/appInfo";
 import type {
   MouseEventType,
   RCUButtonEventType,
   TouchEventType,
-} from "@share/structure/events";
-import type { Direction, Orientation } from "@share/structure/orientations";
-import type { WebOSEnv } from "@share/structure/webOSEnv";
+} from "@/share/structure/events";
+import type { Direction, Orientation } from "@/share/structure/orientations";
+import type { WebOSEnv } from "@/share/structure/webOSEnv";
 import {
   convertKey,
   convertKeyType,
@@ -15,14 +15,14 @@ import {
   isRequirePress,
 } from "../lib/keyManager";
 import { getElectronVersion } from "../lib/simulInfo";
-import { DefaultRect } from "@share/constant/defaults";
-import { ipcHandler } from "@share/lib/utils";
+import { DefaultRect } from "@/share/constant/defaults";
+import { ipcHandler } from "@/share/lib/utils";
 import { BrowserView } from "electron";
 import _ from "lodash";
 import watcherManger from "../module/watcher";
 import { emtApp, emtSetting } from "../module/eventEmitters";
-import { isAutoInspectorOn } from "@settings/autoInspector";
-import windowSetting from "@settings/windowSetting";
+import { isAutoInspectorOn } from "@/main/settings/autoInspector";
+import windowSetting from "@/main/settings/windowSetting";
 import type chokidar from "chokidar";
 import { getPreloadPath } from "@/main/lib/pathResolver";
 

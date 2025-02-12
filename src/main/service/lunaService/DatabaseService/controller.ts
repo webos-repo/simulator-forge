@@ -1,4 +1,4 @@
-import { makeDB } from "@controller/dbController";
+import { makeDB } from "@/main/controller/dbController";
 import { emtApp } from "../../../module/eventEmitters";
 import { generateHash } from "../../../lib/hash";
 import _ from "lodash";

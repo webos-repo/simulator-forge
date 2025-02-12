@@ -1,4 +1,4 @@
-import { convertResourcePath } from "@share/lib/paths";
+import { convertResourcePath } from "@/share/lib/paths";
 import appState from "./appState";
 
 function makeFontFace(dirName: string, fontFileName: string, fontName: string) {

@@ -1,4 +1,4 @@
-import type { DBBaseKey } from "@controller/dbController";
+import type { DBBaseKey } from "@/main/controller/dbController";
 import type Store from "electron-store";
 
 export default class SimulatorDB {

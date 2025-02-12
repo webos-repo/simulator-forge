@@ -1,9 +1,9 @@
-import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
-import { DefaultRect } from "@share/constant/defaults";
-import { constStore } from "@share/store/constStore";
+import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { DefaultRect } from "@/share/constant/defaults";
+import { constStore } from "@/share/store/constStore";
 import { emtApp, emtSetting } from "../module/eventEmitters";
 import { getPreloadPath } from "../lib/pathResolver";
-import windowSetting from "@settings/windowSetting";
+import windowSetting from "@/main/settings/windowSetting";
 import OverlayView from "./OverlayView";
 import { loadView } from "@/main/lib/windowHelper";
 

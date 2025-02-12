@@ -1,7 +1,7 @@
 import _ from "lodash";
-import { tvInfo } from "@tvSettings/index";
+import { tvInfo } from "@/main/tvSettings/index";
 import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import type { EventEmitter } from "events";
 import type { LunaAdditionalData } from "./index";
 

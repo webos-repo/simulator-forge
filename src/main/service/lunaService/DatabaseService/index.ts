@@ -2,9 +2,9 @@ import type { EventEmitter } from "events";
 import { generateHash } from "../../../lib/hash";
 import { isJsonStrValid } from "../../../lib/jsonChecker";
 import { extractIdFromToken } from "../../../lib/pathResolver";
-import { methodError, methodNotFound } from "@service/ServiceError";
+import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import DBServiceController from "./controller";
-import type { LunaAdditionalData } from "@service/lunaService";
+import type { LunaAdditionalData } from "@/main/service/lunaService";
 import type * as DBServiceTypes from "./types";
 
 const existPermissions = ["read", "create", "update", "delete"];

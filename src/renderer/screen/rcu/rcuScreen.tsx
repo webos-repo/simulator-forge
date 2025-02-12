@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { Orientation } from "@share/structure/orientations";
+import type { Orientation } from "@/share/structure/orientations";
 import { useState, useEffect } from "react";
 import { range } from "lodash";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import ButtonRCUArrow from "@/renderer/component/rcuButton/ButtonRCUArrow";
 import ButtonRCU from "@/renderer/component/rcuButton/ButtonRCU";
 import ButtonRCUColor from "@/renderer/component/rcuButton/ButtonRCUColor";

@@ -1,4 +1,4 @@
-import type { WebOSSystemConf } from "@main/lib/WebOSSystemConfigs";
+import type { WebOSSystemConf } from "@/main/lib/WebOSSystemConfigs";
 import type { AppInfo } from "./appInfo";
 import type { Orientation } from "./orientations";
 

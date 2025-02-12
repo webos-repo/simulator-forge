@@ -3,8 +3,8 @@ import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { ipcMain } from "electron";
 import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";
 import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
-import JSService from "@service/JSService";
-import { ipcHandler } from "@share/lib/utils";
+import JSService from "@/main/service/JSService";
+import { ipcHandler } from "@/share/lib/utils";
 import { makeDB } from "./dbController";
 
 type JSServiceInfos = {

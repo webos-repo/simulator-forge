@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { ToastContainer, Flip } from "react-toastify";
-import { ipcHandler } from "@share/lib/utils";
+import { ipcHandler } from "@/share/lib/utils";
 import AppBar from "../../component/appBar/AppBar";
 // import Spinner from "../../component/Spinner";
 import Notification from "../../component/Notification";

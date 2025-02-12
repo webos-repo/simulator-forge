@@ -1,11 +1,14 @@
-import { runningApps } from "@controller/appController/appMemory";
-import { checkMacViewPositionBug } from "@main/lib/bugVersionChecker";
-import { constStore } from "@share/store/constStore";
-import type { MouseEventType, TouchEventType } from "@share/structure/events";
-import type { Direction, Orientation2Way } from "@share/structure/orientations";
-import type { Pos } from "@share/structure/positions";
+import { runningApps } from "@/main/controller/appController/appMemory";
+import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { constStore } from "@/share/store/constStore";
+import type { MouseEventType, TouchEventType } from "@/share/structure/events";
+import type {
+  Direction,
+  Orientation2Way,
+} from "@/share/structure/orientations";
+import type { Pos } from "@/share/structure/positions";
 import { BrowserView, ipcMain } from "electron";
-import windowSetting from "@settings/windowSetting";
+import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import {
   emtApp,
@@ -14,9 +17,9 @@ import {
   emtView,
   emtWindow,
 } from "../module/eventEmitters";
-import overlayController from "@controller/OverlayController";
-import { ipcHandler } from "@share/lib/utils";
-import type { AppInfoJson } from "@share/structure/appInfo";
+import overlayController from "@/main/controller/OverlayController";
+import { ipcHandler } from "@/share/lib/utils";
+import type { AppInfoJson } from "@/share/structure/appInfo";
 import { loadView } from "@/main/lib/windowHelper";
 
 type MatchedMouseType = Extract<

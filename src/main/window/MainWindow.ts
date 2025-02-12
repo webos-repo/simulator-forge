@@ -1,9 +1,9 @@
-import { convertTo2Way } from "@share/structure/orientations";
+import { convertTo2Way } from "@/share/structure/orientations";
 import { getPreloadPath } from "../lib/pathResolver";
 import { getWebOSVersion } from "../lib/simulInfo";
-import { getTouchMode, toggleTouchMode } from "@settings/touchMode";
+import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
-import windowSetting from "@settings/windowSetting";
+import windowSetting from "@/main/settings/windowSetting";
 import {
   emtApp,
   emtDev,
@@ -12,8 +12,8 @@ import {
   emtWindow,
 } from "../module/eventEmitters";
 import LogMessage, { showErrorBox } from "../lib/logMessage";
-import { ipcHandler } from "@share/lib/utils";
-import type { Orientation } from "@share/structure/orientations";
+import { ipcHandler } from "@/share/lib/utils";
+import type { Orientation } from "@/share/structure/orientations";
 import { loadWindow } from "@/main/lib/windowHelper";
 import { convertResourcePath } from "@/share/lib/paths";
 import { simulConfig } from "@/../simul.config";

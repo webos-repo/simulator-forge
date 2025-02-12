@@ -1,7 +1,7 @@
-import lunaService from "@service/lunaService";
-import JSServiceController from "@controller/JSServiceController";
-import { serviceNotFound } from "@service/ServiceError";
-import type { SendToFramesParam } from "@view/AppView";
+import lunaService from "@/main/service/lunaService";
+import JSServiceController from "@/main/controller/JSServiceController";
+import { serviceNotFound } from "@/main/service/ServiceError";
+import type { SendToFramesParam } from "@/main/view/AppView";
 import { splitServiceURL } from "../lib/pathResolver";
 import { emtApp, emtService } from "../module/eventEmitters";
 

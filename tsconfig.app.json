@@ -13,6 +13,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
 
     /* Linting */
     "strict": true,
@@ -22,7 +23,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+
+    "types": ["vite/client"]
   },
   "include": ["src", "forge.env.d.ts"]
 }

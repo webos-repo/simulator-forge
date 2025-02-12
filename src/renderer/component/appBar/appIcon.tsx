@@ -17,16 +17,6 @@ function AppIcon({
     appState === "background" ? "\nbackground" : ""
   }`;
 
-  // const iconData = useMemo(() => {
-  //   const iconPath = largeIcon
-  //     ? path.join(appPath, largeIcon)
-  //     : icon
-  //       ? path.join(appPath, icon)
-  //       : getTargetFilePath("assets", "icon.png");
-  //   const iconRaw = fs.readFileSync(iconPath).toString("base64");
-  //   return `data:image/${iconPath.slice(-3)};base64,${iconRaw}`;
-  // }, [appPath, icon, largeIcon]);
-
   useEffect(() => {
     if (!appTitle || !appTitleDiv) return;
     if (appTitleDiv.current?.clientWidth < appTitle.current?.clientWidth) {
@@ -66,6 +56,7 @@ const AppIconLayout = styled.button`
   display: flex;
   align-items: center;
   flex-direction: column;
+  /* background-color: transparent; */
   width: 11vh;
   margin-right: 9vh;
   box-sizing: border-box;

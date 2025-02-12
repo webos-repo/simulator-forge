@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { ToastContainer, Flip } from "react-toastify";
 import { ipcHandler } from "@/share/lib/utils";
 import AppBar from "../../component/appBar/appBar";
-// import Spinner from "../../component/Spinner";
 import Notification from "../../component/notification";
 import { clearToast, showToast } from "../../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
 import { arrangeCenterByFlex } from "../../styles/partials";
-
-import beanbird from "@/assets/beanbird-sky.jpg";
 import { Spinner } from "@heroui/react";
+import beanbird from "@/assets/beanbird-sky.jpg";
 
 const closeOnRotateContents = [
   "This app does not support portrait mode.",

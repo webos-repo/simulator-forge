@@ -46,11 +46,6 @@ function loadAppInfoFromDB() {
 }
 
 function checkAppInfoRequirements(appInfo: AppInfo) {
-  try {
-    console.log(has(appInfo, "main"));
-  } catch (e) {
-    console.log(e);
-  }
   const notInclude = AppInfoRequirements.filter(
     (field) => !has(appInfo, field),
   );

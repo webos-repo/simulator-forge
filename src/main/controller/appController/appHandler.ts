@@ -39,7 +39,7 @@ import {
   moveFgAppToBg,
   relaunchApp,
   reloadApp,
-} from "./appLancher";
+} from "./appLauncher";
 import {
   callIfFgAppById,
   loadAppInfoFromDB,

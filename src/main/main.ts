@@ -49,7 +49,7 @@ const startSimulator = async () => {
       tvNetwork.updateNetworkInfo(),
     ]);
 
-    if (process.env.NODE_ENV === "development") {
+    if (import.meta.env.DEV) {
       turnOnDevMode();
     }
     checkVersion();

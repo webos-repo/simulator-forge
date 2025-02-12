@@ -1,26 +1,24 @@
-import { isDev } from "@share/constant/env";
 import axios from "axios";
 import { machineIdSync } from "node-machine-id";
 import { v4 as uuidV4 } from "uuid";
 import { simulConfig } from "@/../simul.config";
-const MEASUREMENT_ID_KEY = {
-  dev: {
-    id: "G-H2BRSMHP0S",
-    apiKey: "l9Sg8JtxSGqzflzKuSU9QQ",
-  },
-  prod: {
-    id: "G-452KJ9BF77",
-    apiKey: "vLu6x4NBS3e4riVT6SadWQ",
-  },
-};
+
+const MEASUREMENT_ID_KEY =
+  import.meta.env.DEV || simulConfig.isDevBranch
+    ? {
+        id: "G-H2BRSMHP0S",
+        apiKey: "l9Sg8JtxSGqzflzKuSU9QQ",
+      }
+    : {
+        id: "G-452KJ9BF77",
+        apiKey: "vLu6x4NBS3e4riVT6SadWQ",
+      };
 
 class Analytics {
   private readonly machineId = machineIdSync();
   private readonly sessionId = uuidV4();
-  private readonly measurementApiKey =
-    MEASUREMENT_ID_KEY[isDev ? "dev" : "prod"].apiKey;
-  private readonly measurementId =
-    MEASUREMENT_ID_KEY[isDev ? "dev" : "prod"].id;
+  private readonly measurementApiKey = MEASUREMENT_ID_KEY.apiKey;
+  private readonly measurementId = MEASUREMENT_ID_KEY.id;
 
   init = () => {
     this.sendVersionInfo();

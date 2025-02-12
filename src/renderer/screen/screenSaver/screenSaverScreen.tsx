@@ -19,7 +19,7 @@ export default function ScreenSaverScreen() {
   const [guidePos, setGuidePos] = useState(DefaultGuidePos);
   const guideMoveTimer = useRef<NodeJS.Timer | null>(null);
   const holePos = useRef(DefaultRect);
-  const guidanceMoveTime = process.env.NODE_ENV === "test" ? 200 : 8000;
+  const guidanceMoveTime = 8000;
 
   const preventScreenSaver = (e: any) => {
     if (!shown) return;

@@ -102,7 +102,7 @@ function handleMainWindowReady() {
 }
 
 function handleMainScreenReady() {
-  if (process.env.NODE_ENV === "production" && process.argv.length >= 2) {
+  if (import.meta.env.PROD && process.argv.length >= 2) {
     sleep(500).then(() => launchAppByArgv());
   }
 }

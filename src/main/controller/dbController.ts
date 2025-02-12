@@ -18,10 +18,9 @@ type DBBaseKey =
   | "simulatorInfo"
   | "analytics";
 
-const dbName =
-  process.env.NODE_ENV === "development"
-    ? `webos-tv-simulator-dev`
-    : `webos-tv-simulator-${simulConfig.webOSTVVersion}`;
+const dbName = import.meta.env.DEV
+  ? `webos-tv-simulator-dev`
+  : `webos-tv-simulator-${simulConfig.webOSTVVersion}`;
 const db = new Store({ name: dbName });
 const defaultResetBaseKeys: DBBaseKey[] = ["internal", "db8", "settings"];
 

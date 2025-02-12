@@ -1,11 +1,11 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { constStore } from "@/share/store/constStore";
-import _ from "lodash";
 import OverlayView from "@/main/view/OverlayView";
 import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting } from "../module/eventEmitters";
 import { loadView } from "@/main/lib/windowHelper";
+import { isUndefined } from "es-toolkit/compat";
 
 const TouchRemoteSize = {
   width: 236,
@@ -42,10 +42,10 @@ export default class TouchRemoteView extends OverlayView {
     const zoom = windowSetting.zoom;
 
     const positionX = Math.round(
-      (_.isUndefined(x) || x > baseWidth / 2 ? maxX : minX) * zoom,
+      (isUndefined(x) || x > baseWidth / 2 ? maxX : minX) * zoom,
     );
     const positionY = Math.round(
-      (_.isUndefined(y) || y > baseHeight / 2 ? maxY : minY) * zoom,
+      (isUndefined(y) || y > baseHeight / 2 ? maxY : minY) * zoom,
     );
     const width = Math.round(TouchRemoteSize.width * zoom);
     const height = Math.round(TouchRemoteSize.height * zoom);

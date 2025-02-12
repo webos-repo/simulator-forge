@@ -1,6 +1,5 @@
 import { ipcRenderer, webFrame } from "electron";
 import { ipcHandler } from "@/share/lib/utils";
-import _ from "lodash";
 import { webOSEnv } from "../lib/appEnv";
 import {
   checkElementNeedVKB,
@@ -14,6 +13,7 @@ import {
   pauseMediaWhenBg,
   resumeMediaWhenFg,
 } from "./mediaController";
+import { throttle } from "es-toolkit/compat";
 
 const insertedCSS: { [key: string]: string } = {};
 let mouseMoveHandler: any;
@@ -182,7 +182,7 @@ function setMouseMoveListener() {
   if (mouseMoveHandler) {
     window.removeEventListener("mousemove", mouseMoveHandler, true);
   }
-  mouseMoveHandler = _.throttle(
+  mouseMoveHandler = throttle(
     (e: MouseEvent) => {
       ipcRenderer.send("assistant-mousemove", e.clientX, e.clientY);
     },

@@ -18,13 +18,13 @@ import { getElectronVersion } from "../lib/simulInfo";
 import { DefaultRect } from "@/share/constant/defaults";
 import { ipcHandler } from "@/share/lib/utils";
 import { BrowserView } from "electron";
-import _ from "lodash";
 import watcherManger from "../module/watcher";
 import { emtApp, emtSetting } from "../module/eventEmitters";
 import { isAutoInspectorOn } from "@/main/settings/autoInspector";
 import windowSetting from "@/main/settings/windowSetting";
 import type chokidar from "chokidar";
 import { getPreloadPath } from "@/main/lib/pathResolver";
+import { includes, mapValues, round } from "es-toolkit/compat";
 
 type AppViewConstructorParams = {
   appInfo: AppInfo;
@@ -55,8 +55,8 @@ const PropsAffectedByZoom: Readonly<string[]> = [
 
 const calcMouseWithWindowZoom = (mouseEvent: MouseEventType) => {
   const windowZoom = windowSetting.zoom;
-  return _.mapValues(mouseEvent, (value, prop) => {
-    if (_.includes(PropsAffectedByZoom, prop)) {
+  return mapValues(mouseEvent, (value, prop) => {
+    if (includes(PropsAffectedByZoom, prop)) {
       return (value as number) * windowZoom;
     }
     return value;
@@ -331,9 +331,7 @@ class AppView extends BrowserView {
   emitVideoRect = () => {
     emtApp.emit(
       "video-rect",
-      _.mapValues(this.videoRect, (p) =>
-        _.round(p * this.webContents.zoomFactor),
-      ),
+      mapValues(this.videoRect, (p) => round(p * this.webContents.zoomFactor)),
     );
   };
 

@@ -1,12 +1,12 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { constStore } from "@/share/store/constStore";
 import type { Orientation2Way } from "@/share/structure/orientations";
-import _ from "lodash";
 import OverlayView from "@/main/view/OverlayView";
 import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
 import { loadView } from "@/main/lib/windowHelper";
+import { mapValues } from "es-toolkit/compat";
 
 const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
   landscape: { x: 280, y: 480, width: 700, height: 128 },
@@ -67,7 +67,7 @@ export default class AppExitView extends OverlayView {
   };
 
   private calcBounds = () => {
-    return _.mapValues(
+    return mapValues(
       this.getAppExitBounds(windowSetting.orn2Way),
       (v) => v * windowSetting.zoom,
     );

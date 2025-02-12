@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { includes } from "es-toolkit/compat";
 
 const InputTypesNeedVkb = [
   "email",
@@ -57,6 +57,6 @@ export function checkElementNeedVKB(target: EventTarget | null) {
     !target ||
     !(target instanceof HTMLInputElement) ||
     !target.type ||
-    !_.includes(InputTypesNeedVkb, target.type)
+    !includes(InputTypesNeedVkb, target.type)
   );
 }

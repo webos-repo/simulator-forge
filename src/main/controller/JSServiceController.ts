@@ -1,4 +1,3 @@
-import _ from "lodash";
 import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { ipcMain } from "electron";
 import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";
@@ -6,6 +5,7 @@ import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
 import JSService from "@/main/service/JSService";
 import { ipcHandler } from "@/share/lib/utils";
 import { makeDB } from "./dbController";
+import { has } from "es-toolkit/compat";
 
 type JSServiceInfos = {
   dirPath: string;
@@ -92,7 +92,7 @@ class JSServiceController {
 
   private getPropFromServiceJson = (dirPath: string, prop: string) => {
     const serviceJson = readServiceJson(dirPath) as any;
-    if (!_.has(serviceJson, prop)) {
+    if (!has(serviceJson, prop)) {
       throw new LogMessage(
         "error",
         "Service add error",

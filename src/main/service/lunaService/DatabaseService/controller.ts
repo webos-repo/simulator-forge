@@ -1,9 +1,8 @@
 import { makeDB } from "@/main/controller/dbController";
 import { emtApp } from "../../../module/eventEmitters";
 import { generateHash } from "../../../lib/hash";
-import _ from "lodash";
-import { partial } from "radashi";
-import type * as DBServiceTypes from "./types";
+import * as DBServiceTypes from "./types";
+import { curry, has, omit, pick, pickBy } from "es-toolkit/compat";
 
 export default class DBServiceController {
   db = makeDB("db8");
@@ -20,13 +19,12 @@ export default class DBServiceController {
 
   private handleAppRemoved = (appId: string) => {
     const data = this.db.get();
-    _.toPairs(data).forEach(([kind, { private: prvt, owner }]: any) => {
+    Object.entries(data).forEach(([kind, { private: prvt, owner }]: any) => {
       if (prvt && owner === appId) {
         this.deleteKind(kind);
       }
     });
   };
-
   private hasPermission = (
     operation: DBServiceTypes.Operation,
     kind: string,
@@ -34,17 +32,17 @@ export default class DBServiceController {
   ) => {
     const accessibleList = this.db.get(`${escapeDot(kind)}.accessible`);
     if (!accessibleList) return false;
-    if (!_.has(accessibleList, appId)) return false;
+    if (!has(accessibleList, appId)) return false;
     return !!accessibleList[appId].find((op: string) => op === operation);
   };
 
-  private canRead = partial(this.hasPermission, "read");
+  private canRead = curry(this.hasPermission)("read");
 
-  private canCreate = partial(this.hasPermission, "create");
+  private canCreate = curry(this.hasPermission)("create");
 
-  private canUpdate = partial(this.hasPermission, "update");
+  private canUpdate = curry(this.hasPermission)("update");
 
-  private canDelete = partial(this.hasPermission, "delete");
+  private canDelete = curry(this.hasPermission)("delete");
 
   // -3: other error
   // -2: access denied
@@ -94,12 +92,12 @@ export default class DBServiceController {
   };
 
   private removeMappingIdKindByKind = (kind: string) => {
-    const newRM = _.pickBy(this.getMappingIdKind(), (v) => v === kind);
+    const newRM = pickBy(this.getMappingIdKind(), (v) => v === kind);
     this.db.set("mappingIdKind", newRM);
   };
 
   private removeMappingIdKindById = (id: string) => {
-    this.db.set("mappingIdKind", _.omit(this.getMappingIdKind(), id));
+    this.db.set("mappingIdKind", omit(this.getMappingIdKind(), id));
   };
 
   getDataById = (appId: string, id: string) => {
@@ -209,7 +207,7 @@ export default class DBServiceController {
   };
 
   private filterDataBySelect = (originData: any[], select: string[]) => {
-    return originData.map((data) => _.pick(data, select));
+    return originData.map((data) => pick(data, select));
   };
 
   putData = (appId: string, kindOrigin: string, data: any) => {
@@ -237,14 +235,14 @@ export default class DBServiceController {
 
     const accessibleList = this.db.get(`${key}.accessible`);
     let permissions: Array<string>;
-    if (_.has(accessibleList, target)) {
+    if (has(accessibleList, target)) {
       permissions = accessibleList[target];
     } else {
       permissions = [];
     }
 
     operations.forEach((op) => {
-      if (!_.has(permissions, op)) permissions.push(op);
+      if (!has(permissions, op)) permissions.push(op);
     });
     accessibleList[target] = permissions;
     this.db.set(`${key}.accessible`, accessibleList);

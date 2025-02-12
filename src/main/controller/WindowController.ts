@@ -1,7 +1,6 @@
 import { constStore } from "@/share/store/constStore";
 import type { ToastParams } from "@/renderer/lib/toastManager";
 import type { Orientation } from "@/share/structure/orientations";
-import _ from "lodash";
 import { getMemories, pushMemories, resetMemories } from "../lib/memories";
 import { dialog, ipcMain } from "electron";
 import {
@@ -67,7 +66,7 @@ class WindowController {
   };
 
   private focusControlLinux = () => {
-    _.values(this.allWindows).forEach((window) => {
+    Object.values(this.allWindows).forEach((window) => {
       window
         .on("blur", () => {
           if (this.checkAllWindowBlur()) {
@@ -118,7 +117,7 @@ class WindowController {
   };
 
   private sendMessageToAll = (channel: string, ...data: any[]) => {
-    _.values(this.allWindows).forEach((window) => {
+    Object.values(this.allWindows).forEach((window) => {
       window.webContents.send(channel, ...data);
     });
   };
@@ -174,7 +173,9 @@ class WindowController {
   };
 
   checkAllWindowBlur = (): boolean => {
-    return _.values(this.allWindows).every((window) => !window.isFocused());
+    return Object.values(this.allWindows).every(
+      (window) => !window.isFocused(),
+    );
   };
 
   setMuted = (muted: boolean) => {

@@ -33,21 +33,30 @@ function launchApp({
   let newAppView: AppView | undefined;
 
   try {
+    console.log("111111");
     appInfo = readAppInfo(appPath);
     if (checkIsAlreadyRunning(appInfo)) {
       switchApp(appInfo);
       return;
     }
+    console.log("111111");
+
     checkAppInfoRequirements(appInfo);
     if (checkCloseOnRotation(appInfo)) {
       reqNotiCloseRotate();
       return;
     }
+    console.log("111111");
+
     moveFgAppToBg();
     emtWindow.emit("set-spinner", true);
     newAppView = makeAppView(appInfo, launchParams);
+    console.log("111111");
+
     setAfterFirstLoadHandler(newAppView);
     newAppView.load();
+    console.log("111111");
+
     runningApps.add(newAppView);
   } catch (err) {
     if (newAppView) runningApps.removeAppById(newAppView.appId);

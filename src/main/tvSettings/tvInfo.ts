@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { get } from "es-toolkit/compat";
 import { generateHash } from "../lib/hash";
 import tvSettingsDB from "./tvSettingsDB";
 import { simulConfig } from "@/../simul.config";

@@ -1,6 +1,6 @@
 import type { RCUButtonEventType } from "@/share/structure/events";
 import type { RCU_Button } from "@/share/structure/ipcParams";
-import _ from "lodash";
+import { get } from "es-toolkit/compat";
 import { useState } from "react";
 import type React from "react";
 
@@ -74,7 +74,7 @@ const preProcess = (
 };
 
 const convertToRCUEventType = (e: React.MouseEvent) => {
-  return _.get(mouseToRCUEventMapping, e.type, null);
+  return get(mouseToRCUEventMapping, e.type, null);
 };
 
 export default useRCUHandler;

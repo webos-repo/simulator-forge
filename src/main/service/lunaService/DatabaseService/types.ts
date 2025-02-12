@@ -78,7 +78,7 @@ type WatchParams = {
   query: Query;
 };
 
-export {
+export type {
   BatchParams,
   DelParams,
   DelKindParams,

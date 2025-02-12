@@ -1,7 +1,7 @@
-import _ from "lodash";
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import { tvInfo } from "@/main/tvSettings/index";
+import { get, has, isEmpty } from "es-toolkit/compat";
 
 class ConfigService {
   call = async (category: string, method: string, params: string) => {
@@ -29,8 +29,8 @@ class ConfigService {
     }
 
     const configs = configNames?.reduce((pre: any, cur) => {
-      if (_.has(tvInfoConfigs, cur)) {
-        pre[cur] = _.get(tvInfoConfigs, cur);
+      if (has(tvInfoConfigs, cur)) {
+        pre[cur] = get(tvInfoConfigs, cur);
       } else {
         missingConfigs.push(cur);
       }
@@ -40,8 +40,8 @@ class ConfigService {
     return {
       subscribed: false,
       returnValue: true,
-      ...(_.isEmpty(configs) ? {} : { configs }),
-      ...(_.isEmpty(missingConfigs) ? {} : { missingConfigs }),
+      ...(isEmpty(configs) ? {} : { configs }),
+      ...(isEmpty(missingConfigs) ? {} : { missingConfigs }),
     };
   };
 }

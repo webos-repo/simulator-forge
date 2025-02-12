@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get, includes } from "es-toolkit/compat";
 
 export const VKBPriorityKeys = [
   "Enter",
@@ -50,11 +50,11 @@ const CustomKey = [
 ] as const;
 
 export function isRequirePress(keyCode: string) {
-  return _.includes(KeysRequirePress, keyCode);
+  return includes(KeysRequirePress, keyCode);
 }
 
 export function convertKey(keyCode: string) {
-  return _.get(KeyMap, keyCode, keyCode);
+  return get(KeyMap, keyCode, keyCode);
 }
 
 export function convertKeyType(type: keyof typeof KeyEventTypeMap) {
@@ -62,5 +62,5 @@ export function convertKeyType(type: keyof typeof KeyEventTypeMap) {
 }
 
 export function isCustomKey(keyCode: string) {
-  return _.includes(CustomKey, keyCode);
+  return includes(CustomKey, keyCode);
 }

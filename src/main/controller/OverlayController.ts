@@ -1,5 +1,4 @@
 import { ipcMain } from "electron";
-import _ from "lodash";
 import {
   emtApp,
   emtSetting,
@@ -13,6 +12,7 @@ import TouchRemoteView from "@/main/view/TouchRemoteView";
 import ScreenSaverView from "@/main/view/ScreenSaverView";
 import OverlayView from "@/main/view/OverlayView";
 import VkbView from "@/main/view/vkbView";
+import { remove } from "es-toolkit/compat";
 
 export type OverlayViewNames =
   | "touchRemote"
@@ -180,7 +180,7 @@ class OverlayController {
     if (!this.checkShowing(view)) return false;
     emtWindow.emit("remove-view", view);
     view.hide();
-    _.remove(this.showingOverlays, view);
+    remove(this.showingOverlays, view);
     return true;
   };
 

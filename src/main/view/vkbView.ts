@@ -2,13 +2,13 @@ import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { constStore } from "@/share/store/constStore";
 import { RCUButtonEventType } from "@/share/structure/events";
 import { Orientation2Way } from "@/share/structure/orientations";
-import _ from "lodash";
 import OverlayView from "@/main/view/OverlayView";
 import windowSetting from "@/main/settings/windowSetting";
 import { getPreloadPath } from "@/main/lib/pathResolver";
 import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
 import { VKBPriorityKeys } from "@/main/lib/keyManager";
 import { loadView } from "@/main/lib/windowHelper";
+import { includes, toInteger } from "es-toolkit/compat";
 
 const VKB_HEIGHT_RATIO = {
   landscape: {
@@ -85,7 +85,7 @@ class VkbView extends OverlayView {
   };
 
   handleRCUInput = (keyCode: string, eventType: RCUButtonEventType) => {
-    if (eventType === "down" || !_.includes(VKBPriorityKeys, keyCode)) return;
+    if (eventType === "down" || !includes(VKBPriorityKeys, keyCode)) return;
     this.webContents.send("rcu-pressed", keyCode);
   };
 
@@ -102,7 +102,7 @@ class VkbView extends OverlayView {
     const inputTypeFiltered =
       inputType === "number" || inputType === "tel" ? "number" : "default";
     const heightRatio = VKB_HEIGHT_RATIO[orn][inputTypeFiltered];
-    return _.toInteger(baseHeight * heightRatio);
+    return toInteger(baseHeight * heightRatio);
   };
 }
 

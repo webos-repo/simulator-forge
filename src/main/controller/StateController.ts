@@ -1,6 +1,6 @@
 import { ipcHandler } from "@/share/lib/utils";
 import { ipcMain } from "electron";
-import _ from "lodash";
+import { curry } from "es-toolkit/compat";
 
 class StateController {
   mainScreenLoaded = false;
@@ -16,7 +16,7 @@ class StateController {
     );
   };
 
-  private setState = _.curry((prop: keyof this, value: any) => {
+  private setState = curry((prop: keyof this, value: any) => {
     this[prop] = value;
   });
 }

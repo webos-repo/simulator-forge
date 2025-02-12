@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get } from "es-toolkit/compat";
 
 type MemoryNames = "toast" | "launchApp";
 
@@ -8,7 +8,7 @@ const Memories: { [key in MemoryNames]: any[] } = {
 };
 
 export function getMemories(name: MemoryNames) {
-  return _.get(Memories, name, null);
+  return get(Memories, name, null);
 }
 
 export function popMemories(name: MemoryNames) {

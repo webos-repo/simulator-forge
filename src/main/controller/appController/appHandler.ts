@@ -8,7 +8,6 @@ import type {
 import type { Orientation } from "@/share/structure/orientations";
 import { ipcMain } from "electron";
 import type { IpcMainEvent } from "electron";
-import _ from "lodash";
 import path from "path";
 import { VKBPriorityKeys } from "../../lib/keyManager";
 import {
@@ -48,6 +47,7 @@ import {
   reqNotiCloseRotate,
   reqPreventScreenSaver,
 } from "./appLib";
+import { includes } from "es-toolkit/compat";
 
 export function listenAppEvent() {
   ipcMain
@@ -127,7 +127,7 @@ function handleRCUInput(data: RCU_Button) {
     // FIXME: send key to appExitView and move focus
     return;
   }
-  if (_.includes(VKBPriorityKeys, keyCode)) {
+  if (includes(VKBPriorityKeys, keyCode)) {
     const vkb = overlayController.getShowingVKB();
     if (vkb) {
       vkb.handleRCUInput(keyCode, rcuEventType);

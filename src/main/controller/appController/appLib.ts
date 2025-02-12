@@ -6,7 +6,6 @@ import type { Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
 import { tvInfo, tvLocation } from "@/main/tvSettings/index";
 import fs from "fs";
-import _ from "lodash";
 import path from "path";
 import LogMessage from "../../lib/logMessage";
 import { readAppInfo } from "../../lib/metaFileReader";
@@ -15,18 +14,17 @@ import webOSSystemConfigs from "../../lib/WebOSSystemConfigs";
 import { emtSetting, emtWindow } from "../../module/eventEmitters";
 import { makeDB } from "../dbController";
 import { appInfos, runningApps } from "./appMemory";
+import { curry, curryRight, has, pick } from "es-toolkit/compat";
 
 const dbAppEntriesKey = "appEntries";
 const db = makeDB("internal");
 
-const callIfFgAppById = _.curry(
-  (func: any, appId: string, ...params: any[]) => {
-    if (runningApps.fgApp?.appId !== appId) return;
-    func(params);
-  },
-);
+const callIfFgAppById = curry((func: any, appId: string, ...params: any[]) => {
+  if (runningApps.fgApp?.appId !== appId) return;
+  func(params);
+});
 
-const callIfFgAppExist = _.curry((func: any, ...params: any[]) => {
+const callIfFgAppExist = curryRight((func: any, ...params: any[]) => {
   if (!runningApps.fgApp) return;
   func(...params);
 });
@@ -48,8 +46,13 @@ function loadAppInfoFromDB() {
 }
 
 function checkAppInfoRequirements(appInfo: AppInfo) {
+  try {
+    console.log(has(appInfo, "main"));
+  } catch (e) {
+    console.log(e);
+  }
   const notInclude = AppInfoRequirements.filter(
-    (field) => !_.has(appInfo, field),
+    (field) => !has(appInfo, field),
   );
   if (notInclude.length) {
     const s = notInclude.length >= 2 ? "s" : "";
@@ -71,8 +74,8 @@ function checkAppInfoRequirements(appInfo: AppInfo) {
 }
 
 function getNotExistFilesInAppInfo(appInfo: AppInfo) {
-  const pickedFields = _.pick(appInfo, ["main", "icon", "largeIcon"]);
-  return _.values(pickedFields)
+  const pickedFields = pick(appInfo, ["main", "icon", "largeIcon"]);
+  return Object.values(pickedFields)
     .map((fileName) => path.resolve(appInfo.appPath, fileName))
     .reduce((notExists: string[], name) => {
       if (name && !fs.existsSync(path.resolve(appInfo.appPath, name))) {

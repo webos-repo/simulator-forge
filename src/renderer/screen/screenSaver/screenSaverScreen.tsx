@@ -1,11 +1,10 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { directions } from "@/share/structure/orientations";
-import type { Direction } from "@/share/structure/orientations";
+import { directions, Direction } from "@/share/structure/orientations";
 import { useState, useEffect, useRef } from "react";
 import { ipcHandler } from "@/share/lib/utils";
-import { random } from "lodash";
 import { DefaultRect } from "@/share/constant/defaults";
+import { random } from "es-toolkit/compat";
 
 const DefaultGuidePos = {
   top: 300,
@@ -17,7 +16,7 @@ export default function ScreenSaverScreen() {
   const [movePrevent, setMovePrevent] = useState(true);
   const [guideVisible, setGuideVisible] = useState(false);
   const [guidePos, setGuidePos] = useState(DefaultGuidePos);
-  const guideMoveTimer = useRef<NodeJS.Timer | null>(null);
+  const guideMoveTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const holePos = useRef(DefaultRect);
   const guidanceMoveTime = 8000;
 
@@ -37,7 +36,7 @@ export default function ScreenSaverScreen() {
   useEffect(() => {
     const resetGuideMoveTimer = (makeNewTimer: boolean) => {
       if (guideMoveTimer.current) {
-        clearTimeout(guideMoveTimer.current);
+        clearInterval(guideMoveTimer.current);
         guideMoveTimer.current = null;
       }
       if (makeNewTimer && checkGuideVisible()) {
@@ -152,7 +151,7 @@ const GuidanceBox = styled.div<{
   ${({ pos: { top, left } }) => css`
     top: ${top}px;
     left: ${left}px;
-  `}}
+  `}
 `;
 
 const GuidanceTitle = styled.div`

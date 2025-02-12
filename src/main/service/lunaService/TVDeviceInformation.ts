@@ -1,9 +1,9 @@
-import _ from "lodash";
 import { tvInfo } from "@/main/tvSettings/index";
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/ServiceError";
 import type { EventEmitter } from "events";
 import type { LunaAdditionalData } from "./index";
+import { get, has, isEmpty, set } from "es-toolkit/compat";
 
 const subscriptions: Map<string, { emitter: EventEmitter; keys: string[] }> =
   new Map();
@@ -24,9 +24,7 @@ const cancelSubscription = (token: string) => {
 const getSystemInfoFromSettings = (keys: string[]) => {
   const systemInfo = tvInfo.systemInfo;
   return keys.reduce((pre: { [key: string]: string }, cur) => {
-    return _.has(systemInfo, cur)
-      ? _.set(pre, cur, _.get(systemInfo, cur))
-      : pre;
+    return has(systemInfo, cur) ? set(pre, cur, get(systemInfo, cur)) : pre;
   }, {});
 };
 
@@ -61,7 +59,7 @@ class TVDeviceInformation {
     const { keys, subscribe }: { keys?: string[]; subscribe?: boolean } =
       JSON.parse(params);
 
-    if (!keys || _.isEmpty(keys)) {
+    if (!keys || isEmpty(keys)) {
       return methodError("ERROR_06", "Invalid argument.");
     }
 
@@ -70,7 +68,7 @@ class TVDeviceInformation {
     }
 
     const ret = getSystemInfoFromSettings(keys);
-    if (_.isEmpty(ret)) {
+    if (isEmpty(ret)) {
       return methodError("ERROR_06", "Invalid argument.");
     }
 

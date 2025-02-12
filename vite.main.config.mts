@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [tsconfigPaths()],
   build: {
-    target: "es2018",
+    target: "es2022",
     rollupOptions: {
       external: ["fsevents"],
     },

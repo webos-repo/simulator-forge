@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { arrangeCenterByFlex } from "../../styles/partials";
 import { Spinner } from "@heroui/react";
 import beanbird from "@/assets/beanbird-sky.jpg";
+import MainIntro from "@/renderer/screen/main/mainIntro";
 
 const closeOnRotateContents = [
   "This app does not support portrait mode.",
@@ -44,25 +45,28 @@ export default function MainScreen() {
   }, []);
 
   return (
-    <MainScreenLayout preventPointerEvent={showSpinner}>
-      <AppBar />
-      {showSpinner && <Spinner size="lg" color="default" />}
-      {closeRotateVisible && (
-        <IgnorePanel
-          onClick={() => setCloseRotateVisible(false)}
-          data-testid="IgnorePanel"
-        >
-          <Notification contents={closeOnRotateContents} />
-        </IgnorePanel>
-      )}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        pauseOnFocusLoss={false}
-        theme="dark"
-        transition={Flip}
-      />
-    </MainScreenLayout>
+    <>
+      <MainIntro />
+      <MainScreenLayout preventPointerEvent={showSpinner}>
+        <AppBar />
+        {showSpinner && <Spinner size="lg" color="default" />}
+        {closeRotateVisible && (
+          <IgnorePanel
+            onClick={() => setCloseRotateVisible(false)}
+            data-testid="IgnorePanel"
+          >
+            <Notification contents={closeOnRotateContents} />
+          </IgnorePanel>
+        )}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          pauseOnFocusLoss={false}
+          theme="dark"
+          transition={Flip}
+        />
+      </MainScreenLayout>
+    </>
   );
 }
 

@@ -11,7 +11,7 @@ class RunningApps {
   private appViews: AppView[] = [];
   private fgAppView?: AppView;
   public ornChangeRequestedApp?: AppView;
-
+  m;
   get apps() {
     return this.appViews;
   }

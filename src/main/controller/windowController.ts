@@ -88,7 +88,7 @@ class WindowController {
       .on("focus", emtWindow.wrapEmit("main-window-focused"));
 
     ipcMain
-      .on("main-screen-loaded", this.showToastStack)
+      .on("main-intro-finished", this.showToastStack)
       .on("main-window-mouseenter", this.handleMouseEnter)
       .on("tv-setting", this.showTVSettings)
       .on("setting-cancel", this.hideTVSettings)

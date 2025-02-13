@@ -1,7 +1,7 @@
 import { makeDB } from "@/main/controller/dbController";
-import type {
-  ToastParams,
-  VersionToastProps,
+import {
+  type ToastParams,
+  type VersionToastProps,
 } from "@/renderer/lib/toastManager";
 import { SDKAPIWorkerURL } from "@/share/constant/urls";
 import { ipcHandler } from "@/share/lib/utils";

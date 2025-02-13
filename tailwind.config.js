@@ -10,6 +10,18 @@ module.exports = {
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        LGSmart2: ["LGSmart2"],
+      },
+      colors: {
+        simul: {
+          card: {
+            bg: "#82888c",
+            tx: "#e6e6e6",
+          },
+        },
+      },
+    },
   },
 };

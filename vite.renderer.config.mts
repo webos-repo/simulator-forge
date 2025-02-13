@@ -16,6 +16,7 @@ const getScreenPath = (windowName: string) =>
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  publicDir: "/resource",
 
   build: {
     target: "es2022",

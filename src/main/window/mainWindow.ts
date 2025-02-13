@@ -72,6 +72,10 @@ class MainWindow extends BrowserWindow {
     emtDev.on("open-devtools-main", () =>
       this.webContents?.openDevTools({ mode: "detach" }),
     );
+
+    this.on("ready-to-show", () => {
+      this.webContents?.openDevTools({ mode: "detach" });
+    });
   };
 
   private afterFinishLoad = () => {

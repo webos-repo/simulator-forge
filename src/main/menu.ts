@@ -427,7 +427,9 @@ class MenuBuilder {
           submenu: [
             {
               label: "dev-test1",
-              click: () => emtDev.emit("dev-test1"),
+              click: () => {
+                emtWindow.emit("show-noti-close-rotate");
+              },
               accelerator: "CommandOrControl+1",
             },
             {

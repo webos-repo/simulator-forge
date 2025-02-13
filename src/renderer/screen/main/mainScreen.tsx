@@ -1,34 +1,26 @@
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import { ToastContainer, Flip } from "react-toastify";
 import { ipcHandler } from "@/share/lib/utils";
 import AppBar from "../../component/appBar/appBar";
-import Notification from "../../component/notification";
 import { clearToast, showToast } from "../../lib/toastManager";
-import "react-toastify/dist/ReactToastify.css";
 import { arrangeCenterByFlex } from "../../styles/partials";
 import { Spinner } from "@heroui/react";
 import beanbird from "@/assets/beanbird-sky.jpg";
 import MainIntro from "@/renderer/screen/main/mainIntro";
-
-const closeOnRotateContents = [
-  "This app does not support portrait mode.",
-  "Please orient the screen to landscape mode to enjoy.",
-];
+import WebOSNotification from "@/renderer/component/webOS/webOSNotification";
 
 export default function MainScreen() {
-  const [showSpinner, setShowSpinner] = useState(false);
-  const [closeRotateVisible, setCloseRotateVisible] = useState(false);
+  const [showIntro, setShowIntro] = React.useState(true);
+  const [showSpinner, setShowSpinner] = React.useState(false);
+  const [closeRotateVisible, setCloseRotateVisible] = React.useState(false);
 
-  const setNotiTimer = (setFunc: any) => {
-    setFunc(true);
-    setTimeout(() => {
-      setFunc(false);
-    }, 5500);
+  const whenIntroFinished = () => {
+    setShowIntro(false);
+    window.ipcRenderer.send("main-intro-finished");
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.addEventListener("mouseenter", () => {
       window.ipcRenderer.send("main-window-mouseenter");
     });
@@ -38,7 +30,7 @@ export default function MainScreen() {
       clearToast();
     });
     window.ipcRenderer.on("show-noti-close-rotate", () =>
-      setNotiTimer(setCloseRotateVisible),
+      setCloseRotateVisible(true),
     );
     window.ipcRenderer.on("show-toast", ipcHandler(showToast));
     window.ipcRenderer.send("main-screen-loaded");
@@ -46,25 +38,19 @@ export default function MainScreen() {
 
   return (
     <>
-      <MainIntro />
+      {showIntro && <MainIntro whenFinished={whenIntroFinished} />}
       <MainScreenLayout preventPointerEvent={showSpinner}>
-        <AppBar />
         {showSpinner && <Spinner size="lg" color="default" />}
         {closeRotateVisible && (
-          <IgnorePanel
-            onClick={() => setCloseRotateVisible(false)}
-            data-testid="IgnorePanel"
-          >
-            <Notification contents={closeOnRotateContents} />
-          </IgnorePanel>
+          <WebOSNotification
+            contents={[
+              "This app does not support portrait mode.",
+              "Please orient the screen to landscape mode to enjoy.",
+            ]}
+            whenClose={() => setCloseRotateVisible(false)}
+          />
         )}
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          pauseOnFocusLoss={false}
-          theme="dark"
-          transition={Flip}
-        />
+        <AppBar />
       </MainScreenLayout>
     </>
   );
@@ -89,10 +75,3 @@ const MainScreenLayout = styled.main<{ preventPointerEvent: boolean }>(
       `,
   ],
 );
-
-const IgnorePanel = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  z-index: 5;
-`;

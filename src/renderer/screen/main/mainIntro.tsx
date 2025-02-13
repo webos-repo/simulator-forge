@@ -3,14 +3,18 @@ import webOSLogo from "@/assets/webos_logo.png";
 import { motion, useAnimate } from "framer-motion";
 import React from "react";
 
-export default function MainIntro() {
+type Props = {
+  whenFinished?: () => void;
+};
+
+export default function MainIntro({ whenFinished }: Props) {
   const [panelRef, panelAnimate] = useAnimate();
-  const [logoRef, logoAnimate] = useAnimate();
+  const [logoComp, logoAnimate] = useAnimate();
 
   React.useEffect(() => {
     const animateLogo = async () => {
       await logoAnimate(
-        logoRef.current,
+        logoComp.current,
         { opacity: 1 },
         { delay: 0.5, duration: 1 },
       );
@@ -20,19 +24,17 @@ export default function MainIntro() {
         {
           delay: 0.5,
           duration: 0.5,
-          onComplete: () => {
-            window.ipcRenderer.send("main-intro-finished");
-          },
         },
       );
+      whenFinished?.();
     };
     animateLogo();
-  }, [logoRef, logoAnimate, panelRef, panelAnimate]);
+  }, [logoComp, logoAnimate, panelRef, panelAnimate, whenFinished]);
 
   return (
     <motion.div ref={panelRef} initial={{ opacity: 1 }} className={tLayout()}>
       <motion.div
-        ref={logoRef}
+        ref={logoComp}
         initial={{ opacity: 0 }}
         className={tLogo.box()}
       >

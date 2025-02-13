@@ -84,4 +84,6 @@ const serviceCallback: ServiceCallback = (
   }
 };
 
-emtService.onWithIpcMain("call-service", callService);
+export function initServiceHandler() {
+  emtService.onWithIpcMain("call-service", callService);
+}

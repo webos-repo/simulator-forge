@@ -1,6 +1,5 @@
 import "core-js/stable";
-// import 'regenerator-runtime/runtime';
-import "@/main/service/service";
+import { initServiceHandler } from "@/main/service/service";
 import analytics from "@/main/module/analytics";
 import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
 import { checkVersion } from "@/main/lib/versionChecker";
@@ -13,10 +12,9 @@ import windowController from "@/main/controller/windowController";
 import menuBuilder from "@/main/menu";
 import { turnOnDevMode } from "@/main/settings/devMode";
 import { dbInit } from "@/main/controller/dbController";
-import AppController from "@/main/controller/appController";
+import { AppController } from "@/main/controller/appController";
 import jsServiceController from "@/main/controller/jsServiceController";
-import "@/main/controller/StateController";
-import "@/main/controller/touchController";
+import { TouchController } from "@/main/controller/touchController";
 import started from "electron-squirrel-startup";
 
 if (started) {
@@ -40,9 +38,12 @@ app.on("ready", () => {
   });
 });
 
-const startSimulator = async () => {
+function appGlobalSetting() {
+  session.defaultSession.setUserAgent(getUserAgents());
+}
+
+async function startSimulator() {
   try {
-    AppController.init();
     appGlobalSetting();
     await Promise.allSettled([
       tvLocation.updateLocationData(),
@@ -55,6 +56,9 @@ const startSimulator = async () => {
     checkVersion();
     setSimulInfoToDB();
 
+    initServiceHandler();
+    AppController.init();
+    TouchController.init();
     await windowController.initialize();
     overlayController.initialize();
     jsServiceController.initialize();
@@ -67,8 +71,4 @@ const startSimulator = async () => {
     return;
   }
   console.info("[Success] The simulator launch is successful.");
-};
-
-const appGlobalSetting = () => {
-  session.defaultSession.setUserAgent(getUserAgents());
-};
+}

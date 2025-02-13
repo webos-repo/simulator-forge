@@ -11,11 +11,15 @@ import { runningApps } from "./appController/appMemory";
 let isTouchViewSet = false;
 let touchView!: TouchView;
 
-ipcMain.once("main-screen-loaded", initialize);
-emtView
-  .on("set-touch-view", setTouchView)
-  .on("unset-touch-view", unsetTouchView);
-emtSetting.on("touch-mode-changed", handleTouchModeChanged);
+export class TouchController {
+  static init() {
+    ipcMain.once("main-screen-loaded", initialize);
+    emtView
+      .on("set-touch-view", setTouchView)
+      .on("unset-touch-view", unsetTouchView);
+    emtSetting.on("touch-mode-changed", handleTouchModeChanged);
+  }
+}
 
 function initialize() {
   touchView = new TouchView();

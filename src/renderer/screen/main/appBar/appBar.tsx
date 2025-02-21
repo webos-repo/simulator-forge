@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ipcHandler } from "@/share/lib/utils";
-import { arrangeCenterByFlex } from "../../styles/partials";
+import { arrangeCenterByFlex } from "../../../styles/partials";
 import AppIcon from "./appIcon";
 import ArrowBox from "./arrowBox";
 
@@ -87,9 +87,9 @@ function AppBar() {
 
 const AppBarLayout = styled.section`
   ${arrangeCenterByFlex};
-  position: absolute;
+  /* position: absolute;
   top: 77vh;
-  left: 0;
+  left: 0; */
   width: 100vw;
   height: 21vh;
 `;

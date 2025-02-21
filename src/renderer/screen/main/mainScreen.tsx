@@ -1,14 +1,12 @@
 import React from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { ipcHandler } from "@/share/lib/utils";
-import AppBar from "../../component/appBar/appBar";
-import { clearToast, showToast } from "../../lib/toastManager";
-import { arrangeCenterByFlex } from "../../styles/partials";
+import { clearToast, showToast } from "@/renderer/lib/toastManager";
+import AppBar from "@/renderer/screen/main/appBar/appBar";
 import { Spinner } from "@heroui/react";
-import beanbird from "@/assets/beanbird-sky.jpg";
 import MainIntro from "@/renderer/screen/main/mainIntro";
 import WebOSNotification from "@/renderer/component/webOS/webOSNotification";
+import { tv } from "tailwind-variants";
+// import beanbird from "@/assets/beanbird-sky.jpg";
 
 export default function MainScreen() {
   const [showIntro, setShowIntro] = React.useState(true);
@@ -33,14 +31,33 @@ export default function MainScreen() {
       setCloseRotateVisible(true),
     );
     window.ipcRenderer.on("show-toast", ipcHandler(showToast));
+    console.log("main-screen-loaded", !!window.ipcRenderer);
     window.ipcRenderer.send("main-screen-loaded");
+  }, []);
+
+  React.useEffect(() => {
+    window.ipcRenderer.on("dev-event-1", () => {
+      window.location.reload();
+    });
+    window.ipcRenderer.on("dev-event-2", () => {
+      setCloseRotateVisible(true);
+    });
   }, []);
 
   return (
     <>
       {showIntro && <MainIntro whenFinished={whenIntroFinished} />}
-      <MainScreenLayout preventPointerEvent={showSpinner}>
-        {showSpinner && <Spinner size="lg" color="default" />}
+      <main
+        className={tLayout({ preventPointerEvent: showSpinner })}
+        // FIXME: Change image and apply
+        // style={{ backgroundImage: `url(${beanbird})` }}
+      >
+        <AppBar />
+        {showSpinner && (
+          <div className={tSpinner()}>
+            <Spinner size="lg" color="default" />
+          </div>
+        )}
         {closeRotateVisible && (
           <WebOSNotification
             contents={[
@@ -50,28 +67,32 @@ export default function MainScreen() {
             whenClose={() => setCloseRotateVisible(false)}
           />
         )}
-        <AppBar />
-      </MainScreenLayout>
+      </main>
     </>
   );
 }
 
-const MainScreenLayout = styled.main<{ preventPointerEvent: boolean }>(
-  (props) => [
-    css`
-      ${arrangeCenterByFlex};
-      width: 100vw;
-      max-width: 100%;
-      height: 100vh;
-      max-height: 100%;
-      overflow: hidden;
-      background-image: url(${beanbird});
-      background-size: cover;
-      background-position: center;
-    `,
-    props.preventPointerEvent &&
-      css`
-        pointer-events: none;
-      `,
+const tLayout = tv({
+  base: [
+    "w-screen max-w-full",
+    "h-screen max-h-full",
+    "relative",
+    "overflow-hidden",
+    "bg-cover bg-center",
+    "bg-black",
   ],
-);
+  variants: {
+    preventPointerEvent: {
+      true: ["pointer-events-none"],
+    },
+  },
+});
+
+const tSpinner = tv({
+  base: [
+    "flex justify-center items-center",
+    "w-full h-full",
+    "absolute top-0 left-0",
+    "bg-transparent",
+  ],
+});

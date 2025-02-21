@@ -39,13 +39,18 @@ export default function WebOSNotification({ contents, whenClose }: Props) {
 }
 
 const tWrapper = tv({
-  base: ["w-full h-full bg-transparent z-[5]"],
+  base: [
+    "flex justify-center",
+    "absolute top-0 left-0",
+    "w-full h-full z-10",
+    "bg-transparent",
+  ],
 });
 
 const tBox = tv({
   base: [
     "flex flex-col justify-center items-center",
-    "absolute left-[320px] z-10",
+    "absolute z-20",
     `w-[640px] h-[120px] rounded-2xl bg-simul-card-bg`,
     "font-LGSmart2 text-[1.2rem] text-simul-card-tx leading-normal",
   ],

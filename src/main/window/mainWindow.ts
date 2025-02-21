@@ -58,7 +58,7 @@ class MainWindow extends BrowserWindow {
 
   private setEventHandler = () => {
     ipcMain
-      .once("main-screen-loaded", this.afterFinishLoad)
+      .on("main-screen-loaded", this.afterFinishLoad)
       .on("app-icon-right-click", ipcHandler(this.openAppIconContextMenu));
 
     emtWindow

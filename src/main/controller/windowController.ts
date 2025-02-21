@@ -101,6 +101,7 @@ class WindowController {
       .on("toggle-mute", this.setMuted)
       .on("alert-message", this.alertMessage)
       .on("send", this.sendToWebContents)
+      .on("reload", this.reloadWebContents)
       .on("set-callback-listener", this.setCallbackListener)
       .on("change-window-orientation", this.changeOrientation)
       .on("js-service-window-open", this.showJSServiceList)
@@ -137,6 +138,16 @@ class WindowController {
     data?: any;
   }) => {
     this.getWindowByName(windowName)?.webContents.send(channel, data);
+  };
+
+  private reloadWebContents = ({
+    windowName,
+  }: {
+    windowName: string;
+    channel: string;
+    data?: any;
+  }) => {
+    this.getWindowByName(windowName)?.webContents.reload();
   };
 
   private addView = (view: BrowserView, isOverlay = false) => {

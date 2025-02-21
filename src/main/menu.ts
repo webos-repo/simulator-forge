@@ -428,18 +428,30 @@ class MenuBuilder {
             {
               label: "dev-test1",
               click: () => {
-                emtWindow.emit("show-noti-close-rotate");
+                emtWindow.emit("reload", {
+                  windowName: "main",
+                });
               },
               accelerator: "CommandOrControl+1",
             },
             {
               label: "dev-test2",
-              click: () => emtDev.emit("dev-test2"),
+              click: () => {
+                emtWindow.emit("send", {
+                  windowName: "main",
+                  channel: "dev-event-1",
+                });
+              },
               accelerator: "CommandOrControl+2",
             },
             {
               label: "dev-test3",
-              click: () => emtDev.emit("dev-test3"),
+              click: () => {
+                emtWindow.emit("send", {
+                  windowName: "main",
+                  channel: "dev-event-2",
+                });
+              },
               accelerator: "CommandOrControl+3",
             },
             {

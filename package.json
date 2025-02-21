@@ -21,7 +21,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@heroui/react": "^2.6.14",
+    "@heroui/react": "^2.7.2",
     "axios": "^0.28.0",
     "chokidar": "^3.6.0",
     "core-js": "^3.40.0",

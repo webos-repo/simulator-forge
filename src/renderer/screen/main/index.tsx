@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import MainScreen from "@/renderer/screen/main/mainScreen";
 import { HeroUIProvider } from "@heroui/react";
 import { ToastContainer, Flip } from "react-toastify";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import "@/renderer/styles/global.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HeroUIProvider>
-      <MainScreen />
+      <NextThemesProvider attribute="class" defaultTheme="dark">
+        <MainScreen />
+      </NextThemesProvider>
       <ToastContainer
         position="top-right"
         autoClose={5000}

@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ipcHandler } from "@/share/lib/utils";
-import { arrangeCenterByFlex } from "../../../styles/partials";
 import AppIcon from "./appIcon";
 import ArrowBox from "./arrowBox";
+import { tv } from "tailwind-variants";
 
 function AppBar() {
   const [appInfos, setAppInfos] = useState<AppInfoWithState[]>([]);
@@ -53,8 +53,8 @@ function AppBar() {
   }, [checkShow]);
 
   return (
-    <AppBarLayout
-      data-testid="AppBar"
+    <section
+      className={tAppBarLayout()}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
@@ -81,18 +81,13 @@ function AppBar() {
           />
         </>
       )}
-    </AppBarLayout>
+    </section>
   );
 }
 
-const AppBarLayout = styled.section`
-  ${arrangeCenterByFlex};
-  /* position: absolute;
-  top: 77vh;
-  left: 0; */
-  width: 100vw;
-  height: 21vh;
-`;
+const tAppBarLayout = tv({
+  base: ["w-full h-20"],
+});
 
 const AppIconContainer = styled.div`
   display: flex;

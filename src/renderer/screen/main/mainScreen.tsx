@@ -6,6 +6,7 @@ import { Spinner } from "@heroui/react";
 import MainIntro from "@/renderer/screen/main/mainIntro";
 import WebOSNotification from "@/renderer/component/webOS/webOSNotification";
 import { tv } from "tailwind-variants";
+import AppListPanel from "@/renderer/screen/main/appList/appLIstPanel";
 // import beanbird from "@/assets/beanbird-sky.jpg";
 
 export default function MainScreen() {
@@ -47,12 +48,15 @@ export default function MainScreen() {
   return (
     <>
       {showIntro && <MainIntro whenFinished={whenIntroFinished} />}
-      <main
+      <div
         className={tLayout({ preventPointerEvent: showSpinner })}
         // FIXME: Change image and apply
         // style={{ backgroundImage: `url(${beanbird})` }}
       >
-        <AppBar />
+        <main className={tMain()}>
+          <AppListPanel />
+          <AppBar />
+        </main>
         {showSpinner && (
           <div className={tSpinner()}>
             <Spinner size="lg" color="default" />
@@ -67,7 +71,7 @@ export default function MainScreen() {
             whenClose={() => setCloseRotateVisible(false)}
           />
         )}
-      </main>
+      </div>
     </>
   );
 }
@@ -86,6 +90,10 @@ const tLayout = tv({
       true: ["pointer-events-none"],
     },
   },
+});
+
+const tMain = tv({
+  base: ["w-full h-full px-6 py-4", "flex flex-col"],
 });
 
 const tSpinner = tv({

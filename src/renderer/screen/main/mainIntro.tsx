@@ -1,14 +1,14 @@
 import { tv } from "tailwind-variants";
-import webOSLogo from "@/assets/webos_logo.png";
 import { motion, useAnimate } from "framer-motion";
 import React from "react";
+import webOSLogo from "@/assets/webos_logo.png";
 
 type Props = {
   whenFinished?: () => void;
 };
 
 export default function MainIntro({ whenFinished }: Props) {
-  const [panelRef, panelAnimate] = useAnimate();
+  const [panelComp, panelAnimate] = useAnimate();
   const [logoComp, logoAnimate] = useAnimate();
 
   React.useEffect(() => {
@@ -19,7 +19,7 @@ export default function MainIntro({ whenFinished }: Props) {
         { delay: 0.5, duration: 1 },
       );
       await logoAnimate(
-        panelRef.current,
+        panelComp.current,
         { opacity: 0 },
         {
           delay: 0.5,
@@ -29,17 +29,19 @@ export default function MainIntro({ whenFinished }: Props) {
       whenFinished?.();
     };
     animateLogo();
-  }, [logoComp, logoAnimate, panelRef, panelAnimate, whenFinished]);
+  }, [logoComp, logoAnimate, panelComp, panelAnimate, whenFinished]);
 
   return (
-    <motion.div ref={panelRef} initial={{ opacity: 1 }} className={tLayout()}>
+    <motion.div ref={panelComp} initial={{ opacity: 1 }} className={tLayout()}>
       <motion.div
         ref={logoComp}
         initial={{ opacity: 0 }}
-        className={tLogo.box()}
+        className={tLogo.wrapper()}
       >
-        <img src={webOSLogo} alt="webOS Logo" className={tLogo.img()} />
-        <span className={tLogo.text()}>TV Simulator</span>
+        <section className={tLogo.box()}>
+          <img src={webOSLogo} alt="webOS Logo" className={tLogo.img()} />
+          <span className={tLogo.text()}>TV Simulator</span>
+        </section>
       </motion.div>
     </motion.div>
   );
@@ -55,8 +57,11 @@ const tLayout = tv({
 });
 
 const tLogo = {
+  wrapper: tv({
+    base: ["h-12"],
+  }),
   box: tv({
-    base: ["flex gap-3 items-center justify-center h-12"],
+    base: ["flex gap-3 items-center justify-center w-full h-full"],
   }),
   img: tv({
     base: ["h-full"],

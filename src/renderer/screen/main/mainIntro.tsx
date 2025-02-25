@@ -49,7 +49,7 @@ export default function MainIntro({ whenFinished }: Props) {
 
 const tLayout = tv({
   base: [
-    "fixed z-10",
+    "fixed z-[100]",
     "flex flex-col items-center justify-center",
     "w-screen h-screen min-w-screen min-h-screen",
     "bg-black",

@@ -1,13 +1,13 @@
 import React from "react";
 import { ipcHandler } from "@/share/lib/utils";
 import { clearToast, showToast } from "@/renderer/lib/toastManager";
-import AppBar from "@/renderer/screen/main/appBar/appBar";
 import { Spinner } from "@heroui/react";
 import MainIntro from "@/renderer/screen/main/mainIntro";
 import WebOSNotification from "@/renderer/component/webOS/webOSNotification";
 import { tv } from "tailwind-variants";
 import AppListPanel from "@/renderer/screen/main/appList/appLIstPanel";
-// import beanbird from "@/assets/beanbird-sky.jpg";
+import FunctionBar from "@/renderer/screen/main/functionBar/functionBar";
+import backgroundMain from "@/assets/images/background_main.png";
 
 export default function MainScreen() {
   const [showIntro, setShowIntro] = React.useState(true);
@@ -48,14 +48,14 @@ export default function MainScreen() {
   return (
     <>
       {showIntro && <MainIntro whenFinished={whenIntroFinished} />}
-      <div
-        className={tLayout({ preventPointerEvent: showSpinner })}
-        // FIXME: Change image and apply
-        // style={{ backgroundImage: `url(${beanbird})` }}
-      >
+      <div className={tLayout({ preventPointerEvent: showSpinner })}>
+        <div
+          style={{ backgroundImage: `url(${backgroundMain})` }}
+          className={tBg()}
+        />
         <main className={tMain()}>
           <AppListPanel />
-          <AppBar />
+          <FunctionBar />
         </main>
         {showSpinner && (
           <div className={tSpinner()}>
@@ -83,7 +83,7 @@ const tLayout = tv({
     "relative",
     "overflow-hidden",
     "bg-cover bg-center",
-    "bg-black",
+    "bg-transparent",
   ],
   variants: {
     preventPointerEvent: {
@@ -93,7 +93,11 @@ const tLayout = tv({
 });
 
 const tMain = tv({
-  base: ["w-full h-full px-6 py-4", "flex flex-col"],
+  base: ["w-full h-full px-14 py-4", "flex flex-col justify-between"],
+});
+
+const tBg = tv({
+  base: ["absolute", "w-full h-full", "blur-[2px] brightness-[.6]", "-z-10"],
 });
 
 const tSpinner = tv({

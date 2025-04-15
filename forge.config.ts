@@ -13,6 +13,14 @@ const config: ForgeConfig = {
     extraResource: ["./extra", "./resource"],
     icon: "./resource/icon/icon.png",
     asar: true,
+
+    // macOS signing and notarization
+    osxSign: {},
+    osxNotarize: {
+      appleId: process.env.APPLE_ID as string,
+      appleIdPassword: process.env.APPLE_PASSWORD as string,
+      teamId: process.env.APPLE_TEAM_ID as string,
+    },
   },
   rebuildConfig: {},
   makers: [

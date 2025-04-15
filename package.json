@@ -10,10 +10,10 @@
   },
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "package:debug": "DEBUG=electron-packager electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
+    "package": "npx dotenv-cli -- electron-forge package",
+    "package:debug": "DEBUG=electron-packager npx dotenv-cli -- electron-forge package",
+    "make": "npx dotenv-cli -- electron-forge make",
+    "publish": "npx dotenv-cli -- electron-forge publish",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,md,json,css,html}\"",
     "format:all": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,css,html}\""
@@ -70,6 +70,7 @@
     "@types/tz-lookup": "^6.1.2",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "dotenv-cli": "^8.0.0",
     "electron": "28.2.2",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.1.0",

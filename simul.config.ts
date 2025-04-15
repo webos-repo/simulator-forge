@@ -1,4 +1,4 @@
-const webOSTVVersion = "22";
+const webOSTVVersion = "25";
 const version = "0.0.1";
 
 export const simulConfig = {

@@ -1,13 +1,13 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { VKBPriorityKeys } from "@/main/lib/keyManager";
+import { getPreloadPath } from "@/main/lib/pathResolver";
+import { loadView } from "@/main/lib/windowHelper";
+import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
+import windowSetting from "@/main/settings/windowSetting";
+import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
 import { RCUButtonEventType } from "@/share/structure/events";
 import { Orientation2Way } from "@/share/structure/orientations";
-import OverlayView from "@/main/view/overlayView";
-import windowSetting from "@/main/settings/windowSetting";
-import { getPreloadPath } from "@/main/lib/pathResolver";
-import { emtDev, emtSetting, emtWindow } from "@/main/module/eventEmitters";
-import { VKBPriorityKeys } from "@/main/lib/keyManager";
-import { loadView } from "@/main/lib/windowHelper";
 import { includes, toInteger } from "es-toolkit/compat";
 
 const VKB_HEIGHT_RATIO = {

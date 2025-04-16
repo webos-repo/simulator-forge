@@ -4,7 +4,7 @@ const electronVersion = process.versions.electron;
 const [eMajorVersion, eMiddleVersion, eMinorVersion] = electronVersion
   .split("-")[0]
   .split(".")
-  .map((s) => parseInt(s, 10));
+  .map((s) => Number.parseInt(s, 10));
 
 export const getElectronVersion = () => {
   return {

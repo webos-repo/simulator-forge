@@ -1,10 +1,10 @@
-import { emtService } from "../../../module/eventEmitters";
-import { isJsonStrValid } from "../../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
-import type { ServiceData } from "../../service";
-import { setSchedule, stopSchedule } from "./scheduler";
 import type { EventEmitter } from "events";
 import type { LunaAdditionalData } from "@/main/service/lunaService";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { isJsonStrValid } from "../../../lib/jsonChecker";
+import { emtService } from "../../../module/eventEmitters";
+import type { ServiceData } from "../../service";
+import { setSchedule, stopSchedule } from "./scheduler";
 import type * as ActivityManagerTypes from "./types";
 
 const actMap: Map<string, ActivityManagerTypes.Activity> = new Map();
@@ -27,8 +27,8 @@ const findActivity = (
   },
   includeDestroyed = false,
 ): [ActivityManagerTypes.Activity | undefined, string] => {
-  let actById;
-  let actByName;
+  let actById: any;
+  let actByName: any;
   if (id && idMapper.has(id)) {
     actById = actMap.get(idMapper.get(id)!);
     if (actById?.state === "destroyed" && !includeDestroyed) {

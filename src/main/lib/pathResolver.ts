@@ -21,7 +21,7 @@ export function extractIdFromToken(token: string) {
   return token.slice(0, token.lastIndexOf("."));
 }
 
-export function getPreloadPath(isAppView: boolean = false) {
+export function getPreloadPath(isAppView = false) {
   return isAppView
     ? path.join(__dirname, "preloadApp.js")
     : path.join(__dirname, "preloadSimul.js");

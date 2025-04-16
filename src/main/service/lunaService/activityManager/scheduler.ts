@@ -1,5 +1,5 @@
-import moment from "moment-timezone";
 import { tvLocation } from "@/main/tvSettings/index";
+import moment from "moment-timezone";
 import type * as ActivityManagerTypes from "./types";
 
 const NonPreciseIntervals = [
@@ -64,7 +64,7 @@ const handleInterval = (
   const { end, precise, interval } = activity.schedule!;
   if (!interval) return false;
 
-  const timeNum = parseInt(interval.slice(0, -1), 10);
+  const timeNum = Number.parseInt(interval.slice(0, -1), 10);
   const timeType = interval.slice(-1)?.toLowerCase();
 
   if (!timeNum || !timeType || !validInterval(timeNum, timeType, precise)) {

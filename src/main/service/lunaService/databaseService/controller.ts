@@ -1,8 +1,8 @@
 import { makeDB } from "@/main/controller/dbController";
-import { emtApp } from "../../../module/eventEmitters";
-import { generateHash } from "../../../lib/hash";
-import * as DBServiceTypes from "./types";
 import { curry, has, omit, pick, pickBy } from "es-toolkit/compat";
+import { generateHash } from "../../../lib/hash";
+import { emtApp } from "../../../module/eventEmitters";
+import * as DBServiceTypes from "./types";
 
 export default class DBServiceController {
   db = makeDB("db8");
@@ -82,7 +82,7 @@ export default class DBServiceController {
     if (code < 0 || !filteredData) return -1;
     let count = 0;
     Object.values(filteredData).forEach((d: any) => {
-      if (this.deleteDataById(appId, d["_id"]) > 0) count += 1;
+      if (this.deleteDataById(appId, d._id) > 0) count += 1;
     });
     return count;
   };

@@ -1,8 +1,8 @@
 import { isWebOSVersionGte } from "@/main/lib/simulInfo";
-import { ipcMain } from "electron";
-import { extractIdFromToken } from "../../lib/pathResolver";
-import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { ipcMain } from "electron";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { extractIdFromToken } from "../../lib/pathResolver";
 import { emtApp } from "../../module/eventEmitters";
 import type { LunaAdditionalData } from "./index";
 

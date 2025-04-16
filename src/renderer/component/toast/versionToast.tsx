@@ -1,8 +1,8 @@
+import { InstallationURL } from "@/share/constant/urls";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { VersionToastProps } from "../../lib/toastManager";
 import GeneralToast from "./generalToast";
-import { InstallationURL } from "@/share/constant/urls";
 
 function VersionToast({ currentVersion, latestVersion }: VersionToastProps) {
   return (

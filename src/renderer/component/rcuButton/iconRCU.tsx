@@ -25,11 +25,13 @@ const Icon = styled.div<IconRCUProps>(
 
     ${iconAdditionalCSS}
 
-    ${iconNoInvert &&
-    css`
+    ${
+      iconNoInvert &&
+      css`
       filter: none;
       opacity: 1;
-    `}
+    `
+    }
   `,
 );
 

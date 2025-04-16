@@ -1,3 +1,4 @@
+import path from "path";
 import { convertResourcePath } from "@/share/lib/paths";
 import { ipcHandler, sleep } from "@/share/lib/utils";
 import type { RCUButtonEventType } from "@/share/structure/events";
@@ -8,7 +9,7 @@ import type {
 import type { Orientation } from "@/share/structure/orientations";
 import { ipcMain } from "electron";
 import type { IpcMainEvent } from "electron";
-import path from "path";
+import { includes } from "es-toolkit/compat";
 import { VKBPriorityKeys } from "../../lib/keyManager";
 import {
   emtApp,
@@ -17,17 +18,16 @@ import {
   emtWindow,
 } from "../../module/eventEmitters";
 import overlayController from "../overlayController";
-import { appInfos, runningApps } from "./appMemory";
 import {
   focusFgApp,
   invokeWheel,
-  setMutedFgApp,
   preventCursorHide,
+  sendToAppById,
   sendToFgApp,
   setAppCurOrn,
+  setMutedFgApp,
   toggleFgAppInspector,
   toggleMuteFgApp,
-  sendToAppById,
 } from "./appCommander";
 import {
   closeAppById,
@@ -47,7 +47,7 @@ import {
   reqNotiCloseRotate,
   reqPreventScreenSaver,
 } from "./appLib";
-import { includes } from "es-toolkit/compat";
+import { appInfos, runningApps } from "./appMemory";
 
 export function listenAppEvent() {
   ipcMain

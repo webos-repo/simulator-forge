@@ -14,7 +14,7 @@ const Notification = ({ contents }: Props) => {
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
     setTimeout(() => setVisible(false), 5000);
-  }, [setVisible]);
+  }, []);
 
   return (
     <NotificationBox visible={visible} data-testid="Notification">

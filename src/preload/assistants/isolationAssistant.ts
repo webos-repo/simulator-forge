@@ -1,10 +1,11 @@
-import { ipcRenderer, webFrame } from "electron";
 import { ipcHandler } from "@/share/lib/utils";
+import { ipcRenderer, webFrame } from "electron";
+import { throttle } from "es-toolkit/compat";
 import { webOSEnv } from "../lib/appEnv";
 import {
+  NotPreventKeys,
   checkElementNeedVKB,
   convertInputToKeyboardType,
-  NotPreventKeys,
 } from "../lib/keyHelper";
 import appState from "./appState";
 import {
@@ -13,7 +14,6 @@ import {
   pauseMediaWhenBg,
   resumeMediaWhenFg,
 } from "./mediaController";
-import { throttle } from "es-toolkit/compat";
 
 const insertedCSS: { [key: string]: string } = {};
 let mouseMoveHandler: any;

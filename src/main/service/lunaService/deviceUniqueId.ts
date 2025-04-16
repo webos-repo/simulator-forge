@@ -1,6 +1,6 @@
-import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
 import { tvInfo } from "@/main/tvSettings/index";
+import { isJsonStrValid } from "../../lib/jsonChecker";
 
 type ErrorType = {
   errorCode: string;

@@ -1,8 +1,8 @@
-import moment from "moment-timezone";
-import { tvLocation } from "@/main/tvSettings/index";
-import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
 import type { EventEmitter } from "events";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { tvLocation } from "@/main/tvSettings/index";
+import moment from "moment-timezone";
+import { isJsonStrValid } from "../../lib/jsonChecker";
 import type { LunaAdditionalData } from "./index";
 
 const subscriptions: Map<string, EventEmitter> = new Map();

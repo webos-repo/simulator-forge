@@ -1,11 +1,11 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { loadView } from "@/main/lib/windowHelper";
+import windowSetting from "@/main/settings/windowSetting";
 import { DefaultRect } from "@/share/constant/defaults";
 import { constStore } from "@/share/store/constStore";
-import { emtApp, emtSetting } from "../module/eventEmitters";
 import { getPreloadPath } from "../lib/pathResolver";
-import windowSetting from "@/main/settings/windowSetting";
+import { emtApp, emtSetting } from "../module/eventEmitters";
 import OverlayView from "./overlayView";
-import { loadView } from "@/main/lib/windowHelper";
 
 export default class ScreenSaverView extends OverlayView {
   name = "ScreenSaverView";

@@ -1,12 +1,12 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { loadView } from "@/main/lib/windowHelper";
+import windowSetting from "@/main/settings/windowSetting";
+import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
 import type { Orientation2Way } from "@/share/structure/orientations";
-import OverlayView from "@/main/view/overlayView";
-import windowSetting from "@/main/settings/windowSetting";
+import { mapValues } from "es-toolkit/compat";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
-import { loadView } from "@/main/lib/windowHelper";
-import { mapValues } from "es-toolkit/compat";
 
 const Bounds: { [key in Orientation2Way]: Electron.Rectangle } = {
   landscape: { x: 280, y: 480, width: 700, height: 128 },

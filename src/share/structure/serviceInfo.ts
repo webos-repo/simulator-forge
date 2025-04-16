@@ -12,4 +12,4 @@ type ServiceJson = {
   description?: string;
 };
 
-export { ServiceJson };
+export type { ServiceJson };

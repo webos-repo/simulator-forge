@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo } from "react";
-import Select from "react-select";
 import { ipcSender } from "@/renderer/lib/utils";
+import { useCallback, useMemo, useState } from "react";
+import Select from "react-select";
 
 export default function TvSettingScreen() {
   const models = useMemo(

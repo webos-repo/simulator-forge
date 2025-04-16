@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
 import type { Orientation2Way } from "@/share/structure/orientations";
+import { css } from "@emotion/react";
 
 const white = "#c0c0c0";
 const blackBlue = "#2d3236";
@@ -133,8 +133,9 @@ const getReactSimpleKeyboardCustomCSS = (orn: Orientation2Way) => css`
     }
   }
 
-  ${orn === "portrait" &&
-  css`
+  ${
+    orn === "portrait" &&
+    css`
     .simple-keyboard {
       font-size: 1em;
 
@@ -175,7 +176,8 @@ const getReactSimpleKeyboardCustomCSS = (orn: Orientation2Way) => css`
         }
       }
     }
-  `}
+  `
+  }
 `;
 
 export default getReactSimpleKeyboardCustomCSS;

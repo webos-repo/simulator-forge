@@ -1,20 +1,20 @@
 import "core-js/stable";
-import { initServiceHandler } from "@/main/service/service";
-import analytics from "@/main/module/analytics";
-import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
-import { checkVersion } from "@/main/lib/versionChecker";
-import { removeWebOSServiceFile } from "@/main/lib/oldFileRemover";
-import { app, session } from "electron";
-import { getUserAgents } from "@/main/lib/userAgents";
-import { tvLocation, tvNetwork } from "@/main/tvSettings/index";
-import overlayController from "@/main/controller/overlayController";
-import windowController from "@/main/controller/windowController";
-import menuBuilder from "@/main/menu";
-import { turnOnDevMode } from "@/main/settings/devMode";
-import { dbInit } from "@/main/controller/dbController";
 import { AppController } from "@/main/controller/appController";
+import { dbInit } from "@/main/controller/dbController";
 import jsServiceController from "@/main/controller/jsServiceController";
+import overlayController from "@/main/controller/overlayController";
 import { TouchController } from "@/main/controller/touchController";
+import windowController from "@/main/controller/windowController";
+import { removeWebOSServiceFile } from "@/main/lib/oldFileRemover";
+import { setSimulInfoToDB } from "@/main/lib/simulatorInfo";
+import { getUserAgents } from "@/main/lib/userAgents";
+import { checkVersion } from "@/main/lib/versionChecker";
+import menuBuilder from "@/main/menu";
+import analytics from "@/main/module/analytics";
+import { initServiceHandler } from "@/main/service/service";
+import { turnOnDevMode } from "@/main/settings/devMode";
+import { tvLocation, tvNetwork } from "@/main/tvSettings/index";
+import { app, session } from "electron";
 import started from "electron-squirrel-startup";
 
 if (started) {

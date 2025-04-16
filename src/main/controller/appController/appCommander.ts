@@ -1,6 +1,6 @@
+import type { SendToFramesParam } from "@/main/view/appView";
 import type { Orientation } from "@/share/structure/orientations";
 import type { MovePos } from "@/share/structure/positions";
-import type { SendToFramesParam } from "@/main/view/appView";
 import overlayController from "../overlayController";
 import { runningApps } from "./appMemory";
 

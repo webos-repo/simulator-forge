@@ -1,18 +1,18 @@
+import VKBController from "@/main/controller/vkbController";
+import AppExitView from "@/main/view/appExitView";
+import OverlayView from "@/main/view/overlayView";
+import ScreenSaverView from "@/main/view/screenSaverView";
+import TouchRemoteView from "@/main/view/touchRemoteView";
+import VkbView from "@/main/view/vkbView";
+import { ipcHandler } from "@/share/lib/utils";
 import { ipcMain } from "electron";
+import { remove } from "es-toolkit/compat";
 import {
   emtApp,
   emtSetting,
   emtView,
   emtWindow,
 } from "../module/eventEmitters";
-import { ipcHandler } from "@/share/lib/utils";
-import VKBController from "@/main/controller/vkbController";
-import AppExitView from "@/main/view/appExitView";
-import TouchRemoteView from "@/main/view/touchRemoteView";
-import ScreenSaverView from "@/main/view/screenSaverView";
-import OverlayView from "@/main/view/overlayView";
-import VkbView from "@/main/view/vkbView";
-import { remove } from "es-toolkit/compat";
 
 export type OverlayViewNames =
   | "touchRemote"

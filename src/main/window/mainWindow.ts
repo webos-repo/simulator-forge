@@ -1,9 +1,15 @@
+import { simulConfig } from "@/../simul.config";
+import { loadWindow } from "@/main/lib/windowHelper";
+import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
+import windowSetting from "@/main/settings/windowSetting";
+import { convertResourcePath } from "@/share/lib/paths";
+import { ipcHandler } from "@/share/lib/utils";
 import { convertTo2Way } from "@/share/structure/orientations";
+import type { Orientation } from "@/share/structure/orientations";
+import { BrowserWindow, Menu, app, dialog, ipcMain } from "electron";
+import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { getPreloadPath } from "../lib/pathResolver";
 import { getWebOSVersion } from "../lib/simulInfo";
-import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
-import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
-import windowSetting from "@/main/settings/windowSetting";
 import {
   emtApp,
   emtDev,
@@ -11,12 +17,6 @@ import {
   emtSetting,
   emtWindow,
 } from "../module/eventEmitters";
-import LogMessage, { showErrorBox } from "../lib/logMessage";
-import { ipcHandler } from "@/share/lib/utils";
-import type { Orientation } from "@/share/structure/orientations";
-import { loadWindow } from "@/main/lib/windowHelper";
-import { convertResourcePath } from "@/share/lib/paths";
-import { simulConfig } from "@/../simul.config";
 class MainWindow extends BrowserWindow {
   private backupAppList?: string;
   isDialogOpened = false;

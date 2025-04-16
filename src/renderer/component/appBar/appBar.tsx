@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import type { AppInfoWithState } from "@/share/structure/appInfo";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { ipcHandler } from "@/share/lib/utils";
+import type { AppInfoWithState } from "@/share/structure/appInfo";
+import styled from "@emotion/styled";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { arrangeCenterByFlex } from "../../styles/partials";
 import AppIcon from "./appIcon";
 import ArrowBox from "./arrowBox";
@@ -20,7 +20,7 @@ function AppBar() {
       appBarRef.current.scrollWidth >
         appBarRef.current.clientWidth + appBarRef.current.scrollLeft,
     );
-  }, [setShowLeft, setShowRight]);
+  }, []);
 
   const scrollHorizontal = (
     deltaX: number,
@@ -70,8 +70,11 @@ function AppBar() {
             onWheel={({ deltaX, deltaY }) => scrollHorizontal(deltaX, deltaY)}
             data-testid="AppIconContainer"
           >
-            {appInfos.map((appInfoWithState, key) => (
-              <AppIcon appInfoWithState={appInfoWithState} key={key} />
+            {appInfos.map((appInfoWithState) => (
+              <AppIcon
+                appInfoWithState={appInfoWithState}
+                key={appInfoWithState.id}
+              />
             ))}
           </AppIconContainer>
           <ArrowBox

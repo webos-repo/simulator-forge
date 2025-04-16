@@ -1,9 +1,9 @@
-import type { AppInfo, AppInfoJson } from "@/share/structure/appInfo";
-import type { ServiceJson } from "@/share/structure/serviceInfo";
 import fs from "fs";
 import path from "path";
-import LogMessage from "./logMessage";
 import { convertResourcePath } from "@/share/lib/paths";
+import type { AppInfo, AppInfoJson } from "@/share/structure/appInfo";
+import type { ServiceJson } from "@/share/structure/serviceInfo";
+import LogMessage from "./logMessage";
 
 const readJsonFile = (filePath: string, fileName: string) => {
   if (!fs.existsSync(filePath)) throw new Error();

@@ -1,17 +1,17 @@
 import type { ShareFrameIdParam } from "@/share/structure/ipcParams";
 import { contextBridge, ipcRenderer } from "electron";
-import { loadLGFont } from "./assistants/fontLoader";
 import { getTestApi } from "./assistants/devAssistant";
+import * as devAssistant from "./assistants/devAssistant";
+import * as eventDispatcher from "./assistants/eventDispatcher";
+import { loadLGFont } from "./assistants/fontLoader";
+import * as inAppRunner from "./assistants/inAppRunner";
+import * as isolationAssistant from "./assistants/isolationAssistant";
 import ApiKeys from "./lib/apiKeys";
 import { webOSEnv } from "./lib/appEnv";
 import { wrapWindowApis } from "./lib/windowWrapper";
-import { getWebOSServiceBridgeApi } from "./webOS/webOSServiceBridgePrivate";
 import { makeWebOSServiceBridgeInApp } from "./webOS/webOSServiceBridge";
+import { getWebOSServiceBridgeApi } from "./webOS/webOSServiceBridgePrivate";
 import { getWebOSSystemApi, makeWebOSSystemInApp } from "./webOS/webOSSystem";
-import * as eventDispatcher from "./assistants/eventDispatcher";
-import * as isolationAssistant from "./assistants/isolationAssistant";
-import * as inAppRunner from "./assistants/inAppRunner";
-import * as devAssistant from "./assistants/devAssistant";
 
 declare global {
   interface Window {

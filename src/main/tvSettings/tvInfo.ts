@@ -1,7 +1,7 @@
+import { simulConfig } from "@/../simul.config";
 import { get } from "es-toolkit/compat";
 import { generateHash } from "../lib/hash";
 import tvSettingsDB from "./tvSettingsDB";
-import { simulConfig } from "@/../simul.config";
 
 const webOSTVVersion = simulConfig.webOSTVVersion;
 

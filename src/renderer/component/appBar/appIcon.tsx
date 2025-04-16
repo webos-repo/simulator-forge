@@ -1,6 +1,6 @@
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { useEffect, useRef, useState } from "react";
 
 type Props = {
@@ -22,7 +22,7 @@ function AppIcon({
     if (appTitleDiv.current?.clientWidth < appTitle.current?.clientWidth) {
       setIsTitleLong(true);
     }
-  }, [appTitle, appTitleDiv]);
+  }, []);
 
   return (
     <AppIconLayout title={tooltip} onContextMenu={() => handleRightClick(id)}>

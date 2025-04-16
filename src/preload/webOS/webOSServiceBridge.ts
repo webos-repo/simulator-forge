@@ -9,7 +9,7 @@ export function makeWebOSServiceBridgeInApp() {
   functionRunner(
     () => {
       class WebOSServiceBridge {
-        static bridgeBaseKey: number = 1;
+        static bridgeBaseKey = 1;
         bridgeKey: number;
         onservicecallback?: any;
 

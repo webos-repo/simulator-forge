@@ -1,28 +1,28 @@
-import { IsAutoReloadOn, toggleAutoReload } from "@/main/settings/autoReload";
+import { simulConfig } from "@/../simul.config";
+import windowController from "@/main/controller/windowController";
 import {
-  isScrSaverOn,
-  toggleScrSaverOnOff,
+  isAutoInspectorOn,
+  toggleAutoInspector,
+} from "@/main/settings/autoInspector";
+import { IsAutoReloadOn, toggleAutoReload } from "@/main/settings/autoReload";
+import { getScrOrn, setScrOrn } from "@/main/settings/screenOrientation";
+import {
   getScrSaverTimeout,
+  isScrSaverOn,
   setScrSaverTimeout,
+  toggleScrSaverOnOff,
 } from "@/main/settings/screenSaver";
+import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
+import windowSetting from "@/main/settings/windowSetting";
 import {
   DeveloperURL,
   ForumURL,
   IntroductionURL,
   ToolsURL,
 } from "@/share/constant/urls";
-import { app, Menu, shell } from "electron";
-import { emtWindow, emtDev, emtSetting, emtApp } from "./module/eventEmitters";
-import windowController from "@/main/controller/windowController";
-import {
-  isAutoInspectorOn,
-  toggleAutoInspector,
-} from "@/main/settings/autoInspector";
-import { getTouchMode, toggleTouchMode } from "@/main/settings/touchMode";
-import { getScrOrn, setScrOrn } from "@/main/settings/screenOrientation";
-import windowSetting from "@/main/settings/windowSetting";
+import { Menu, app, shell } from "electron";
 import type { MenuItemConstructorOptions } from "electron";
-import { simulConfig } from "@/../simul.config";
+import { emtApp, emtDev, emtSetting, emtWindow } from "./module/eventEmitters";
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;

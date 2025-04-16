@@ -1,5 +1,5 @@
-import { emtSetting } from "../module/eventEmitters";
 import { ipcMain } from "electron";
+import { emtSetting } from "../module/eventEmitters";
 
 let isTouchMode = false;
 

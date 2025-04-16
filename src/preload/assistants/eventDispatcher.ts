@@ -1,3 +1,4 @@
+import { ipcHandler } from "@/share/lib/utils";
 import type {
   KeyEventType,
   MouseEventType,
@@ -5,7 +6,6 @@ import type {
   TouchEventType,
 } from "@/share/structure/events";
 import { ipcRenderer } from "electron";
-import { ipcHandler } from "@/share/lib/utils";
 import { functionRunner } from "../lib/functionRunner";
 import { CustomKeyMap } from "../lib/keyHelper";
 

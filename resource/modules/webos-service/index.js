@@ -1,12 +1,15 @@
-const EventEmitter = require('events');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const EventEmitter = require("events");
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+const fs = require("fs");
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+const path = require("path");
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+const os = require("os");
 
 let tokenCnt = 0;
 const generateToken = (id) => {
   tokenCnt += 1;
-  return id + '.' + tokenCnt;
+  return id + "." + tokenCnt;
 };
 
 class ActivityManager {
@@ -21,7 +24,7 @@ class Subscription extends EventEmitter {
   }
 
   cancel = () => {
-    this.emit('subscription-cancel');
+    this.emit("subscription-cancel");
   };
 }
 
@@ -37,7 +40,7 @@ class Message {
 
   respond = (response) => {
     process.send({
-      cmd: 'service-send',
+      cmd: "service-send",
       isSubscription: this.isSubscription,
       ret: JSON.stringify(response),
       uniqueToken: this.uniqueToken,
@@ -47,7 +50,7 @@ class Message {
 
   cancel = (response) => {
     process.send({
-      cmd: 'service-send',
+      cmd: "service-send",
       isSubscription: false,
       ret: JSON.stringify(response),
       uniqueToken: this.uniqueToken,
@@ -73,22 +76,22 @@ class WebosService {
   register = (methodName, request, cancel) => {
     const method = new Method(methodName);
 
-    process.on('message', (data) => {
+    process.on("message", (data) => {
       const { cmd, msg, isCancel } = data;
-      if (cmd !== 'called-' + methodName) return;
+      if (cmd !== "called-" + methodName) return;
 
       const message = new Message(msg);
       if (isCancel) {
         if (cancel) cancel(message);
-        else method.emit('cancel', message);
+        else method.emit("cancel", message);
       } else {
         if (request) request(message);
-        else method.emit('request', message);
+        else method.emit("request", message);
       }
     });
 
     process.send({
-      cmd: 'register',
+      cmd: "register",
       busId: this.busId,
       methodName,
     });
@@ -98,16 +101,16 @@ class WebosService {
 
   call = (uri, args, callback) => {
     const token = generateToken(this.busId);
-    const callResponseHandler = (data, isCancel) => {
+    const callResponseHandler = (data) => {
       const { cmd, res, subscribe } = data;
-      if (cmd !== 'call-response-' + token) return;
-      if (subscribe) process.removeListener('message', callResponseHandler);
+      if (cmd !== "call-response-" + token) return;
+      if (subscribe) process.removeListener("message", callResponseHandler);
       callback(res);
     };
-    process.on('message', callResponseHandler);
+    process.on("message", callResponseHandler);
 
     process.send({
-      cmd: 'call',
+      cmd: "call",
       token,
       uri,
       args: JSON.stringify(args),
@@ -121,20 +124,20 @@ class WebosService {
 
     const subscribeHandler = (data) => {
       const { cmd, res, subscribe: isSubscribe } = data;
-      const channel = 'subscribe-response-' + token;
+      const channel = "subscribe-response-" + token;
       if (cmd !== channel) return;
       if (isSubscribe) {
-        subscription.emit('response', res);
+        subscription.emit("response", res);
       } else {
-        subscription.emit('cancel', res);
-        process.removeListener('message', subscribeHandler);
+        subscription.emit("cancel", res);
+        process.removeListener("message", subscribeHandler);
       }
     };
-    process.on('message', subscribeHandler);
+    process.on("message", subscribeHandler);
 
     const subscribeSender = (isCancel) => {
       return {
-        cmd: 'subscribe',
+        cmd: "subscribe",
         token,
         uri,
         args: JSON.stringify(args),
@@ -142,8 +145,8 @@ class WebosService {
       };
     };
 
-    subscription.on('subscription-cancel', () => {
-      process.removeListener('message', subscribeHandler);
+    subscription.on("subscription-cancel", () => {
+      process.removeListener("message", subscribeHandler);
       process.send(subscribeSender(true));
     });
 

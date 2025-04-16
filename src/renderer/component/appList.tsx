@@ -1,8 +1,8 @@
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { css } from "@emotion/react";
 import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useState, useRef, useEffect } from "react";
-import type { AppInfoWithState } from "@/share/structure/appInfo";
+import { useEffect, useRef, useState } from "react";
 import { fadeIn } from "../styles/effects";
 
 type Props = {
@@ -30,10 +30,12 @@ function AppList({ appInfo: { appPath, id, title, appState } }: Props) {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     window.ipcRenderer.on("resized", checkIsLong);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     checkIsLong();
   }, [refAppButton, refAppButtonText]);

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fadeIn } from "../styles/effects";
 
 type JSServiceProps = {
@@ -32,10 +32,12 @@ function JSService({ id, isActive, dirPath }: JSServiceProps) {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     window.ipcRenderer.on("resized", checkIsLong);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     checkIsLong();
   }, [refServiceName, refServiceNameText]);

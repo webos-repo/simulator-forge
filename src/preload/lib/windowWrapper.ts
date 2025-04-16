@@ -1,7 +1,7 @@
+import { ipcRenderer } from "electron";
 import appState from "../assistants/appState";
 import ApiKeys from "./apiKeys";
 import { functionRunner } from "./functionRunner";
-import { ipcRenderer } from "electron";
 
 export function wrapWindowApis() {
   ipcRenderer.once("wrap-window-api", () => {

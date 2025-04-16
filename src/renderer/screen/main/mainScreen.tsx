@@ -1,15 +1,15 @@
+import { ipcHandler } from "@/share/lib/utils";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { ToastContainer, Flip } from "react-toastify";
-import { ipcHandler } from "@/share/lib/utils";
+import { Flip, ToastContainer } from "react-toastify";
 import AppBar from "../../component/appBar/appBar";
 import Notification from "../../component/notification";
 import { clearToast, showToast } from "../../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
-import { arrangeCenterByFlex } from "../../styles/partials";
-import { Spinner } from "@heroui/react";
 import beanbird from "@/assets/beanbird-sky.jpg";
+import { Spinner } from "@heroui/react";
+import { arrangeCenterByFlex } from "../../styles/partials";
 
 const closeOnRotateContents = [
   "This app does not support portrait mode.",
@@ -20,13 +20,6 @@ export default function MainScreen() {
   const [showSpinner, setShowSpinner] = useState(false);
   const [closeRotateVisible, setCloseRotateVisible] = useState(false);
 
-  const setNotiTimer = (setFunc: any) => {
-    setFunc(true);
-    setTimeout(() => {
-      setFunc(false);
-    }, 5500);
-  };
-
   useEffect(() => {
     document.addEventListener("mouseenter", () => {
       window.ipcRenderer.send("main-window-mouseenter");
@@ -36,9 +29,12 @@ export default function MainScreen() {
       setShowSpinner(false);
       clearToast();
     });
-    window.ipcRenderer.on("show-noti-close-rotate", () =>
-      setNotiTimer(setCloseRotateVisible),
-    );
+    window.ipcRenderer.on("show-noti-close-rotate", () => {
+      setCloseRotateVisible(true);
+      setTimeout(() => {
+        setCloseRotateVisible(false);
+      }, 5500);
+    });
     window.ipcRenderer.on("show-toast", ipcHandler(showToast));
     window.ipcRenderer.send("main-screen-loaded");
   }, []);

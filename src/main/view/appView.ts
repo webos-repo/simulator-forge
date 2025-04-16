@@ -1,4 +1,9 @@
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
+import { getPreloadPath } from "@/main/lib/pathResolver";
+import { isAutoInspectorOn } from "@/main/settings/autoInspector";
+import windowSetting from "@/main/settings/windowSetting";
+import { DefaultRect } from "@/share/constant/defaults";
+import { ipcHandler } from "@/share/lib/utils";
 import { constStore } from "@/share/store/constStore";
 import type { AppInfo } from "@/share/structure/appInfo";
 import type {
@@ -8,6 +13,9 @@ import type {
 } from "@/share/structure/events";
 import type { Direction, Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
+import type chokidar from "chokidar";
+import { BrowserView } from "electron";
+import { includes, mapValues, round } from "es-toolkit/compat";
 import {
   convertKey,
   convertKeyType,
@@ -15,16 +23,8 @@ import {
   isRequirePress,
 } from "../lib/keyManager";
 import { getElectronVersion } from "../lib/simulInfo";
-import { DefaultRect } from "@/share/constant/defaults";
-import { ipcHandler } from "@/share/lib/utils";
-import { BrowserView } from "electron";
-import watcherManger from "../module/watcher";
 import { emtApp, emtSetting } from "../module/eventEmitters";
-import { isAutoInspectorOn } from "@/main/settings/autoInspector";
-import windowSetting from "@/main/settings/windowSetting";
-import type chokidar from "chokidar";
-import { getPreloadPath } from "@/main/lib/pathResolver";
-import { includes, mapValues, round } from "es-toolkit/compat";
+import watcherManger from "../module/watcher";
 
 type AppViewConstructorParams = {
   appInfo: AppInfo;

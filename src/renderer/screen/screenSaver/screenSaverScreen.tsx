@@ -1,15 +1,16 @@
+import { DefaultRect } from "@/share/constant/defaults";
+import { ipcHandler } from "@/share/lib/utils";
+import { Direction, directions } from "@/share/structure/orientations";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { directions, Direction } from "@/share/structure/orientations";
-import { useState, useEffect, useRef } from "react";
-import { ipcHandler } from "@/share/lib/utils";
-import { DefaultRect } from "@/share/constant/defaults";
 import { random } from "es-toolkit/compat";
+import { useEffect, useRef, useState } from "react";
 
 const DefaultGuidePos = {
   top: 300,
   left: 100,
 };
+const GUIDANCE_MOVE_TIME = 8000;
 
 export default function ScreenSaverScreen() {
   const [shown, setShown] = useState(false);
@@ -18,7 +19,6 @@ export default function ScreenSaverScreen() {
   const [guidePos, setGuidePos] = useState(DefaultGuidePos);
   const guideMoveTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const holePos = useRef(DefaultRect);
-  const guidanceMoveTime = 8000;
 
   const preventScreenSaver = (e: any) => {
     if (!shown) return;
@@ -29,11 +29,10 @@ export default function ScreenSaverScreen() {
     window.ipcRenderer.send("prevent-screen-saver-from-screen");
   };
 
-  const checkGuideVisible = () => {
-    return !holePos.current.width && !holePos.current.height;
-  };
-
   useEffect(() => {
+    const checkGuideVisible = () => {
+      return !holePos.current.width && !holePos.current.height;
+    };
     const resetGuideMoveTimer = (makeNewTimer: boolean) => {
       if (guideMoveTimer.current) {
         clearInterval(guideMoveTimer.current);
@@ -44,7 +43,7 @@ export default function ScreenSaverScreen() {
           setGuidePos(makeRandomPos());
           setGuideVisible(false);
           setTimeout(() => setGuideVisible(true), 100);
-        }, guidanceMoveTime);
+        }, GUIDANCE_MOVE_TIME);
       }
     };
 
@@ -66,7 +65,7 @@ export default function ScreenSaverScreen() {
       setGuideVisible(false);
       resetGuideMoveTimer(false);
     });
-  }, [guidanceMoveTime]);
+  }, []);
 
   return (
     <ScreenSaverScreenLayout

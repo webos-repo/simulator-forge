@@ -1,5 +1,5 @@
-import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { isJsonStrValid } from "../../lib/jsonChecker";
 
 class DRMService {
   call = async (category: string, method: string, params: string) => {

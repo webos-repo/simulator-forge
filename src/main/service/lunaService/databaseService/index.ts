@@ -1,10 +1,10 @@
 import type { EventEmitter } from "events";
+import type { LunaAdditionalData } from "@/main/service/lunaService";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
 import { generateHash } from "../../../lib/hash";
 import { isJsonStrValid } from "../../../lib/jsonChecker";
 import { extractIdFromToken } from "../../../lib/pathResolver";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
 import DBServiceController from "./controller";
-import type { LunaAdditionalData } from "@/main/service/lunaService";
 import type * as DBServiceTypes from "./types";
 
 const existPermissions = ["read", "create", "update", "delete"];
@@ -365,7 +365,7 @@ class DatabaseService {
 
   putPermissions = async (params: string, token: string) => {
     const { permissions } = JSON.parse(params);
-    let error;
+    let error: any;
     permissions.some(
       ({ object, caller, operations }: DBServiceTypes.PutPermissionsParams) => {
         const appId = extractIdFromToken(token);

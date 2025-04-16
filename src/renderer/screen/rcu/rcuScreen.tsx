@@ -1,35 +1,35 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import type { Orientation } from "@/share/structure/orientations";
-import { useState, useEffect } from "react";
-import { ipcHandler } from "@/share/lib/utils";
-import ButtonRCUArrow from "@/renderer/component/rcuButton/buttonRCUArrow";
 import ButtonRCU from "@/renderer/component/rcuButton/buttonRCU";
+import ButtonRCUArrow from "@/renderer/component/rcuButton/buttonRCUArrow";
 import ButtonRCUColor from "@/renderer/component/rcuButton/buttonRCUColor";
 import ButtonRCUFunc from "@/renderer/component/rcuButton/buttonRCUFunc";
 import ButtonRCULong from "@/renderer/component/rcuButton/buttonRCULong";
 import ButtonRCUMedia from "@/renderer/component/rcuButton/buttonRCUMedia";
 import ButtonRCUPower from "@/renderer/component/rcuButton/buttonRCUPower";
+import { ipcHandler } from "@/share/lib/utils";
+import type { Orientation } from "@/share/structure/orientations";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 
-import powerImage from "@/assets/ui_icons/power.png";
-import muteImage from "@/assets/ui_icons/mute.png";
-import micImage from "@/assets/ui_icons/mic.png";
-import homeImage from "@/assets/ui_icons/home.png";
+import asterisk from "@/assets/ui_icons/asterisk.png";
 import backImage from "@/assets/ui_icons/back.png";
-import settingImage from "@/assets/ui_icons/settings.png";
-import supplyImage from "@/assets/ui_icons/supply.png";
-import upImage from "@/assets/ui_icons/up.png";
-import downImage from "@/assets/ui_icons/down.png";
-import rightImage from "@/assets/ui_icons/right.png";
-import leftImage from "@/assets/ui_icons/left.png";
-import plusImage from "@/assets/ui_icons/plus.png";
-import minusImage from "@/assets/ui_icons/minus.png";
-import playImage from "@/assets/ui_icons/play.png";
-import pauseImage from "@/assets/ui_icons/pause.png";
-import stopImage from "@/assets/ui_icons/stop.png";
 import backwardImage from "@/assets/ui_icons/backward.png";
 import dotdotdot from "@/assets/ui_icons/dotdotdot.png";
-import asterisk from "@/assets/ui_icons/asterisk.png";
+import downImage from "@/assets/ui_icons/down.png";
+import homeImage from "@/assets/ui_icons/home.png";
+import leftImage from "@/assets/ui_icons/left.png";
+import micImage from "@/assets/ui_icons/mic.png";
+import minusImage from "@/assets/ui_icons/minus.png";
+import muteImage from "@/assets/ui_icons/mute.png";
+import pauseImage from "@/assets/ui_icons/pause.png";
+import playImage from "@/assets/ui_icons/play.png";
+import plusImage from "@/assets/ui_icons/plus.png";
+import powerImage from "@/assets/ui_icons/power.png";
+import rightImage from "@/assets/ui_icons/right.png";
+import settingImage from "@/assets/ui_icons/settings.png";
+import stopImage from "@/assets/ui_icons/stop.png";
+import supplyImage from "@/assets/ui_icons/supply.png";
+import upImage from "@/assets/ui_icons/up.png";
 import {
   arrangeCenterByFlex,
   arrangeCenterByGrid,
@@ -71,7 +71,9 @@ export default function RCUScreen() {
           />
         </PowerBox>
         {...range(1, 10).map((n) => (
-          <ButtonRCU keyCode={`${n}`}>{n}</ButtonRCU>
+          <ButtonRCU key={n} keyCode={`${n}`}>
+            {n}
+          </ButtonRCU>
         ))}
         <ButtonRCU unused iconImage={asterisk} />
         <ButtonRCU keyCode="0">{0}</ButtonRCU>

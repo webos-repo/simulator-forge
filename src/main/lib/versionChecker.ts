@@ -1,3 +1,4 @@
+import { simulConfig } from "@/../simul.config";
 import { makeDB } from "@/main/controller/dbController";
 import type {
   ToastParams,
@@ -9,7 +10,6 @@ import axios from "axios";
 import { ipcMain } from "electron";
 import semver from "semver";
 import { pushMemories } from "./memories";
-import { simulConfig } from "@/../simul.config";
 
 const simulInfoDB = makeDB("simulatorInfo");
 

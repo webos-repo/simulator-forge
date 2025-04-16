@@ -99,7 +99,7 @@ type ReleaseParams = { activityId: number; activityName: string };
 
 type StartParams = { activityId: number; activityName: string };
 
-export {
+export type {
   Activity,
   AdoptParams,
   CancelParams,

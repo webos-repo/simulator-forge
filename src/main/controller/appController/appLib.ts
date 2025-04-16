@@ -1,20 +1,20 @@
+import fs from "fs";
+import path from "path";
 import { getScrOrn } from "@/main/settings/screenOrientation";
 import { getTouchMode } from "@/main/settings/touchMode";
+import { tvInfo, tvLocation } from "@/main/tvSettings/index";
 import { AppInfoRequirements } from "@/share/structure/appInfo";
 import type { AppInfo } from "@/share/structure/appInfo";
 import type { Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
-import { tvInfo, tvLocation } from "@/main/tvSettings/index";
-import fs from "fs";
-import path from "path";
+import { curry, curryRight, has, pick } from "es-toolkit/compat";
+import webOSSystemConfigs from "../../lib/WebOSSystemConfigs";
 import LogMessage from "../../lib/logMessage";
 import { readAppInfo } from "../../lib/metaFileReader";
 import { getWebOSVersion } from "../../lib/simulInfo";
-import webOSSystemConfigs from "../../lib/WebOSSystemConfigs";
 import { emtSetting, emtWindow } from "../../module/eventEmitters";
 import { makeDB } from "../dbController";
 import { appInfos, runningApps } from "./appMemory";
-import { curry, curryRight, has, pick } from "es-toolkit/compat";
 
 const dbAppEntriesKey = "appEntries";
 const db = makeDB("internal");

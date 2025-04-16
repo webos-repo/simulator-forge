@@ -1,9 +1,9 @@
+import { getPreloadPath } from "@/main/lib/pathResolver";
+import { loadWindow } from "@/main/lib/windowHelper";
+import windowSetting from "@/main/settings/windowSetting";
 import { Pos } from "@/share/structure/positions";
 import { BrowserWindow } from "electron";
-import windowSetting from "@/main/settings/windowSetting";
 import { emtSetting } from "../module/eventEmitters";
-import { loadWindow } from "@/main/lib/windowHelper";
-import { getPreloadPath } from "@/main/lib/pathResolver";
 
 class RcuWindow extends BrowserWindow {
   constructor(mainWndBound: Readonly<Electron.Rectangle>) {

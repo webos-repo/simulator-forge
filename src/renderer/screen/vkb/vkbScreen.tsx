@@ -1,19 +1,19 @@
 import "react-simple-keyboard/build/css/index.css";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import type { Orientation2Way } from "@/share/structure/orientations";
-import { useEffect, useState } from "react";
-import SimpleKeyboard from "react-simple-keyboard";
-import keyNavigation from "simple-keyboard-key-navigation";
-import { ipcHandler } from "@/share/lib/utils";
 import { ipcSender } from "@/renderer/lib/utils";
+import { blackBlue } from "@/renderer/styles/colors";
 import getReactSimpleKeyboardCustomCSS from "@/renderer/styles/vkbCustom";
 import {
   defaultVKBLayout,
   numberVKBLayout,
   vkbDisplay,
 } from "@/renderer/styles/vkbLayouts";
-import { blackBlue } from "@/renderer/styles/colors";
+import { ipcHandler } from "@/share/lib/utils";
+import type { Orientation2Way } from "@/share/structure/orientations";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import SimpleKeyboard from "react-simple-keyboard";
+import keyNavigation from "simple-keyboard-key-navigation";
 
 const unusedKeyNames = ["{eng}", "{aa}", "{voice}", "", "{none}", "{blank}"];
 let keyboard: any;
@@ -120,7 +120,7 @@ const getVKBLayout = (layoutName: string) => {
 };
 
 const convertVKBKey = (keyName: string) => {
-  let keyValue;
+  let keyValue: string | null;
   switch (keyName) {
     case "{bksp}":
       keyValue = "Backspace";
@@ -160,14 +160,14 @@ const makeMouseOverToNavigationMove = () => {
     button.addEventListener("mouseover", () => {
       const rawData = button.getAttribute("data-skbtnuid");
       const rawDataSliced = rawData.slice(rawData.indexOf("-") + 1);
-      const rowPos = parseInt(
+      const rowPos = Number.parseInt(
         rawDataSliced.slice(
           rawDataSliced.indexOf("r") + 1,
           rawDataSliced.indexOf("b"),
         ),
         10,
       );
-      const btnPos = parseInt(
+      const btnPos = Number.parseInt(
         rawDataSliced.slice(rawDataSliced.indexOf("b") + 1),
         10,
       );

@@ -1,6 +1,6 @@
+import type AppView from "@/main/view/appView";
 /* 앱에 대한 여러 데이터 관리 */
 import type { AppInfo, AppInfoWithState } from "@/share/structure/appInfo";
-import type AppView from "@/main/view/appView";
 import { emtApp } from "../../module/eventEmitters";
 import { makeDB } from "../dbController";
 

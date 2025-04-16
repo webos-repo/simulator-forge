@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import VersionToast from "../component/toast/versionToast";
 import GeneralToast from "../component/toast/generalToast";
+import VersionToast from "../component/toast/versionToast";
 
 interface GeneralToastProps {
   title: string;

@@ -1,10 +1,10 @@
 /* eslint-disable no-fallthrough */
 
-import { isWebOSVersionGte } from "@/main/lib/simulInfo";
-import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
-import type { LunaAdditionalData } from "./index";
 import type { EventEmitter } from "events";
+import { isWebOSVersionGte } from "@/main/lib/simulInfo";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import type { LunaAdditionalData } from "./index";
 
 const subscriptions: Map<string, { emitter: EventEmitter; keys: string[] }> =
   new Map();

@@ -1,20 +1,20 @@
-import { constStore } from "@/share/store/constStore";
+import AppListWindow from "@/main/window/appListWindow";
+import JSServiceWindow from "@/main/window/jsServiceWindow";
+import MainWindow from "@/main/window/mainWindow";
+import RcuWindow from "@/main/window/rcuWindow";
+import TvSettingWindow from "@/main/window/tvSettingWindow";
 import type { ToastParams } from "@/renderer/lib/toastManager";
+import { constStore } from "@/share/store/constStore";
 import type { Orientation } from "@/share/structure/orientations";
-import { getMemories, pushMemories, resetMemories } from "../lib/memories";
 import { dialog, ipcMain } from "electron";
+import type { BrowserView, BrowserWindow } from "electron";
+import { getMemories, pushMemories, resetMemories } from "../lib/memories";
 import {
   emtApp,
   emtSetting,
   emtView,
   emtWindow,
 } from "../module/eventEmitters";
-import type { BrowserView, BrowserWindow } from "electron";
-import RcuWindow from "@/main/window/rcuWindow";
-import AppListWindow from "@/main/window/appListWindow";
-import JSServiceWindow from "@/main/window/jsServiceWindow";
-import TvSettingWindow from "@/main/window/tvSettingWindow";
-import MainWindow from "@/main/window/mainWindow";
 
 type Windows =
   | MainWindow

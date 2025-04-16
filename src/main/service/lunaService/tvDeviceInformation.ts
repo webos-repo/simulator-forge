@@ -1,9 +1,9 @@
-import { tvInfo } from "@/main/tvSettings/index";
-import { isJsonStrValid } from "../../lib/jsonChecker";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
 import type { EventEmitter } from "events";
-import type { LunaAdditionalData } from "./index";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { tvInfo } from "@/main/tvSettings/index";
 import { get, has, isEmpty, set } from "es-toolkit/compat";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import type { LunaAdditionalData } from "./index";
 
 const subscriptions: Map<string, { emitter: EventEmitter; keys: string[] }> =
   new Map();

@@ -1,8 +1,8 @@
-import { emtSetting } from "@/main/module/eventEmitters";
-import { tvNetwork } from "@/main/tvSettings/index";
-import { isJsonStrValid } from "@/main/lib/jsonChecker";
-import { methodError, methodNotFound } from "@/main/service/serviceError";
 import type { EventEmitter } from "events";
+import { isJsonStrValid } from "@/main/lib/jsonChecker";
+import { emtSetting } from "@/main/module/eventEmitters";
+import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { tvNetwork } from "@/main/tvSettings/index";
 import type { LunaAdditionalData } from "../index";
 import type { ConnectionStatusType } from "./types";
 

@@ -1,8 +1,8 @@
-import { ForgeConfig } from "@electron-forge/shared-types";
-import { MakerSquirrel } from "@electron-forge/maker-squirrel";
 import { MakerDeb } from "@electron-forge/maker-deb";
 import { MakerDMG } from "@electron-forge/maker-dmg";
+import { MakerSquirrel } from "@electron-forge/maker-squirrel";
 import { VitePlugin } from "@electron-forge/plugin-vite";
+import { ForgeConfig } from "@electron-forge/shared-types";
 import { simulConfig } from "./simul.config";
 
 const config: ForgeConfig = {

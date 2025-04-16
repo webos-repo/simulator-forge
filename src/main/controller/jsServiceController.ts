@@ -1,11 +1,11 @@
-import LogMessage, { showErrorBox } from "../lib/logMessage";
-import { ipcMain } from "electron";
-import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";
-import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
 import JSService from "@/main/service/jsService";
 import { ipcHandler } from "@/share/lib/utils";
-import { makeDB } from "./dbController";
+import { ipcMain } from "electron";
 import { has } from "es-toolkit/compat";
+import LogMessage, { showErrorBox } from "../lib/logMessage";
+import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
+import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";
+import { makeDB } from "./dbController";
 
 type JSServiceInfos = {
   dirPath: string;

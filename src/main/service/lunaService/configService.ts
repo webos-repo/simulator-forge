@@ -1,7 +1,7 @@
-import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
 import { tvInfo } from "@/main/tvSettings/index";
 import { get, has, isEmpty } from "es-toolkit/compat";
+import { isJsonStrValid } from "../../lib/jsonChecker";
 
 class ConfigService {
   call = async (category: string, method: string, params: string) => {

@@ -1,7 +1,7 @@
-import { tvLocation } from "@/main/tvSettings/index";
-import { emtSetting } from "../../module/eventEmitters";
-import { isJsonStrValid } from "../../lib/jsonChecker";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
+import { tvLocation } from "@/main/tvSettings/index";
+import { isJsonStrValid } from "../../lib/jsonChecker";
+import { emtSetting } from "../../module/eventEmitters";
 
 import type { EventEmitter } from "events";
 import type { LunaAdditionalData } from "./index";
@@ -105,7 +105,7 @@ const cancelSubscription = (token: string) => {
 
 emtSetting.on("settings-updated", () => {
   subscriptions.forEach(({ emitter, category, method, keys, key }) => {
-    let ret;
+    let ret: any;
     if (!category) {
       if (
         (!keys && key === "localeInfo") ||
@@ -187,7 +187,7 @@ class SettingsService {
       subscriptions.set(token, { category, method, keys, key, emitter });
     }
 
-    let settings;
+    let settings: any;
     if (!category) {
       if (
         (!keys && key === "localeInfo") ||

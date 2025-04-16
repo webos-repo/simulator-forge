@@ -1,7 +1,7 @@
 import { ipcHandler } from "@/share/lib/utils";
 import type { Orientation } from "@/share/structure/orientations";
+import { ipcRenderer, webFrame } from "electron";
 import { webOSEnv } from "../lib/appEnv";
-import { webFrame, ipcRenderer } from "electron";
 
 class AppState {
   getMouseMoveDataFast = false;
@@ -10,7 +10,7 @@ class AppState {
   preInputElms: HTMLElement[] = [];
   isActivated = true;
   isTouchMode = webOSEnv.isTouchMode;
-  cursorVisibility: boolean = true;
+  cursorVisibility = true;
   scrOrn: Orientation = webOSEnv.settingsConf.screenOrientation;
   curOrn: Orientation = webOSEnv.settingsConf.currentOrientation;
   isKeyboardVisible = false;

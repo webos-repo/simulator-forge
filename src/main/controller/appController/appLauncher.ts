@@ -1,6 +1,6 @@
 import { getTouchMode } from "@/main/settings/touchMode";
-import type { AppInfo } from "@/share/structure/appInfo";
 import AppView from "@/main/view/appView";
+import type { AppInfo } from "@/share/structure/appInfo";
 import { showErrorBox } from "../../lib/logMessage";
 import { readAppEntry, readAppInfo } from "../../lib/metaFileReader";
 import Mutex from "../../lib/mutex";

@@ -23,10 +23,12 @@ const buttonFuncCSS = (active: boolean) => css`
   width: 45vw;
   border-radius: 15vw;
 
-  ${active &&
-  css`
+  ${
+    active &&
+    css`
     background: rgba(170, 238, 238, 0.5);
-  `}
+  `
+  }
 `;
 
 export default ButtonRCUFunc;

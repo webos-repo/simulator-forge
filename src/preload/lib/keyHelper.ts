@@ -1,4 +1,4 @@
-import { includes } from "es-toolkit/compat";
+import { includes } from "lodash-es";
 
 const InputTypesNeedVkb = [
   "email",

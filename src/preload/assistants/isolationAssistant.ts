@@ -1,6 +1,6 @@
 import { ipcHandler } from "@/share/lib/utils";
 import { ipcRenderer, webFrame } from "electron";
-import { throttle } from "es-toolkit/compat";
+import { throttle } from "lodash-es";
 import { webOSEnv } from "../lib/appEnv";
 import {
   NotPreventKeys,

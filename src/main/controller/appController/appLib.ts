@@ -7,7 +7,7 @@ import { AppInfoRequirements } from "@/share/structure/appInfo";
 import type { AppInfo } from "@/share/structure/appInfo";
 import type { Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
-import { curry, curryRight, has, pick } from "es-toolkit/compat";
+import { curry, curryRight, has, pick } from "lodash-es";
 import webOSSystemConfigs from "../../lib/WebOSSystemConfigs";
 import LogMessage from "../../lib/logMessage";
 import { readAppInfo } from "../../lib/metaFileReader";

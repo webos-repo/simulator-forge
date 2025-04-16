@@ -15,7 +15,7 @@ import type { Direction, Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
 import type chokidar from "chokidar";
 import { BrowserView } from "electron";
-import { includes, mapValues, round } from "es-toolkit/compat";
+import { includes, mapValues, round } from "lodash-es";
 import {
   convertKey,
   convertKeyType,

@@ -9,7 +9,7 @@ import type {
 import type { Orientation } from "@/share/structure/orientations";
 import { ipcMain } from "electron";
 import type { IpcMainEvent } from "electron";
-import { includes } from "es-toolkit/compat";
+import { includes } from "lodash-es";
 import { VKBPriorityKeys } from "../../lib/keyManager";
 import {
   emtApp,

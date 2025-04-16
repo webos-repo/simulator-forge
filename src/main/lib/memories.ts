@@ -1,4 +1,4 @@
-import { get } from "es-toolkit/compat";
+import { get } from "lodash-es";
 
 type MemoryNames = "toast" | "launchApp";
 

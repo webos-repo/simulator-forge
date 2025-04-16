@@ -1,4 +1,4 @@
-import { get, includes } from "es-toolkit/compat";
+import { get, includes } from "lodash-es";
 
 export const VKBPriorityKeys = [
   "Enter",

@@ -34,7 +34,7 @@ import {
   arrangeCenterByFlex,
   arrangeCenterByGrid,
 } from "@/renderer/styles/partials";
-import { range } from "es-toolkit/compat";
+import { range } from "lodash-es";
 
 const forwardImage = backwardImage;
 const handleLaunchApp = () => window.ipcRenderer.send("open-app-dialog");

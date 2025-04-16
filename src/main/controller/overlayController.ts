@@ -6,7 +6,7 @@ import TouchRemoteView from "@/main/view/touchRemoteView";
 import VkbView from "@/main/view/vkbView";
 import { ipcHandler } from "@/share/lib/utils";
 import { ipcMain } from "electron";
-import { remove } from "es-toolkit/compat";
+import { remove } from "lodash-es";
 import {
   emtApp,
   emtSetting,

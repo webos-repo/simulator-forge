@@ -3,7 +3,7 @@ import { loadView } from "@/main/lib/windowHelper";
 import windowSetting from "@/main/settings/windowSetting";
 import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
-import { isUndefined } from "es-toolkit/compat";
+import { isUndefined } from "lodash-es";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting } from "../module/eventEmitters";
 

@@ -1,6 +1,6 @@
 import type { RCUButtonEventType } from "@/share/structure/events";
 import type { RCU_Button } from "@/share/structure/ipcParams";
-import { get } from "es-toolkit/compat";
+import { get } from "lodash-es";
 import { useState } from "react";
 import type React from "react";
 

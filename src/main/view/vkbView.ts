@@ -8,7 +8,7 @@ import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
 import { RCUButtonEventType } from "@/share/structure/events";
 import { Orientation2Way } from "@/share/structure/orientations";
-import { includes, toInteger } from "es-toolkit/compat";
+import { includes, toInteger } from "lodash-es";
 
 const VKB_HEIGHT_RATIO = {
   landscape: {

@@ -4,7 +4,7 @@ import windowSetting from "@/main/settings/windowSetting";
 import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
 import type { Orientation2Way } from "@/share/structure/orientations";
-import { mapValues } from "es-toolkit/compat";
+import { mapValues } from "lodash-es";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
 

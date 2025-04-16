@@ -1,8 +1,8 @@
-import { MakerDeb } from "@electron-forge/maker-deb";
 import { MakerDMG } from "@electron-forge/maker-dmg";
 import { MakerSquirrel } from "@electron-forge/maker-squirrel";
 import { VitePlugin } from "@electron-forge/plugin-vite";
 import { ForgeConfig } from "@electron-forge/shared-types";
+import MakerAppImage from "@pengx17/electron-forge-maker-appimage";
 import { simulConfig } from "./simul.config";
 
 const config: ForgeConfig = {
@@ -27,8 +27,8 @@ const config: ForgeConfig = {
     // windows
     new MakerSquirrel({}),
 
-    // linux
-    new MakerDeb({
+    // ubuntu
+    new MakerAppImage({
       options: {
         bin: simulConfig.name,
         name: simulConfig.name,

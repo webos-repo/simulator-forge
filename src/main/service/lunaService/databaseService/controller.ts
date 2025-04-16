@@ -19,6 +19,7 @@ export default class DBServiceController {
 
   private handleAppRemoved = (appId: string) => {
     const data = this.db.get();
+    if (!data) return;
     Object.entries(data).forEach(([kind, { private: prvt, owner }]: any) => {
       if (prvt && owner === appId) {
         this.deleteKind(kind);

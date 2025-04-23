@@ -7,8 +7,8 @@ import { simulConfig } from "./simul.config";
 
 const config: ForgeConfig = {
   packagerConfig: {
-    name: simulConfig.name,
-    executableName: simulConfig.name,
+    name: simulConfig.exeName,
+    executableName: simulConfig.exeName,
     appVersion: simulConfig.version,
     extraResource: ["./extra", "./resource"],
     icon: "./resource/icon/icon.png",

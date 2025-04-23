@@ -71,5 +71,6 @@ const main = () => {
   archive.finalize();
 };
 
-pre();
-main();
+// pre();
+// main();
+console.log(path.basename(packageDir));

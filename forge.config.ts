@@ -130,7 +130,7 @@ const config: ForgeConfig = {
       console.log(">>>> output:", output);
       if (process.platform === "linux") {
         archive.file(output, {
-          name: `${name}/${output}`,
+          name: `${name}/${path.basename(output)}`,
         });
       } else {
         archive.directory(output, name);

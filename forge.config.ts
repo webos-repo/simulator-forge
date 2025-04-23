@@ -1,15 +1,18 @@
-import { cpSync, mkdirSync } from "node:fs";
-// import { MakerDMG } from "@electron-forge/maker-dmg";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { MakerZIP } from "@electron-forge/maker-zip";
 import { VitePlugin } from "@electron-forge/plugin-vite";
 import { ForgeConfig } from "@electron-forge/shared-types";
 import MakerAppImage from "@pengx17/electron-forge-maker-appimage";
+import * as archiver from "archiver";
 import { rimrafSync } from "rimraf";
 import { simulConfig } from "./simul.config";
 
-const outDir = "./out";
-const publishDir = `${outDir}/publish`;
-const tmpDir = `${outDir}/tmp`;
+const outDir = path.join(__dirname, "out");
+const publishDir = path.join(outDir, "publish");
+const tmpDir = path.join(outDir, "tmp");
+const extraDir = path.join(__dirname, "extra");
+let output: string;
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -19,8 +22,6 @@ const config: ForgeConfig = {
     extraResource: ["./resource"],
     icon: "./resource/icon/icon.png",
     asar: true,
-
-    // macOS signing and notarization
 
     ...(simulConfig.isDevBranch
       ? {}
@@ -78,25 +79,63 @@ const config: ForgeConfig = {
     }),
   ],
   hooks: {
-    preStart: async () => {
+    prePackage: async () => {
       rimrafSync(publishDir);
       rimrafSync(tmpDir);
-      mkdirSync(publishDir, { recursive: true });
-      mkdirSync(tmpDir, { recursive: true });
+      fs.mkdirSync(publishDir, { recursive: true });
+      fs.mkdirSync(tmpDir, { recursive: true });
     },
     postPackage: async (_config, result) => {
       if (process.platform === "linux") {
-        console.log("[postPackage] is Linux!!!!!!!");
         return;
       }
-      const packageDir = result.outputPaths[0];
-      cpSync(packageDir, tmpDir, { recursive: true });
+      output = result.outputPaths[0];
     },
     postMake: async (_config, result) => {
       if (process.platform === "linux") {
-        console.log(result[0].artifacts[0]);
+        output = result[0].artifacts[0];
       }
-      rimrafSync(tmpDir);
+
+      const name = simulConfig.exeName;
+      const zipOutputPath = path.join(publishDir, `${name}.zip`);
+      const writeStream = fs.createWriteStream(zipOutputPath);
+      const archive = archiver("zip", {
+        zlib: { level: 9 },
+      });
+
+      writeStream.on("close", () => {
+        console.log(archive.pointer() + " total bytes");
+        console.log(
+          "archiver has been finalized and the output file descriptor has closed.",
+        );
+      });
+      writeStream.on("end", () => {
+        console.log("Data has been drained");
+      });
+      archive.on("warning", (err) => {
+        if (err.code === "ENOENT") {
+          // log warning
+        } else {
+          // throw error
+          throw err;
+        }
+      });
+      archive.on("error", (err) => {
+        throw err;
+      });
+
+      archive.pipe(writeStream);
+      archive.directory(extraDir, name);
+
+      console.log(">>>> output:", output);
+      if (process.platform === "linux") {
+        archive.file(output, {
+          name: `${name}/${output}`,
+        });
+      } else {
+        archive.directory(output, name);
+      }
+      archive.finalize();
     },
   },
 };

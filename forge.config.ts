@@ -106,7 +106,7 @@ const config: ForgeConfig = {
       writeStream.on("close", () => {
         console.log(archive.pointer() + " total bytes");
         console.log(
-          "archiver has been finalized and the output file descriptor has closed.",
+          "archiver has been finalized and the output file descriptor has closed."
         );
       });
       writeStream.on("end", () => {
@@ -130,7 +130,7 @@ const config: ForgeConfig = {
       console.log(">>>> output:", output);
       if (process.platform === "linux") {
         archive.file(output, {
-          name: `${name}/${path.basename(output)}`,
+          name: `${name}/${name}${path.extname(output)}`,
         });
       } else {
         archive.directory(output, name);

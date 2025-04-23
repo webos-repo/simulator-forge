@@ -35,9 +35,6 @@ const config: ForgeConfig = {
         }),
   },
   makers: [
-    // windows
-    // new MakerSquirrel({}),
-
     // ubuntu
     new MakerAppImage({
       options: {
@@ -106,7 +103,7 @@ const config: ForgeConfig = {
       writeStream.on("close", () => {
         console.log(archive.pointer() + " total bytes");
         console.log(
-          "archiver has been finalized and the output file descriptor has closed."
+          "archiver has been finalized and the output file descriptor has closed.",
         );
       });
       writeStream.on("end", () => {
@@ -127,7 +124,6 @@ const config: ForgeConfig = {
       archive.pipe(writeStream);
       archive.directory(extraDir, name);
 
-      console.log(">>>> output:", output);
       if (process.platform === "linux") {
         archive.file(output, {
           name: `${name}/${name}${path.extname(output)}`,

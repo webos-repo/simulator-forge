@@ -94,7 +94,10 @@ const config: ForgeConfig = {
       }
 
       const name = simulConfig.exeName;
-      const zipOutputPath = path.join(publishDir, `${name}.zip`);
+      const zipOutputPath = path.join(
+        publishDir,
+        `${name}_${process.platform}.zip`,
+      );
       const writeStream = fs.createWriteStream(zipOutputPath);
       const archive = archiver("zip", {
         zlib: { level: 9 },

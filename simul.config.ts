@@ -1,6 +1,6 @@
 const webOSTVVersion = "25";
 const version = "0.0.1";
-const isDevBranch = true;
+const isDevBranch = false;
 
 export const simulConfig = {
   name: `webOS TV ${webOSTVVersion} Simulator`,

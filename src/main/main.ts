@@ -23,6 +23,7 @@ if (started) {
 
 // for iframe access
 app.commandLine.appendSwitch("disable-site-isolation-trials");
+app.commandLine.appendSwitch("disable-features", "WidgetLayering");
 
 dbInit();
 removeWebOSServiceFile();

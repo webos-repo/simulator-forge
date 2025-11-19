@@ -4,7 +4,7 @@ import { MakerZIP } from "@electron-forge/maker-zip";
 import { VitePlugin } from "@electron-forge/plugin-vite";
 import { ForgeConfig } from "@electron-forge/shared-types";
 import MakerAppImage from "@pengx17/electron-forge-maker-appimage";
-import * as archiver from "archiver";
+import archiver from "archiver";
 import { rimrafSync } from "rimraf";
 import { simulConfig } from "./simul.config";
 

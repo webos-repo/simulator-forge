@@ -32,12 +32,12 @@ function JSService({ id, isActive, dirPath }: JSServiceProps) {
     }
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: checkIsLong is not a dependency of the effect
   useEffect(() => {
     window.ipcRenderer.on("resized", checkIsLong);
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: checkIsLong is not a dependency of the effect
   useEffect(() => {
     checkIsLong();
   }, [refServiceName, refServiceNameText]);

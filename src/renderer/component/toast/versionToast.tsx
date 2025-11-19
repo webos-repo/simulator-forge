@@ -1,6 +1,6 @@
-import { InstallationURL } from "@/share/constant/urls";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { InstallationURL } from "@/share/constant/urls";
 import type { VersionToastProps } from "../../lib/toastManager";
 import GeneralToast from "./generalToast";
 

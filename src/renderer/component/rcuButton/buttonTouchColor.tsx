@@ -7,8 +7,8 @@ import {
 } from "../../styles/colors";
 import { touchButtonReaction } from "../../styles/effects";
 import { arrangeCenterByFlex } from "../../styles/partials";
-import ButtonRCU from "./buttonRCU";
 import type { RCUButtonCommonProps } from "./buttonRCU";
+import ButtonRCU from "./buttonRCU";
 
 type Props = RCUButtonCommonProps & {
   color: "Red" | "Green" | "Yellow" | "Blue";

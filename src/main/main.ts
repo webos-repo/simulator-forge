@@ -1,4 +1,6 @@
 import "core-js/stable";
+import { app, session } from "electron";
+import started from "electron-squirrel-startup";
 import { AppController } from "@/main/controller/appController";
 import { dbInit } from "@/main/controller/dbController";
 import jsServiceController from "@/main/controller/jsServiceController";
@@ -14,8 +16,6 @@ import analytics from "@/main/module/analytics";
 import { initServiceHandler } from "@/main/service/service";
 import { turnOnDevMode } from "@/main/settings/devMode";
 import { tvLocation, tvNetwork } from "@/main/tvSettings/index";
-import { app, session } from "electron";
-import started from "electron-squirrel-startup";
 
 if (started) {
   app.quit();

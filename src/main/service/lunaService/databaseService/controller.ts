@@ -1,5 +1,5 @@
-import { makeDB } from "@/main/controller/dbController";
 import { curry, has, omit, pick, pickBy } from "lodash-es";
+import { makeDB } from "@/main/controller/dbController";
 import { generateHash } from "../../../lib/hash";
 import { emtApp } from "../../../module/eventEmitters";
 import * as DBServiceTypes from "./types";

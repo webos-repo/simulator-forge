@@ -1,12 +1,11 @@
+import { ipcMain } from "electron";
+import type { EventEmitter } from "events";
 import { isWebOSVersionGte } from "@/main/lib/simulInfo";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
-import { ipcMain } from "electron";
 import { isJsonStrValid } from "../../lib/jsonChecker";
 import { extractIdFromToken } from "../../lib/pathResolver";
 import { emtApp } from "../../module/eventEmitters";
 import type { LunaAdditionalData } from "./index";
-
-import type { EventEmitter } from "events";
 
 const subscriptions: Map<string, EventEmitter> = new Map();
 const timers: Map<string, NodeJS.Timeout> = new Map();

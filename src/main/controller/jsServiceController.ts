@@ -1,7 +1,7 @@
-import JSService from "@/main/service/jsService";
-import { ipcHandler } from "@/share/lib/utils";
 import { ipcMain } from "electron";
 import { has } from "lodash-es";
+import JSService from "@/main/service/jsService";
+import { ipcHandler } from "@/share/lib/utils";
 import LogMessage, { showErrorBox } from "../lib/logMessage";
 import { readServiceEntry, readServiceJson } from "../lib/metaFileReader";
 import { emtService, emtSetting, emtWindow } from "../module/eventEmitters";

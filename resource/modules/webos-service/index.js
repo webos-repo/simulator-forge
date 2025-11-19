@@ -1,9 +1,9 @@
 const EventEmitter = require("events");
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+// biome-ignore lint/correctness/noUnusedVariables: Forced to use
 const fs = require("fs");
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+// biome-ignore lint/correctness/noUnusedVariables: Forced to use
 const path = require("path");
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+// biome-ignore lint/correctness/noUnusedVariables: Forced to use
 const os = require("os");
 
 let tokenCnt = 0;

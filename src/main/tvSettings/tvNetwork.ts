@@ -1,6 +1,6 @@
 import dns from "dns";
-import type { NetworkInfoType } from "@/main/service/lunaService/connectionManager/types";
 import network from "network";
+import type { NetworkInfoType } from "@/main/service/lunaService/connectionManager/types";
 import { emtSetting } from "../module/eventEmitters";
 
 let isWired = true;

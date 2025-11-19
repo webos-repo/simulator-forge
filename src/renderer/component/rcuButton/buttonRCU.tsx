@@ -5,8 +5,8 @@ import type { ReactNode } from "react";
 import useRCUHandler from "../../hook/useRCUHandler";
 import { buttonReaction } from "../../styles/effects";
 import { arrangeCenterByFlex } from "../../styles/partials";
-import IconRCU from "./iconRCU";
 import type { IconRCUProps } from "./iconRCU";
+import IconRCU from "./iconRCU";
 
 type RCUButtonCommonProps = IconRCUProps & {
   keyCode?: string;

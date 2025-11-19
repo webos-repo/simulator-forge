@@ -1,7 +1,7 @@
-import type { ShareFrameIdParam } from "@/share/structure/ipcParams";
 import { contextBridge, ipcRenderer } from "electron";
-import { getTestApi } from "./assistants/devAssistant";
+import type { ShareFrameIdParam } from "@/share/structure/ipcParams";
 import * as devAssistant from "./assistants/devAssistant";
+import { getTestApi } from "./assistants/devAssistant";
 import * as eventDispatcher from "./assistants/eventDispatcher";
 import { loadLGFont } from "./assistants/fontLoader";
 import * as inAppRunner from "./assistants/inAppRunner";

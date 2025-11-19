@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.6/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -7,15 +7,22 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [".next", "dist", "out", ".idea", ".vite", ".vscode", "extra"]
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/dist",
+      "!**/out",
+      "!**/.idea",
+      "!**/.vite",
+      "!**/.vscode",
+      "!**/extra"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -23,7 +30,8 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noFocusedTests": "warn",
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noUnknownAtRules": "off"
       },
       "complexity": {
         "noForEach": "off",
@@ -40,13 +48,24 @@
       "correctness": {
         "noUnusedImports": "warn",
         "noUnusedVariables": "warn",
-        "noUnusedPrivateClassMembers": "warn"
+        "noUnusedPrivateClassMembers": "off",
+        "noChildrenProp": "off",
+        "useUniqueElementIds": "off",
+        "noNestedComponentDefinitions": "off"
+      },
+      "a11y": {
+        "useHtmlLang": "off"
       }
     }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "double"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

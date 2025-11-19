@@ -6,8 +6,8 @@ import {
   buttonYellow,
 } from "../../styles/colors";
 import { buttonReaction } from "../../styles/effects";
-import ButtonRCU from "./buttonRCU";
 import type { RCUButtonCommonProps } from "./buttonRCU";
+import ButtonRCU from "./buttonRCU";
 
 type Props = RCUButtonCommonProps & {
   color: "Red" | "Green" | "Blue" | "Yellow";

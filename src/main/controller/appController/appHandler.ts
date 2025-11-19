@@ -1,3 +1,6 @@
+import type { IpcMainEvent } from "electron";
+import { ipcMain } from "electron";
+import { includes } from "lodash-es";
 import path from "path";
 import { convertResourcePath } from "@/share/lib/paths";
 import { ipcHandler, sleep } from "@/share/lib/utils";
@@ -7,9 +10,6 @@ import type {
   ShareFrameIdParam,
 } from "@/share/structure/ipcParams";
 import type { Orientation } from "@/share/structure/orientations";
-import { ipcMain } from "electron";
-import type { IpcMainEvent } from "electron";
-import { includes } from "lodash-es";
 import { VKBPriorityKeys } from "../../lib/keyManager";
 import {
   emtApp,

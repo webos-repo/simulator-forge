@@ -1,5 +1,5 @@
-import cp from "child_process";
 import type { ChildProcess } from "child_process";
+import cp from "child_process";
 import { methodNotFound } from "@/main/service/serviceError";
 import { convertResourcePath } from "@/share/lib/paths";
 import { splitServiceURL } from "../lib/pathResolver";

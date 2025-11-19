@@ -1,6 +1,6 @@
+import { BrowserWindow } from "electron";
 import { loadWindow } from "@/main/lib/windowHelper";
 import windowSetting from "@/main/settings/windowSetting";
-import { BrowserWindow } from "electron";
 import { getPreloadPath } from "../lib/pathResolver";
 
 class TvSettingWindow extends BrowserWindow {

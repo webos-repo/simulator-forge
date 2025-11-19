@@ -1,16 +1,7 @@
-import ButtonRCU from "@/renderer/component/rcuButton/buttonRCU";
-import ButtonRCUArrow from "@/renderer/component/rcuButton/buttonRCUArrow";
-import ButtonRCUColor from "@/renderer/component/rcuButton/buttonRCUColor";
-import ButtonRCUFunc from "@/renderer/component/rcuButton/buttonRCUFunc";
-import ButtonRCULong from "@/renderer/component/rcuButton/buttonRCULong";
-import ButtonRCUMedia from "@/renderer/component/rcuButton/buttonRCUMedia";
-import ButtonRCUPower from "@/renderer/component/rcuButton/buttonRCUPower";
-import { ipcHandler } from "@/share/lib/utils";
-import type { Orientation } from "@/share/structure/orientations";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { range } from "lodash-es";
 import { useEffect, useState } from "react";
-
 import asterisk from "@/assets/ui_icons/asterisk.png";
 import backImage from "@/assets/ui_icons/back.png";
 import backwardImage from "@/assets/ui_icons/backward.png";
@@ -30,11 +21,19 @@ import settingImage from "@/assets/ui_icons/settings.png";
 import stopImage from "@/assets/ui_icons/stop.png";
 import supplyImage from "@/assets/ui_icons/supply.png";
 import upImage from "@/assets/ui_icons/up.png";
+import ButtonRCU from "@/renderer/component/rcuButton/buttonRCU";
+import ButtonRCUArrow from "@/renderer/component/rcuButton/buttonRCUArrow";
+import ButtonRCUColor from "@/renderer/component/rcuButton/buttonRCUColor";
+import ButtonRCUFunc from "@/renderer/component/rcuButton/buttonRCUFunc";
+import ButtonRCULong from "@/renderer/component/rcuButton/buttonRCULong";
+import ButtonRCUMedia from "@/renderer/component/rcuButton/buttonRCUMedia";
+import ButtonRCUPower from "@/renderer/component/rcuButton/buttonRCUPower";
 import {
   arrangeCenterByFlex,
   arrangeCenterByGrid,
 } from "@/renderer/styles/partials";
-import { range } from "lodash-es";
+import { ipcHandler } from "@/share/lib/utils";
+import type { Orientation } from "@/share/structure/orientations";
 
 const forwardImage = backwardImage;
 const handleLaunchApp = () => window.ipcRenderer.send("open-app-dialog");

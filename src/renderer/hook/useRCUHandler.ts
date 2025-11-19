@@ -1,8 +1,8 @@
+import { get } from "lodash-es";
+import type React from "react";
+import { useState } from "react";
 import type { RCUButtonEventType } from "@/share/structure/events";
 import type { RCU_Button } from "@/share/structure/ipcParams";
-import { get } from "lodash-es";
-import { useState } from "react";
-import type React from "react";
 
 type UseRCUHandlerProps = {
   keyCode?: string;

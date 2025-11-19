@@ -1,3 +1,5 @@
+import { ipcMain } from "electron";
+import { remove } from "lodash-es";
 import VKBController from "@/main/controller/vkbController";
 import AppExitView from "@/main/view/appExitView";
 import OverlayView from "@/main/view/overlayView";
@@ -5,8 +7,6 @@ import ScreenSaverView from "@/main/view/screenSaverView";
 import TouchRemoteView from "@/main/view/touchRemoteView";
 import VkbView from "@/main/view/vkbView";
 import { ipcHandler } from "@/share/lib/utils";
-import { ipcMain } from "electron";
-import { remove } from "lodash-es";
 import {
   emtApp,
   emtSetting,

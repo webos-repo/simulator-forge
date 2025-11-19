@@ -1,5 +1,5 @@
-import type { Orientation2Way } from "@/share/structure/orientations";
 import { css } from "@emotion/react";
+import type { Orientation2Way } from "@/share/structure/orientations";
 
 const white = "#c0c0c0";
 const blackBlue = "#2d3236";

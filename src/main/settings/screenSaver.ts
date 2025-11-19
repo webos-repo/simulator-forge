@@ -1,6 +1,6 @@
+import { ipcMain } from "electron";
 import { runningApps } from "@/main/controller/appController/appMemory";
 import overlayController from "@/main/controller/overlayController";
-import { ipcMain } from "electron";
 import { emtSetting } from "../module/eventEmitters";
 import settingsDB from "./settingsDB";
 

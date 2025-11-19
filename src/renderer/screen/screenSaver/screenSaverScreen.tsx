@@ -1,10 +1,10 @@
-import { DefaultRect } from "@/share/constant/defaults";
-import { ipcHandler } from "@/share/lib/utils";
-import { Direction, directions } from "@/share/structure/orientations";
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { random } from "lodash-es";
 import { useEffect, useRef, useState } from "react";
+import { DefaultRect } from "@/share/constant/defaults";
+import { ipcHandler } from "@/share/lib/utils";
+import { Direction, directions } from "@/share/structure/orientations";
 
 const DefaultGuidePos = {
   top: 300,

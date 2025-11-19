@@ -1,6 +1,6 @@
+import { ipcMain } from "electron";
 import { EventEmitter } from "events";
 import { ipcHandler } from "@/share/lib/utils";
-import { ipcMain } from "electron";
 
 class CustomEventEmitter extends EventEmitter {
   constructor() {

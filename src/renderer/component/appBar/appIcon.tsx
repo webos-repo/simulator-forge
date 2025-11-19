@@ -1,7 +1,7 @@
-import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 
 type Props = {
   appInfoWithState: AppInfoWithState;

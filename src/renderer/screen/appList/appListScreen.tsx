@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import AppList from "@/renderer/component/appList";
 import ListViewer from "@/renderer/component/listViewer";
 import { ipcSender } from "@/renderer/lib/utils";
 import { ipcHandler } from "@/share/lib/utils";
 import type { AppInfoWithState } from "@/share/structure/appInfo";
-import { useEffect, useState } from "react";
 
 export default function AppListScreen() {
   const [appInfos, setAppInfos] = useState<AppInfoWithState[]>([]);

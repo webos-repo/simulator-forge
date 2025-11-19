@@ -1,3 +1,5 @@
+import type { BrowserView, BrowserWindow } from "electron";
+import { dialog, ipcMain } from "electron";
 import AppListWindow from "@/main/window/appListWindow";
 import JSServiceWindow from "@/main/window/jsServiceWindow";
 import MainWindow from "@/main/window/mainWindow";
@@ -6,8 +8,6 @@ import TvSettingWindow from "@/main/window/tvSettingWindow";
 import type { ToastParams } from "@/renderer/lib/toastManager";
 import { constStore } from "@/share/store/constStore";
 import type { Orientation } from "@/share/structure/orientations";
-import { dialog, ipcMain } from "electron";
-import type { BrowserView, BrowserWindow } from "electron";
 import { getMemories, pushMemories, resetMemories } from "../lib/memories";
 import {
   emtApp,

@@ -1,5 +1,5 @@
-import type { DBBaseKey } from "@/main/controller/dbController";
 import type Store from "electron-store";
+import type { DBBaseKey } from "@/main/controller/dbController";
 
 export default class SimulatorDB {
   constructor(

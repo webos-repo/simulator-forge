@@ -1,6 +1,6 @@
+import { get, has, isEmpty } from "lodash-es";
 import { methodError, methodNotFound } from "@/main/service/serviceError";
 import { tvInfo } from "@/main/tvSettings/index";
-import { get, has, isEmpty } from "lodash-es";
 import { isJsonStrValid } from "../../lib/jsonChecker";
 
 class ConfigService {

@@ -1,8 +1,8 @@
+import { BrowserWindow } from "electron";
 import { getPreloadPath } from "@/main/lib/pathResolver";
 import { loadWindow } from "@/main/lib/windowHelper";
 import windowSetting from "@/main/settings/windowSetting";
 import { Pos } from "@/share/structure/positions";
-import { BrowserWindow } from "electron";
 import { emtSetting } from "../module/eventEmitters";
 
 class RcuWindow extends BrowserWindow {

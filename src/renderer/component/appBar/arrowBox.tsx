@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-
-import ArrowRight from "@/assets/ui_icons/arrow-right.png";
 import ArrowLeft from "@/assets/ui_icons/arrow_left.png";
+import ArrowRight from "@/assets/ui_icons/arrow-right.png";
 
 type Props = {
   scrollHorizontal: (

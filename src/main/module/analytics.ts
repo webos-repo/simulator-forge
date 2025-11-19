@@ -1,7 +1,7 @@
-import { simulConfig } from "@/../simul.config";
 import axios from "axios";
 import { machineIdSync } from "node-machine-id";
 import { v4 as uuidV4 } from "uuid";
+import { simulConfig } from "@/../simul.config";
 
 const MEASUREMENT_ID_KEY =
   import.meta.env.DEV || simulConfig.isDevBranch

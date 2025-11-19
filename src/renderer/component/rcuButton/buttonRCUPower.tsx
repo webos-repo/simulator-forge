@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import ButtonRCU from "./buttonRCU";
 import type { RCUButtonCommonProps } from "./buttonRCU";
+import ButtonRCU from "./buttonRCU";
 
 function ButtonRCUPower(props: RCUButtonCommonProps) {
   return <ButtonRCU {...props} alternativeCSS={buttonPowerCSS} />;

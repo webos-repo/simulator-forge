@@ -1,8 +1,8 @@
-import type { DirectionKeyCode } from "@/share/structure/orientations";
-import { css } from "@emotion/react";
 import type { SerializedStyles } from "@emotion/react";
-import ButtonRCU from "./buttonRCU";
+import { css } from "@emotion/react";
+import type { DirectionKeyCode } from "@/share/structure/orientations";
 import type { RCUButtonCommonProps } from "./buttonRCU";
+import ButtonRCU from "./buttonRCU";
 
 type Props = RCUButtonCommonProps & {
   direction: DirectionKeyCode;

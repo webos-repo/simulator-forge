@@ -1,14 +1,14 @@
-import { ipcHandler } from "@/share/lib/utils";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Flip, ToastContainer } from "react-toastify";
+import { ipcHandler } from "@/share/lib/utils";
 import AppBar from "../../component/appBar/appBar";
 import Notification from "../../component/notification";
 import { clearToast, showToast } from "../../lib/toastManager";
 import "react-toastify/dist/ReactToastify.css";
-import beanbird from "@/assets/beanbird-sky.jpg";
 import { Spinner } from "@heroui/react";
+import beanbird from "@/assets/beanbird-sky.jpg";
 import { arrangeCenterByFlex } from "../../styles/partials";
 
 const closeOnRotateContents = [

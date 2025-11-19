@@ -1,3 +1,6 @@
+import type chokidar from "chokidar";
+import { BrowserView } from "electron";
+import { includes, mapValues, round } from "lodash-es";
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { getPreloadPath } from "@/main/lib/pathResolver";
 import { isAutoInspectorOn } from "@/main/settings/autoInspector";
@@ -13,9 +16,6 @@ import type {
 } from "@/share/structure/events";
 import type { Direction, Orientation } from "@/share/structure/orientations";
 import type { WebOSEnv } from "@/share/structure/webOSEnv";
-import type chokidar from "chokidar";
-import { BrowserView } from "electron";
-import { includes, mapValues, round } from "lodash-es";
 import {
   convertKey,
   convertKeyType,
@@ -168,7 +168,7 @@ class AppView extends BrowserView {
   private preventNewWindow = () => {
     if (getElectronVersion().major < 12) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // @ts-expect-error
       this.webContents.on("new-window", (event, url) => {
         event.preventDefault();
         if (url) this.webContents.loadURL(url);

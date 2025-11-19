@@ -1,5 +1,5 @@
-import { orientations } from "@/share/structure/orientations";
 import { ipcRenderer } from "electron";
+import { orientations } from "@/share/structure/orientations";
 import appState from "../assistants/appState";
 import ApiKeys from "../lib/apiKeys";
 import { webOSEnv } from "../lib/appEnv";

@@ -1,3 +1,4 @@
+import { BrowserView, ipcMain } from "electron";
 import { runningApps } from "@/main/controller/appController/appMemory";
 import overlayController from "@/main/controller/overlayController";
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
@@ -12,7 +13,6 @@ import type {
   Orientation2Way,
 } from "@/share/structure/orientations";
 import type { Pos } from "@/share/structure/positions";
-import { BrowserView, ipcMain } from "electron";
 import { getPreloadPath } from "../lib/pathResolver";
 import {
   emtApp,

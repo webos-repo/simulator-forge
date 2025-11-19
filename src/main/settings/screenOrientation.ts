@@ -1,6 +1,6 @@
-import { orientations } from "@/share/structure/orientations";
-import type { Orientation } from "@/share/structure/orientations";
 import { ipcMain } from "electron";
+import type { Orientation } from "@/share/structure/orientations";
+import { orientations } from "@/share/structure/orientations";
 import { emtSetting } from "../module/eventEmitters";
 
 let scrOrn: Orientation = "landscape";

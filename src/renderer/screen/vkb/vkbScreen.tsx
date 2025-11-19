@@ -1,4 +1,9 @@
 import "react-simple-keyboard/build/css/index.css";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import SimpleKeyboard from "react-simple-keyboard";
+import keyNavigation from "simple-keyboard-key-navigation";
 import { ipcSender } from "@/renderer/lib/utils";
 import { blackBlue } from "@/renderer/styles/colors";
 import getReactSimpleKeyboardCustomCSS from "@/renderer/styles/vkbCustom";
@@ -9,11 +14,6 @@ import {
 } from "@/renderer/styles/vkbLayouts";
 import { ipcHandler } from "@/share/lib/utils";
 import type { Orientation2Way } from "@/share/structure/orientations";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import SimpleKeyboard from "react-simple-keyboard";
-import keyNavigation from "simple-keyboard-key-navigation";
 
 const unusedKeyNames = ["{eng}", "{aa}", "{voice}", "", "{none}", "{blank}"];
 let keyboard: any;

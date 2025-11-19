@@ -1,3 +1,5 @@
+import type { MenuItemConstructorOptions } from "electron";
+import { app, Menu, shell } from "electron";
 import { simulConfig } from "@/../simul.config";
 import windowController from "@/main/controller/windowController";
 import {
@@ -20,8 +22,6 @@ import {
   IntroductionURL,
   ToolsURL,
 } from "@/share/constant/urls";
-import { Menu, app, shell } from "electron";
-import type { MenuItemConstructorOptions } from "electron";
 import { emtApp, emtDev, emtSetting, emtWindow } from "./module/eventEmitters";
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {

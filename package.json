@@ -13,7 +13,9 @@
     "package": "npx dotenv-cli -- electron-forge package",
     "package:debug": "DEBUG=electron-packager npx dotenv-cli -- electron-forge package",
     "make": "npx dotenv-cli -- electron-forge make",
-    "publish": "npx dotenv-cli -- electron-forge publish"
+    "publish": "npx dotenv-cli -- electron-forge publish",
+    "lint": "biome check",
+    "lint:write": "biome check --write"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -48,7 +50,7 @@
     "which-country": "^1.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.3.6",
     "@electron-forge/cli": "^7.8.0",
     "@electron-forge/maker-zip": "^7.8.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.0",

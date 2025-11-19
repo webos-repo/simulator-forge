@@ -1,10 +1,10 @@
+import { mapValues } from "lodash-es";
 import { checkMacViewPositionBug } from "@/main/lib/bugVersionChecker";
 import { loadView } from "@/main/lib/windowHelper";
 import windowSetting from "@/main/settings/windowSetting";
 import OverlayView from "@/main/view/overlayView";
 import { constStore } from "@/share/store/constStore";
 import type { Orientation2Way } from "@/share/structure/orientations";
-import { mapValues } from "lodash-es";
 import { getPreloadPath } from "../lib/pathResolver";
 import { emtSetting, emtWindow } from "../module/eventEmitters";
 

@@ -1,11 +1,11 @@
+import Store from "electron-store";
+import semver from "semver";
 import { simulConfig } from "@/../simul.config";
 import type {
   GeneralToastProps,
   ToastParams,
 } from "@/renderer/lib/toastManager";
 import { ReleaseNotesURL } from "@/share/constant/urls";
-import Store from "electron-store";
-import semver from "semver";
 import { pushMemories } from "../lib/memories";
 import { emtSetting } from "../module/eventEmitters";
 import SimulatorDB from "../module/simulatorDB";
@@ -33,7 +33,9 @@ function setListener() {
   emtSetting.on(
     "reset-database",
     (keys: DBBaseKey[] = defaultResetBaseKeys) => {
-      keys.forEach((key) => db?.delete(key));
+      keys.forEach((key) => {
+        db?.delete(key);
+      });
       emtSetting.emit("database-is-reset", keys);
     },
   );

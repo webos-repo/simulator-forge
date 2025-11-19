@@ -1,6 +1,6 @@
+import { ipcRenderer, webFrame } from "electron";
 import { ipcHandler } from "@/share/lib/utils";
 import type { Orientation } from "@/share/structure/orientations";
-import { ipcRenderer, webFrame } from "electron";
 import { webOSEnv } from "../lib/appEnv";
 
 class AppState {

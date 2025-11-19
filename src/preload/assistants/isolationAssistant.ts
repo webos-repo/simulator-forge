@@ -1,11 +1,11 @@
-import { ipcHandler } from "@/share/lib/utils";
 import { ipcRenderer, webFrame } from "electron";
 import { throttle } from "lodash-es";
+import { ipcHandler } from "@/share/lib/utils";
 import { webOSEnv } from "../lib/appEnv";
 import {
-  NotPreventKeys,
   checkElementNeedVKB,
   convertInputToKeyboardType,
+  NotPreventKeys,
 } from "../lib/keyHelper";
 import appState from "./appState";
 import {

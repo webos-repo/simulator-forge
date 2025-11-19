@@ -1,8 +1,8 @@
+import { css, keyframes, SerializedStyles } from "@emotion/react";
+import styled from "@emotion/styled";
+import React, { useEffect, useRef, useState } from "react";
 import { ipcHandler } from "@/share/lib/utils";
 import { MouseEventType } from "@/share/structure/events";
-import { SerializedStyles, css, keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
-import React, { useState, useRef, useEffect } from "react";
 
 export default function TouchScreen() {
   const [edge, setEdge] = useState({

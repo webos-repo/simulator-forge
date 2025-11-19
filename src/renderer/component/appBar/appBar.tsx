@@ -1,7 +1,7 @@
-import { ipcHandler } from "@/share/lib/utils";
-import type { AppInfoWithState } from "@/share/structure/appInfo";
 import styled from "@emotion/styled";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ipcHandler } from "@/share/lib/utils";
+import type { AppInfoWithState } from "@/share/structure/appInfo";
 import { arrangeCenterByFlex } from "../../styles/partials";
 import AppIcon from "./appIcon";
 import ArrowBox from "./arrowBox";

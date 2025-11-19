@@ -1,8 +1,4 @@
 import styled from "@emotion/styled";
-import ButtonTouch from "../../component/rcuButton/buttonTouch";
-import ButtonTouchArrow from "../../component/rcuButton/buttonTouchArrow";
-import ButtonTouchColor from "../../component/rcuButton/buttonTouchColor";
-
 import backImage from "@/assets/ui_icons/back.png";
 import dotImage from "@/assets/ui_icons/dot.png";
 import downImage from "@/assets/ui_icons/down.png";
@@ -11,6 +7,9 @@ import leftImage from "@/assets/ui_icons/left.png";
 import rightImage from "@/assets/ui_icons/right.png";
 import settingsImage from "@/assets/ui_icons/settings.png";
 import upImage from "@/assets/ui_icons/up.png";
+import ButtonTouch from "../../component/rcuButton/buttonTouch";
+import ButtonTouchArrow from "../../component/rcuButton/buttonTouchArrow";
+import ButtonTouchColor from "../../component/rcuButton/buttonTouchColor";
 import { ipcSender } from "../../lib/utils";
 
 export default function TouchRemoteScreen() {

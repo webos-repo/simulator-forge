@@ -1,3 +1,6 @@
+import axios from "axios";
+import { ipcMain } from "electron";
+import semver from "semver";
 import { simulConfig } from "@/../simul.config";
 import { makeDB } from "@/main/controller/dbController";
 import type {
@@ -6,9 +9,6 @@ import type {
 } from "@/renderer/lib/toastManager";
 import { SDKAPIWorkerURL } from "@/share/constant/urls";
 import { ipcHandler } from "@/share/lib/utils";
-import axios from "axios";
-import { ipcMain } from "electron";
-import semver from "semver";
 import { pushMemories } from "./memories";
 
 const simulInfoDB = makeDB("simulatorInfo");

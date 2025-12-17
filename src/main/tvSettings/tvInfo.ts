@@ -11,6 +11,7 @@ const firmwareVersionMap = {
   "23": "02.08.09",
   "24": "02.11.66",
   "25": "02.13.45",
+  "26": "02.16.30",
 };
 const platformVersionMap = {
   "6.0": "6.0.0",
@@ -18,6 +19,7 @@ const platformVersionMap = {
   "23": "8.0.0",
   "24": "9.0.0",
   "25": "10.0.0",
+  "26": "11.0.0",
 };
 
 const chipMap = {
@@ -26,6 +28,7 @@ const chipMap = {
   "23": "O22N",
   "24": "O24",
   "25": "O24N",
+  "26": "O26",
 };
 
 let LGUDID = "";

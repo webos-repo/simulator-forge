@@ -1,5 +1,5 @@
-const webOSTVVersion = "25";
-const version = "1.4.3";
+const webOSTVVersion = "26";
+const version = "1.5.0";
 const isDevBranch = true;
 
 export const simulConfig = {

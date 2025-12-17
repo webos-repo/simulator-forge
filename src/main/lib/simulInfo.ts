@@ -15,7 +15,7 @@ export const getElectronVersion = () => {
   };
 };
 
-export type WebOSVersion = "6.0" | "22" | "23" | "24" | "25";
+export type WebOSVersion = "6.0" | "22" | "23" | "24" | "25" | "26";
 
 const WebOSVerFromElectronMajorVer: Record<string, WebOSVersion> = {
   8: "6.0",
@@ -23,6 +23,7 @@ const WebOSVerFromElectronMajorVer: Record<string, WebOSVersion> = {
   15: "23",
   22: "24",
   28: "25",
+  34: "26",
 };
 
 export const getWebOSVersion = (): WebOSVersion => {

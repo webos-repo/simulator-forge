@@ -1,5 +1,6 @@
 import type { IpcMainEvent } from "electron";
 import { ipcMain } from "electron";
+import * as fs from "node:fs";
 import { includes } from "lodash-es";
 import path from "path";
 import { convertResourcePath } from "@/share/lib/paths";
@@ -105,9 +106,36 @@ function handleMainWindowReady() {
 }
 
 function handleMainScreenReady() {
-  if (import.meta.env.PROD && process.argv.length >= 2) {
+  if (import.meta.env.PROD && hasAppDirectoryInArgv()) {
     sleep(500).then(() => launchAppByArgv());
   }
+}
+
+function hasAppDirectoryInArgv(): boolean {
+  const args = process.argv.slice(1);
+  
+  const isFlagOrOption = (arg: string): boolean => {
+    return arg.startsWith("--") || arg.startsWith("-");
+  };
+  
+  for (const arg of args) {
+    if (isFlagOrOption(arg)) continue;
+    
+    try {
+      const resolvedPath = path.resolve(arg);
+      if (
+        fs.existsSync(resolvedPath) &&
+        fs.lstatSync(resolvedPath).isDirectory() &&
+        fs.existsSync(path.join(resolvedPath, "appinfo.json"))
+      ) {
+        return true;
+      }
+    } catch {
+      continue;
+    }
+  }
+  
+  return false;
 }
 
 function handleRCUInput(data: RCU_Button) {
